@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\flash">
+      <UniqueIdentifier>{d31bc6b4-74c2-451e-9daa-adb116e506b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\platform">
+      <UniqueIdentifier>{6d56a9da-b111-43ca-ba15-ca1ae62f5321}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\flash">
+      <UniqueIdentifier>{f7746805-814c-40fc-a02f-6780d4431471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\platform">
+      <UniqueIdentifier>{b95161a1-bbfc-4906-a4cd-5bf88fc50b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Sam\renderer\CFontManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CMaterial.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CMaterialManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CTextureManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CVertexElementIterator.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\SamPCH.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CFlashControlSite.cpp">
+      <Filter>Fichiers sources\flash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CFlashEvent.cpp">
+      <Filter>Fichiers sources\flash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\CFlashPlayer.cpp">
+      <Filter>Fichiers sources\flash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\renderer\SFlashEvent.cpp">
+      <Filter>Fichiers sources\flash</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\CPixelShaderPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\CRenderWindowPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\CTexturePlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\CVertexBufferPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\CVertexShaderPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\ShaderUtilsPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\SRenderStatePlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\renderer\TextureUtilsPlf.cpp">
+      <Filter>Fichiers sources\platform</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Sam\renderer\CCamera.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CFontManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CMaterial.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CMaterialManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\Color.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CPixelShader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CRenderWindow.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CTexture.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CTextureManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CVertexBuffer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CVertexElementIterator.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CVertexShader.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\EShaderState.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\ETexture.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\IRenderNode.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\SamPCH.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\SamRenderer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CFlashControlSite.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CFlashEvent.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\CFlashPlayer.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\EFlashPlayer.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\FlashSerialization.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\renderer\SFlashEvent.h">
+      <Filter>Fichiers d%27en-tête\flash</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CPixelShaderPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CRenderTargetPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CRenderWindowPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CTexturePlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CVertexBufferPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\CVertexShaderPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\ShaderUtilsPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\SRenderStatePlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\renderer\TextureUtilsPlf.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\Sam\renderer\CCamera.inl">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+    <None Include="..\..\include\Sam\renderer\CMaterial.inl">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SamE.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

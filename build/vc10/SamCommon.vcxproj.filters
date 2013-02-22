@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\base">
+      <UniqueIdentifier>{7709a694-23a1-4750-b84b-8607996dde59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\io">
+      <UniqueIdentifier>{d867ba27-f803-44a2-8a0e-07fc0a45e3ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\math">
+      <UniqueIdentifier>{df81e1c9-8ecc-48d7-9383-3dacb32ab8c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\template">
+      <UniqueIdentifier>{0b6f32af-a5b5-400d-8aca-ff7fe2610cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\platform">
+      <UniqueIdentifier>{36b9eeba-6226-427a-b139-f518c32c092c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\platform\math">
+      <UniqueIdentifier>{5aa5d3ad-f9fb-4493-9446-aebd07277c20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\platform\thread">
+      <UniqueIdentifier>{357a742f-d700-4c5b-89c9-719c29d5f4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\thread">
+      <UniqueIdentifier>{0d68cee8-1864-43fb-a049-99e24075176a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\system">
+      <UniqueIdentifier>{dd1c04c6-6db3-4bb1-a0dc-d509dec16ff8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\base">
+      <UniqueIdentifier>{b4a81dd1-0a44-4b25-92ba-c8bd365447fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\io">
+      <UniqueIdentifier>{c0210fcb-bf37-4dcf-8282-02fe7155265f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\platform">
+      <UniqueIdentifier>{f746c79e-7759-4195-8f11-b6b236332b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\platform\io">
+      <UniqueIdentifier>{68d4c14e-09d4-46ad-bd34-f33b90a7ac59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\platform\thread">
+      <UniqueIdentifier>{2275b058-abe5-476c-857f-056dd637820d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\platform\system">
+      <UniqueIdentifier>{3a929f7b-f099-4dfd-9ee0-d3c447aebed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\thread">
+      <UniqueIdentifier>{5172eedb-e42c-46b9-b41c-3c28fb4d8c54}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Sam\SamCommon.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\SamConfig.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\SamModuleInit.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\SamPCH.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\SamPlatform.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\SamTypes.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\CAllocator.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\CLog.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\CMemoryPool.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\CTimer.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\GUIDUtil.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\IAllocated.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\ID.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\StringUtil.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CBinarySerializer.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CFile.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CFolderStorage.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CJSONSerializer.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CMemoryStream.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CPackageStorage.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CResourceStorageManager.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\CXMLSerializer.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\EStream.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\IResourceStorage.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\ISerializable.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\ISerializer.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\io\IStream.h">
+      <Filter>Fichiers d%27en-tête\io</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\math\Math.h">
+      <Filter>Fichiers d%27en-tête\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\math\Matrix.h">
+      <Filter>Fichiers d%27en-tête\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\math\Plane.h">
+      <Filter>Fichiers d%27en-tête\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\math\Vector.h">
+      <Filter>Fichiers d%27en-tête\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\template\TList.h">
+      <Filter>Fichiers d%27en-tête\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\template\TVector.h">
+      <Filter>Fichiers d%27en-tête\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\common\FileUtil.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\common\Platform.h">
+      <Filter>Fichiers d%27en-tête\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\common\math\MathPlf.h">
+      <Filter>Fichiers d%27en-tête\platform\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\platform\win\common\thread\CThreadPlf.h">
+      <Filter>Fichiers d%27en-tête\platform\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\thread\CTask.h">
+      <Filter>Fichiers d%27en-tête\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\thread\CTaskQueue.h">
+      <Filter>Fichiers d%27en-tête\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\thread\CThread.h">
+      <Filter>Fichiers d%27en-tête\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\system\CPU.h">
+      <Filter>Fichiers d%27en-tête\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\system\System.h">
+      <Filter>Fichiers d%27en-tête\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\common\base\SParam.h">
+      <Filter>Fichiers d%27en-tête\base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\Sam\common\math\Vector.inl">
+      <Filter>Fichiers d%27en-tête\math</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Sam\common\SamPCH.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\base\CLog.cpp">
+      <Filter>Fichiers sources\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\base\CTimer.cpp">
+      <Filter>Fichiers sources\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\base\GUIDUtil.cpp">
+      <Filter>Fichiers sources\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\base\ID.cpp">
+      <Filter>Fichiers sources\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CBinarySerializer.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CFile.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CJSONSerializer.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CMemoryStream.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CPackageStorage.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CResourceStorageManager.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\CXMLSerializer.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\common\io\ISerializer.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\io\CFilePlf.cpp">
+      <Filter>Fichiers sources\platform\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\io\CFolderStoragePlf.cpp">
+      <Filter>Fichiers sources\platform\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\common\thread\CThreadPlf.cpp">
+      <Filter>Fichiers sources\platform\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\platform\win\common\system\System.cpp">
+      <Filter>Fichiers sources\platform\system</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

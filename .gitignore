@@ -11,3 +11,14 @@
 *.lai
 *.la
 *.a
+
+# folder
+lib/
+bin/*.dll
+build/vc10/Debug/
+external/cJSON/Debug/
+external/cJSON/*.lib
+*.sdf
+*.suo
+*.user
+*.opensdf

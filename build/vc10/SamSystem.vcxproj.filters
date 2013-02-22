@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\io">
+      <UniqueIdentifier>{06a5ab10-92da-42d3-a2b1-21116fbc5aa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\io\Win32">
+      <UniqueIdentifier>{9b7d05fb-8fcd-48a5-890d-279f4604daac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Win32">
+      <UniqueIdentifier>{c4c93468-a558-4358-bcbc-4e996c84d55e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\game">
+      <UniqueIdentifier>{d8ab6286-a1da-4510-847a-8780cec12d28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\base">
+      <UniqueIdentifier>{b0a016ad-13d3-4ba8-a2f6-3aa718fef02a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\action">
+      <UniqueIdentifier>{c55c2284-adcf-481d-bc4b-fc78b06c8d3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\action">
+      <UniqueIdentifier>{064c9e55-41fa-48a1-97be-bd442f0daef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\SamSystem\CLocalizationManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CSystem.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sam\game\SamPCH.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CMemoryStream.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CStreamManager.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CXMLSerializer.cpp">
+      <Filter>Fichiers sources\io</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CFolderLocation.cpp">
+      <Filter>Fichiers sources\io\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\Win32\CWin32StreamManager.cpp">
+      <Filter>Fichiers sources\io\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CTimer.cpp">
+      <Filter>Fichiers sources\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CProfile.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CProfileManager.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CLog.cpp">
+      <Filter>Fichiers sources\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SamSystem\CActionMap.cpp">
+      <Filter>Fichiers sources\action</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Sam\game\CProfile.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\CProfileManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\IGame.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\SamGame.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\SamPCH.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\CActionHandler.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\CActionMap.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\CActionMapManager.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\EAction.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\IActionListener.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sam\game\action\MappedKeys.h">
+      <Filter>Fichiers d%27en-tête\action</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SamE.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
