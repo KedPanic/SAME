@@ -23,7 +23,7 @@
 #include "common/io/ISerializable.h"
 #include "common/base/StringUtil.h"
 
-#include <tinyxml.h>
+#include <tinyxml2.h>
 
 namespace sam
 {
@@ -53,18 +53,18 @@ namespace sam
 	}
 
 	// Called at starting (de)serialization
-	bool CXMLSerializer::BeginSerialization(bool _bRead, const char *_sName)
+	bool CXMLSerializer::BeginSerialization(bool p_bRead, const char *p_sName)
 	{
-		m_pXmlHandler = SAM_ALLOC(TiXmlDocument);
+		m_pXmlHandler = SAM_ALLOC(tinyxml2::XMLDocument);
 
-		m_bRead = _bRead;
+		m_bRead = p_bRead;
 		// read
-		if(_bRead)
+		if(m_bRead)
 		{
 			if(m_pXmlHandler->LoadFile(m_sFilename))
 			{  
                 m_pCurrentElement = m_pXmlHandler->RootElement();
-                SAM_ASSERT(strcmp(_sName, m_pCurrentElement->Value()) == 0, "Bad serialize name");
+                SAM_ASSERT(strcmp(p_sName, m_pCurrentElement->Value()) == 0, "Bad serialize name");
 // 				if( (m_pCurrentElement = m_pXmlHandler->FirstChildElement()) != NULL)
 // 				{
 //                     SAM_ASSERT(strcmp(_sName, m_pCurrentElement->Value()) == 0, "Bad serialize name");
@@ -80,8 +80,8 @@ namespace sam
 
 			return true;
 		}
-
-        m_pCurrentElement = new TiXmlElement(_sName);
+		
+        m_pCurrentElement = m_pXmlHandler->NewElement(p_sName);
 		return true;
 	}
 
@@ -99,53 +99,53 @@ namespace sam
 		m_pXmlHandler = NULL;
 	}
 
-	/// @brief Start serializable
-	/// 
-	/// @param _pPtr Pointer to the serializable.
-	void CXMLSerializer::Begin(ISerializable *_pPtr)
+	// Start serializable
+	void CXMLSerializer::Begin(ISerializable *p_pPtr)
 	{
-		SAM_ASSERT(_pPtr != NULL, "_pPtr is NULL");
+		SAM_ASSERT(p_pPtr != NULL, "_pPtr is NULL");
 
         if(!m_bRead)
         {
-             TiXmlElement *pElement = new TiXmlElement(_pPtr->GetSerializeName());
+             tinyxml2::XMLElement *pElement = m_pXmlHandler->NewElement(p_pPtr->GetSerializeName());
              if(m_pCurrentElement)
+			 {
                  m_pCurrentElement->LinkEndChild(pElement);
+			 }
              else
+			 {
                  m_pCurrentElement = pElement;
+			 }
         }
 		else
 		{
 			SAM_ASSERT(m_pCurrentElement != NULL, "m_pCurrentElement is NULL");
 
-			m_pCurrentElement = m_pCurrentElement->FirstChildElement(_pPtr->GetSerializeName());
+			m_pCurrentElement = m_pCurrentElement->FirstChildElement(p_pPtr->GetSerializeName());
 		}
 	}
 
-	/// @brief End of serializable
+	// End of serializable
 	void CXMLSerializer::End()
 	{
         if(m_pCurrentElement->Parent())
-            m_pCurrentElement = (TiXmlElement*)m_pCurrentElement->Parent();
+		{
+            m_pCurrentElement = m_pCurrentElement->Parent()->ToElement();
+		}
 	}
 
-	/// @brief Start element
-	/// 
-	/// @param _sElement Name of the element.
-	/// 
-	/// @return false if the element doesn't exist.
-	bool CXMLSerializer::BeginElem(const char *_sElement)
+	// Start element
+	bool CXMLSerializer::BeginElem(const char *p_sElement)
 	{
 		SAM_ASSERT(m_pCurrentElement != NULL, "m_pCurrentElement is NULL");
 
-        TiXmlElement *pChildElement = NULL;
+        tinyxml2::XMLElement *pChildElement = NULL;
         if(m_bRead)
         {
-		    pChildElement = m_pCurrentElement->NextSiblingElement(_sElement);
+		    pChildElement = m_pCurrentElement->NextSiblingElement(p_sElement);
             if(pChildElement == NULL) // no more next element !
 			{
 				// try to find child element !
-				pChildElement = m_pCurrentElement->FirstChildElement(_sElement);
+				pChildElement = m_pCurrentElement->FirstChildElement(p_sElement);
 				if(pChildElement == NULL) // unable to find child element !
 				{
 					return false;
@@ -154,7 +154,8 @@ namespace sam
         }
         else
         {
-            pChildElement = (TiXmlElement*)m_pCurrentElement->LinkEndChild(new TiXmlElement(_sElement));
+			pChildElement = m_pXmlHandler->NewElement(p_sElement);
+            m_pCurrentElement->LinkEndChild(pChildElement);
         }
 
         m_pCurrentElement = pChildElement;
@@ -186,25 +187,18 @@ namespace sam
 	// Read value with specified name.
 	void CXMLSerializer::ReadValue(const char *p_sName, bool  &p_bValue)
 	{
-#ifdef TIXML_USE_STL
-		if(m_pCurrentElement->QueryValueAttribute<bool>(p_sName, &p_bValue) == TIXML_WRONG_TYPE)
-		{
-			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
-		}
-#else
 		int iValue;
-		if(m_pCurrentElement->QueryIntAttribute(p_sName, &iValue) == TIXML_WRONG_TYPE)
+		if(m_pCurrentElement->QueryIntAttribute(p_sName, &iValue) == tinyxml2::XML_WRONG_ATTRIBUTE_TYPE)
 		{
 			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
 		}
 
 		p_bValue = iValue != 0;
-#endif
 	}
 
 	void CXMLSerializer::ReadValue(const char *p_sName, int   &p_nValue)
 	{
-		if(m_pCurrentElement->Attribute(p_sName, &p_nValue) != "i")
+		if(m_pCurrentElement->QueryIntAttribute(p_sName, &p_nValue) == tinyxml2::XML_WRONG_ATTRIBUTE_TYPE)
 		{
 			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
 		}
@@ -221,7 +215,7 @@ namespace sam
 	void CXMLSerializer::ReadValue(const char *p_sName, Vector3 &p_vValue)
 	{
 		const char *pAttr = NULL;
-		if( (pAttr = const_cast<char*>(m_pCurrentElement->Attribute(p_sName))) == NULL)
+		if( (pAttr = m_pCurrentElement->Attribute(p_sName)) == NULL)
 		{
 			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
 		}
@@ -245,7 +239,7 @@ namespace sam
 
 	void CXMLSerializer::ReadValue(const char *p_sName, float &p_fValue)
 	{
-		if(m_pCurrentElement->QueryFloatAttribute(p_sName, &p_fValue) == TIXML_WRONG_TYPE)
+		if(m_pCurrentElement->QueryFloatAttribute(p_sName, &p_fValue) == tinyxml2::XML_WRONG_ATTRIBUTE_TYPE)
 		{
 			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
 		}
@@ -304,7 +298,7 @@ namespace sam
 
 	void CXMLSerializer::WriteValue(const char *p_sName, const float &p_fValue)
 	{
-		m_pCurrentElement->SetDoubleAttribute(p_sName, p_fValue);
+		m_pCurrentElement->SetAttribute(p_sName, p_fValue);
 	}
 
 	void CXMLSerializer::WriteValue(const char *p_sName, const float p_afValue[4])

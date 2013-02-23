@@ -16,8 +16,12 @@
 lib/
 bin/*.dll
 build/vc10/Debug/
+build/vc10/ipch/
 external/cJSON/Debug/
 external/cJSON/*.lib
+external/tinyxml2/tinyxml2/Debug/
+
+# generated files
 *.sdf
 *.suo
 *.user

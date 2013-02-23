@@ -21,8 +21,11 @@
 #ifndef __CXML_SERIALIZER__
 #define __CXML_SERIALIZER__
 
-class TiXmlElement;
-class TiXmlDocument;
+namespace tinyxml2
+{
+	class XMLElement;
+	class XMLDocument;
+}
 
 #include <common/io/ISerializer.h>
 
@@ -34,16 +37,16 @@ namespace sam
     public:
         /// @brief Constructor
         /// 
-        /// @param _sFilename Name of the file.
-        CXMLSerializer(const char *_sFilename);
+        /// @param p_sFilename Name of the file.
+        CXMLSerializer(const char *p_sFilename);
 
         /// @brief Called at starting (de)serialization
         /// 
-        /// @param _bRead True to deserialize.
-        /// @param _sName Name of the root element to serialize.
+        /// @param p_bRead True to deserialize.
+        /// @param p_sName Name of the root element to serialize.
 		/// 
 		/// @return True if no error occurred.
-        bool BeginSerialization(bool _bRead, const char *_sName);
+        bool BeginSerialization(bool p_bRead, const char *p_sName);
 
         /// @brief Called at ending serialization
         void EndSerialization();
@@ -53,18 +56,18 @@ namespace sam
 
         /// @brief Start serializable
         /// 
-        /// @param _pPtr Pointer to the serializable.
-        void Begin(ISerializable *_pPtr);
+        /// @param p_pPtr Pointer to the serializable.
+        void Begin(ISerializable *p_pPtr);
 
         /// @brief End of serializable
         void End();
 
         /// @brief Start element
         /// 
-        /// @param _sElement Name of the element.
+        /// @param p_sElement Name of the element.
         /// 
         /// @return false if the element doesn't exist.
-        bool BeginElem(const char *_sElement);
+        bool BeginElem(const char *p_sElement);
 
         /// @brief Ending current element
         void EndElem();
@@ -103,8 +106,8 @@ namespace sam
     private:
         const char* m_sFilename;			///< Name of the file.
         bool m_bRead;						///< True if its reading
-        TiXmlDocument *m_pXmlHandler;		///< XML document.
-        TiXmlElement  *m_pCurrentElement;	///< Current element.
+        tinyxml2::XMLDocument *m_pXmlHandler;		///< XML document.
+        tinyxml2::XMLElement  *m_pCurrentElement;	///< Current element.
     };
 }
 
