@@ -54,7 +54,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../include/Sam;$(ProjectDir)../../include/Sam/platform/win;$(ProjectDir)../../include/SamProfiling;$(ProjectDir)../../external/tinyxml2;$(ProjectDir)../../external/cJson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../../include/Sam;$(ProjectDir)../../include/Sam/platform/win;$(ProjectDir)../../external/tinyxml2;$(ProjectDir)../../external/cJson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SAM_COMMON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>

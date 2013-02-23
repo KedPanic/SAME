@@ -18,44 +18,29 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __SAM_INPUT_PCH__
-#define __SAM_INPUT_PCH__
+#ifndef __SAM_ENTITY_SYSTEM_PCH__
+#define __SAM_ENTITY_SYSTEM_PCH__
 
-/* sam engine */
 #include <SamCommon.h>
-#include <input/EInput.h>
 
-#ifdef SAM_PLATFORM_WIN
-#	include <dinput.h>
-#	include <Xinput.h>
+// sam engine entity subsystem macro export
+#ifdef SAM_ENTITYSYSTEM_EXPORTS
+#   define SAM_ENTITYSYSTEM_API LIBRARY_EXPORT
 #else
-#   error "unsupported platform"
+#   define SAM_ENTITYSYSTEM_API LIBRARY_IMPORT
 #endif
-
-// sam engine input subsystem macro export
-#ifdef SAM_INPUT_EXPORTS
-#   define SAM_INPUT_API LIBRARY_EXPORT
-#else
-#   define SAM_INPUT_API LIBRARY_IMPORT
-#endif
-
-#include <input/SVibrationParams.h>
 
 namespace sam
 {
-	class IInputDevice;
-	class CInputManager;
-
-	/// @brief Create input manager.
+	/// @brief Create entity system.
 	/// 
-	/// @param _pEnv Global environment variable.
-	/// @param _pWinHandle Window handler.
+	/// @param p_pEnv Global environment variable.
 	/// 
-	/// @return Created input manager.
-	extern SAM_INPUT_API CInputManager *CreateInputManager(Env *_pEnv, SAM_HWND _pWinHandle);
+	/// @return Created entity system.
+	extern SAM_ENTITYSYSTEM_API CEntitySystem *CreateEntitySystem(Env *p_pEnv);
 
-	/// @brief Destroy input manager.
-	extern SAM_INPUT_API void DestroyInputManager();
+	/// @brief Destroy entity system.
+	extern SAM_ENTITYSYSTEM_API void DestroyEntitySystem();
 }
 
-#endif // __SAM_INPUT_PCH__
+#endif //__SAM_ENTITY_SYSTEM_PCH__

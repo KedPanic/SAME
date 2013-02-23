@@ -37,14 +37,15 @@ namespace sam
             return strcmp(_pStrA, _pStrB) < 0;
         }
     };
-
-	class CResourceStorageManager;
+	
 	class CInputManager;
+	class CEntitySystem;
     class CLocalizationManager;
     class CLog;
     class CMaterialManager;
-	class CRenderWindow;    
-    class CTextureManager;
+	class CRenderWindow;
+	class CResourceStorageManager;
+    class CTextureManager;	
 
 	class IResourceStorage;
     class IFramework;
@@ -64,6 +65,7 @@ namespace sam
         IFramework *pFramework;
         CMaterialManager *pMaterialManager;
         CTextureManager *pTextureManager;
+		CEntitySystem *m_pEntitySystem;
 /*
         ISoundManager *pSoundManager;
         IPhysicalWorld *pPhysicalWorld;
