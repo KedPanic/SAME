@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{204a4c97-595e-4db1-a62f-2c1e57fecd8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\qt">
+      <UniqueIdentifier>{28f0098e-8123-4b69-ac52-58c373fd3009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\resources">
+      <UniqueIdentifier>{7b4cdd27-18f7-4e90-b894-330c3a6e68aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\qt">
+      <UniqueIdentifier>{f84c713b-febf-4dcb-86b4-bad26930e2ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{789d0c2a-c899-43d2-8edd-a9e0fade36b6}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{c0f10a21-ac64-459f-b0e3-ce3d5152fe04}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Template">
+      <UniqueIdentifier>{972ed7ee-cb20-4a9c-8b21-3d014c2fd7f0}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\platforms">
+      <UniqueIdentifier>{098a2a97-d8a6-42d1-bffe-725c3a325632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\platforms">
+      <UniqueIdentifier>{4c799f37-7ac1-4e67-b9f2-5087181e78af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\exports">
+      <UniqueIdentifier>{deff30f2-843d-47fd-8893-fa9a628f636b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\SamBox\CProject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\CSamBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\CWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\SamBoxPCH.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CFontFactory.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\qrc_icons.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CPackage.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CMainWindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CMainWindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CMainWindow.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CMainWindow.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CRendererWidget.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CAssetsMenu.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CRendererWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CRendererWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CRendererWidget.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CAssetsMenu.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CAssetsMenu.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CAssetsMenu.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CProjectWizard.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CProjectWizard.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CProjectWizard.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CProjectWizard.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CSaveDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CSaveDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CSaveDialog.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CSaveDialog.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\CFolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CFolderViewer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CFolderViewer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CFolderViewer.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CFolderViewer.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CHandleWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CHandleWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CHandleWidget.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CHandleWidget.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CTextureResourceFactory.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\IResource.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CTextureResource.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CRequestManager.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\resources\CResourceManager.cpp">
+      <Filter>Source Files\resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\platforms\CPlatformManager.cpp">
+      <Filter>Source Files\platforms</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Debug\moc_CPropertiesTexture.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Release\moc_CPropertiesTexture.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\GeneratedFiles\Template\moc_CPropertiesTexture.cpp">
+      <Filter>Generated Files\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\SamBox\qt\CPropertiesTexture.cpp">
+      <Filter>Source Files\qt</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\SamBox\CProject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\CSamBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\CWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\SamBoxPCH.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CFont.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CFontFactory.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CPackage.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CRequestManager.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CResourceManager.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\IResource.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\IResourceFactory.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\qt\GeneratedFiles\ui_projectwizard.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\qt\GeneratedFiles\ui_sambox.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\qt\GeneratedFiles\ui_savedialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\CFolder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\CFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\qt\GeneratedFiles\ui_handlewidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CTextureResource.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\resources\CTextureResourceFactory.h">
+      <Filter>Header Files\resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\platforms\CPlatformManager.h">
+      <Filter>Header Files\platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\platforms\IPlatformPlugin.h">
+      <Filter>Header Files\platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\platforms\SSoundMeta.h">
+      <Filter>Header Files\platforms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\exports\IExporter.h">
+      <Filter>Header Files\exports</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\exports\TextureExporter.h">
+      <Filter>Header Files\exports</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\SamBox\qt\GeneratedFiles\ui_PropertiesTexture.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuildStep Include="..\..\SamBox\qt\resources\data\32x32\directory.png">
+      <Filter>Resource Files</Filter>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\SamBox\qt\resources\data\sam.png">
+      <Filter>Resource Files</Filter>
+    </CustomBuildStep>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\SamBox\qt\projectwizard.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\sambox.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\savedialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\resources\icons.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CMainWindow.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CRendererWidget.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CAssetsMenu.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CProjectWizard.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CSaveDialog.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CFolderViewer.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\handlewidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CHandleWidget.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\PropertiesTexture.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\SamBox\qt\CPropertiesTexture.h">
+      <Filter>Header Files\qt</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

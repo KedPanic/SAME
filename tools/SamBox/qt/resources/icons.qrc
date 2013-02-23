@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/32x32/directory.png</file>
+        <file>data/sam.png</file>
+        <file>data/32x32/gear.png</file>
+        <file>data/32x32/package.png</file>
+        <file>data/32x32/world.png</file>
+        <file>data/48x48/directory.png</file>
+    </qresource>
+</RCC>
