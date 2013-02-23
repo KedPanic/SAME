@@ -20,6 +20,8 @@ build/vc10/ipch/
 external/cJSON/Debug/
 external/cJSON/*.lib
 external/tinyxml2/tinyxml2/Debug/
+external/freetype/objs/
+tools/build/vc10/Debug/
 tools/SamBox/qt/GeneratedFiles/
 
 # generated files

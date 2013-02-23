@@ -128,6 +128,14 @@
   <ItemGroup>
     <ResourceCompile Include="SamE.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SamCommon.vcxproj">
+      <Project>{acef4b88-7c16-4711-817a-9bdc14cbac45}</Project>
+    </ProjectReference>
+    <ProjectReference Include="SamProfiling.vcxproj">
+      <Project>{4f7ef4ea-367e-4c05-90ff-5079a1d56c6e}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
