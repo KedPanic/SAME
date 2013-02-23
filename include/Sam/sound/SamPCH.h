@@ -40,6 +40,8 @@ namespace sam
 {
 	class CAudioBus;
 	class CAudioDevice;
+	class CSound;
+	class SSoundDef;
 }
 
 #endif // __SAM_AUDIO_PCH__

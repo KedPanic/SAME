@@ -22,7 +22,7 @@
 #include "framework/CLocalizationManager.h"
 #include "framework/IFramework.h"
 
-#include <tinyxml.h>
+//#include <tinyxml.h>
 #include <sstream>
 
 namespace sam
@@ -51,8 +51,8 @@ namespace sam
         // Check if folder exist
         if(IsDirectory(sPath))
         {
-            g_Env->pStreamManager->RemoveStreamLocation("localization");
-            g_Env->pStreamManager->CreateStreamLocation("localization", sPath);
+//             g_Env->pStreamManager->RemoveStreamLocation("localization");
+//             g_Env->pStreamManager->CreateStreamLocation("localization", sPath);
             strcpy(m_sCurrentLanguage, _sLanguage);
             return true;
         }      
@@ -75,6 +75,7 @@ namespace sam
     /// @param _sGroup Name of the localization group.
     bool CLocalizationManager::LoadXML(const char *_sFile, const char *_sGroup)
     {
+/*
         // Find group or create it.
         Dictionnary *dictionnary = 0;
         DictionnaryGroup::iterator it = m_DictionnaryGroups.find(_sGroup);
@@ -127,7 +128,7 @@ namespace sam
 
         // Release file.
         SAM_DELETE pFile;
-
+*/
         return false;
     }
 

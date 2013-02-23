@@ -207,7 +207,7 @@ namespace sam
 		char *m_sModData;     ///< Mod data directory.
 		char *m_sAppName;     ///< Name of the application.
         bool m_bMod;          ///< True if a mod was loaded.
-        DHANDLE m_pDLLGame;   ///< DLL of the game was loaded.
+        Library m_pDLLGame;   ///< DLL of the game was loaded.
 //        IGame *m_pGame;       ///< Pointer to the actual game.
 		CTimer *m_pTimer;     ///< Timer.
         

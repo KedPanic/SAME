@@ -107,7 +107,7 @@ namespace sam
             }
 
             // Read configuration file.
-            helper::Serialize(e_SP_XML, &m_oRenderConfig, renderConfigFile, true);            
+            helper::Serialize(e_Serializer_JSon, &m_oRenderConfig, renderConfigFile, true);            
         }
 
 

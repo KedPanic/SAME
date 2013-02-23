@@ -19,3 +19,4 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
 #include <sound/SamPCH.h>
+#include <common/SamModuleInit.h>

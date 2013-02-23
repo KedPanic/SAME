@@ -21,6 +21,7 @@
 #include <sound/SamPCH.h>
 #include <sound/CAudioEngine.h>
 #include <sound/CAudioDevice.h>
+#include <sound/CSound.h>
 
 namespace sam
 {
@@ -109,11 +110,13 @@ namespace sam
     {
         CFile file;
         file.Open(_pFilename);
+
+		return EResult_Success;
     }
 
     /// @brief Load sound.
     EResult CAudioEngine::LoadSoundFromMem(CSound **_pSound, const char *_pBuffer, SSoundDef *_pSoundDef, uint32 _nFlags /*= 0*/)
     {
-
+		return EResult_Success;
     }
 }

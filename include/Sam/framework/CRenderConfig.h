@@ -35,15 +35,26 @@ namespace sam
         {
         }
 
-        /// @brief Serialize the object
-        /// 
-        /// @param _pContext Pointer to the context
-        void Serialize(ISerializer *_pContext)
-        {
-            _pContext->Value("width", m_nWidth);
-            _pContext->Value("height", m_nHeight);
-            _pContext->Value("fullscreen", m_bFullscreen);
-        }
+		/// @brief Serialize the object
+		/// 
+		/// @param p_pContext Pointer to the context
+		void Read(ISerializer *p_pContext)
+		{
+			p_pContext->ReadValue("width", m_nWidth);
+			p_pContext->ReadValue("height", m_nHeight);
+			p_pContext->ReadValue("fullscreen", m_bFullscreen);
+		}
+
+		/// @brief Serialize the object
+		/// 
+		/// @param p_pContext Pointer to the context
+		virtual void Write(ISerializer *p_pContext)
+		{
+			p_pContext->WriteValue("width", m_nWidth);
+			p_pContext->WriteValue("height", m_nHeight);
+			p_pContext->WriteValue("fullscreen", m_bFullscreen);
+		}
+
     };
 }
 #endif // __CRENDER_CONFIG__
