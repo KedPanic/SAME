@@ -21,6 +21,14 @@ external/cJSON/Debug/
 external/cJSON/*.lib
 external/tinyxml2/tinyxml2/Debug/
 external/freetype/objs/
+external/freeimage/Debug/
+external/freeimage/Source/LibJPEG/Debug/
+external/freeimage/Source/LibOpenJPEG/Debug/
+external/freeimage/Source/LibPNG/Debug/
+external/freeimage/Source/LibRawLite/Debug/
+external/freeimage/Source/LibTIFF4/Debug/
+external/freeimage/Source/OpenEXR/Debug/
+external/freeimage/Source/ZLib/Debug/
 tools/build/vc10/Debug/
 tools/SamBox/qt/GeneratedFiles/
 
