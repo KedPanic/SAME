@@ -64,7 +64,7 @@ namespace sam
 			p_pContext->ReadValue("width", m_oMetaData.m_nWidth);
 			p_pContext->ReadValue("height", m_oMetaData.m_nHeight);
 			p_pContext->ReadValue("generate_mipmap", m_oMetaData.m_bGenerateMipMap);
-			p_pContext->ReadValue("mipmap_filter", m_oMetaData.m_eMipMapFilter);
+//			p_pContext->ReadValue("mipmap_filter", m_oMetaData.m_eMipMapFilter);
 			p_pContext->EndElem();
 		}
 

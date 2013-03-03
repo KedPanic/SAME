@@ -35,3 +35,4 @@ libpng : external/freeimage/Source/LibPNG/LICENSE
 librawlite : external/freeimage/Source/LibRawLite/LICENSE.CDDL
 openexr : external/freeimage/Source/OpenEXR/Copyrights/openexr/LICENSE
 zlib : external/freeimage/Source/ZLib/README
+nvtt : external/nvtt/LICENSE

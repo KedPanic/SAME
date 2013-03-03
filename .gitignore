@@ -14,7 +14,7 @@
 
 # folder
 lib/
-bin/*.dll
+bin/
 build/vc10/Debug/
 build/vc10/ipch/
 external/cJSON/Debug/
@@ -29,6 +29,13 @@ external/freeimage/Source/LibRawLite/Debug/
 external/freeimage/Source/LibTIFF4/Debug/
 external/freeimage/Source/OpenEXR/Debug/
 external/freeimage/Source/ZLib/Debug/
+external/nvtt/project/vc10/bc6h/Debug/
+external/nvtt/project/vc10/nvimage/Debug/
+external/nvtt/project/vc10/nvmath/Debug/
+external/nvtt/project/vc10/nvthread/Debug/
+external/nvtt/project/vc10/nvtt/Debug/
+external/nvtt/project/vc10/squish/Debug/
+external/nvtt/project/vc10/nvcore/Debug/
 tools/build/vc10/Debug/
 tools/SamBox/qt/GeneratedFiles/
 

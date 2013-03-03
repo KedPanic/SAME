@@ -113,7 +113,7 @@ namespace sam
 			if(pResource)
 			{
 				QByteArray sMetaPath = QString(p_sSourcePath + ".meta").toLocal8Bit();
-				CBinarySerializer oSerializer(sMetaPath.data());
+				CJSONSerializer oSerializer(sMetaPath.data());
 
 				// Create default metadata.
 				if(QFile::exists(sMetaPath) == false)
