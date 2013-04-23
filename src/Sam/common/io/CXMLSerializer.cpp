@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "common/SamPCH.h"
+#include "SamCommonPCH.h"
 #include "common/io/CXMLSerializer.h"
 #include "common/io/ISerializable.h"
 #include "common/base/StringUtil.h"
@@ -182,6 +182,18 @@ namespace sam
 		strcpy(sResult, sValue);
 
 		return sResult;
+	}
+
+	// Read integer value with specified name.
+	int CXMLSerializer::ReadIntValue(const char *p_sName)
+	{
+		int nValue;
+		if(m_pCurrentElement->QueryIntAttribute(p_sName, &nValue) == tinyxml2::XML_WRONG_ATTRIBUTE_TYPE)
+		{
+			SamLogError("Unable to get value of the attribute '%s' in the current element in the XML file '%s'", p_sName, m_sFilename);
+		}
+
+		return nValue;
 	}
 
 	// Read value with specified name.

@@ -21,7 +21,7 @@
 #ifndef __SAM_FRAMEWORK__
 #define __SAM_FRAMEWORK__
 
-#include <framework/SamPCH.h>
+#include <framework/SamFrameworkPCH.h>
 
 #include <framework/IFramework.h>
 #include <framework/CLocalizationManager.h>

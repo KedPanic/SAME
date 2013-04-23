@@ -18,4 +18,30 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include <profiling/SamPCH.h>
+#ifndef __SAM_AUDIO_PCH__
+#define __SAM_AUDIO_PCH__
+
+#include "SamCommon.h"
+
+#ifdef SAM_PLATFORM_WIN
+#   include <XAudio2.h>
+#else
+#   Unsupported platform.
+#endif
+
+// sam sound engine macro export
+#ifdef SAM_SOUND_EXPORTS
+#   define SAM_SOUND_API LIBRARY_EXPORT
+#else
+#   define SAM_SOUND_API LIBRARY_IMPORT
+#endif
+
+namespace sam
+{
+	class CAudioBus;
+	class CAudioDevice;
+	class CSound;
+	class SSoundDef;
+}
+
+#endif // __SAM_AUDIO_PCH__

@@ -18,22 +18,26 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamCommonPCH.h"
-#include "common/base/CTimer.h"
-#include <ctime>
+#ifndef __SAM_FRAMEWORK_PCH__
+#define __SAM_FRAMEWORK_PCH__
+
+#include <SamCommon.h>
+#include <SamRenderer.h>
+#include <SamSound.h>
+#include <SamInput.h>
+
+// sam engine framework macro export
+#ifdef SAM_FRAMEWORK_EXPORTS
+#   define SAM_FRAMEWORK_API LIBRARY_EXPORT
+#else
+#   define SAM_FRAMEWORK_API LIBRARY_IMPORT
+#endif
 
 namespace sam
 {
-    /// @brief Retrieves current time in seconds.
-    /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
-    {
-        LARGE_INTEGER nFrequency, nCurrentTime;
+	class CLocalizationManager;
 
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
-
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
-    }
+	extern IFramework *g_pFramework;
 }
+
+#endif // __SAM_FRAMEWORK_PCH__

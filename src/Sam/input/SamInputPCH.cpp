@@ -18,22 +18,36 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamCommonPCH.h"
-#include "common/base/CTimer.h"
-#include <ctime>
+#include "SamInputPCH.h"
+#include <input/CInputManagerPlf.h>
+
+//===================================//
+// DLL Create/Destroy implementation //
+//===================================//
+#include <common/SamModuleInit.h>
 
 namespace sam
 {
-    /// @brief Retrieves current time in seconds.
-    /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
-    {
-        LARGE_INTEGER nFrequency, nCurrentTime;
+	// Create input manager.
+	CInputManager *CreateInputManager(Env *_pEnv, SAM_HWND _pWinHandle)
+	{
+        SAM_ASSERT(_pEnv->pInputManager == NULL, "Input manager already created!");
 
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
+		ModuleInit(_pEnv);
 
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
-    }
+		_pEnv->pInputManager = SAM_NEW CInputManager;
+		_pEnv->pInputManager->Initialize(_pWinHandle);
+
+		return _pEnv->pInputManager;
+	}
+
+	// Destroy input manager.
+	void DestroyInputManager()
+	{
+		SAM_ASSERT(g_Env->pInputManager != NULL, "Input manager already freed");
+	    
+        g_Env->pInputManager->Shutdown();
+		SAM_DELETE g_Env->pInputManager;
+		g_Env->pInputManager = NULL;
+	}
 }

@@ -21,7 +21,7 @@
 #ifndef __SAM_SOUND__
 #define __SAM_SOUND__
 
-#include <sound/SamPCH.h>
+#include <sound/SamSoundPCH.h>
 
 #include <sound/SSoundDef.h>
 #include <sound/CSound.h>

@@ -18,22 +18,32 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamCommonPCH.h"
-#include "common/base/CTimer.h"
-#include <ctime>
+#ifndef __SAM_COMMON_PCH__
+#define __SAM_COMMON_PCH__
+
+#include <common/SamConfig.h>
+
+// sam engine common subsystem macro export
+#ifdef SAM_COMMON_EXPORTS
+#   define SAM_COMMON_API LIBRARY_EXPORT
+#else
+#   define SAM_COMMON_API LIBRARY_IMPORT
+#endif
+
+#include <common/io/CFile.h>
+#include <common/base/CLog.h>
 
 namespace sam
 {
-    /// @brief Retrieves current time in seconds.
+    /// @brief Initialize common module.
     /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
-    {
-        LARGE_INTEGER nFrequency, nCurrentTime;
+	/// @return Global environment variable.
+	///
+    /// @remarks Have to initialized before all others modules.
+    extern SAM_COMMON_API Env *InitCommon();
 
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
-
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
-    }
+    /// @brief Close common module.
+    extern SAM_COMMON_API void ShutdownCommon();
 }
+
+#endif // __SAM_COMMON_PCH__

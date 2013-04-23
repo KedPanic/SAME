@@ -21,7 +21,7 @@
 #ifndef __SAM_INPUT__
 #define __SAM_INPUT__
 
-#include <input/SamPCH.h>
+#include <input/SamInputPCH.h>
 
 #include <input/SVibrationEffect.h>
 #include <input/CInputManagerPlf.h>

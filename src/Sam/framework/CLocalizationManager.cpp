@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "framework/SamPCH.h"
+#include "SamFrameworkPCH.h"
 #include "framework/CLocalizationManager.h"
 #include "framework/IFramework.h"
 

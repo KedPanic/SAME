@@ -21,6 +21,7 @@
 #ifndef __SR_FLASH_SERIALIZATION__
 #define __SR_FLASH_SERIALIZATION__
 
+#if defined(ENABLE_FLASH)
 #include <SamConfig.h>
 #include <sstream>
 
@@ -239,5 +240,6 @@ namespace sam
 
     }
 }
+#endif //ENABLE_FLASH
 
 #endif // __SR_FLASH_SERIALIZATION__

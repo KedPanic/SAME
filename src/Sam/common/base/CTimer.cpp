@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "common/SamPCH.h"
+#include "SamCommonPCH.h"
 #include "common/base/CTimer.h"
 #include <ctime>
 
@@ -62,19 +62,6 @@ namespace sam
     float CTimer::GetCurrTime()
     {
         return m_fCurrTime;
-    }
-
-    /// @brief Retrieves current time in seconds.
-    /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
-    {
-        LARGE_INTEGER nFrequency, nCurrentTime;
-
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
-
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
     }
 
     /// @brief Retrieves current frame time in seconds.

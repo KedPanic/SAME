@@ -18,22 +18,43 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamCommonPCH.h"
-#include "common/base/CTimer.h"
-#include <ctime>
+#include "SamRendererPCH.h"
+#include <renderer/CTexture.h>
+#include <renderer/CMaterialManager.h>
+#include <renderer/CRenderWindow.h>
+#include <renderer/CTextureManager.h>
+
+//===================================//
+// DLL Create/Destroy implementation //
+//===================================//
+#include <common/SamModuleInit.h>
 
 namespace sam
 {
-    /// @brief Retrieves current time in seconds.
-    /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
+    CRenderWindow *CreateRenderManager(Env *_pEnv)
     {
-        LARGE_INTEGER nFrequency, nCurrentTime;
+        SAM_ASSERT(_pEnv->pRenderWindow == NULL, "Renderer was already created");
+        ModuleInit(_pEnv);
 
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
+        _pEnv->pRenderWindow = SAM_NEW CRenderWindow;
+        _pEnv->pMaterialManager = SAM_NEW CMaterialManager;           
+        _pEnv->pTextureManager = SAM_NEW CTextureManager;
 
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
+        return _pEnv->pRenderWindow;
+    }
+
+    // Destroy render window.
+    void DestroyRenderManager(void)
+    {
+        SAM_ASSERT(g_Env->pRenderWindow != NULL, "Renderer was already freed");
+        
+        SAM_DELETE g_Env->pTextureManager;
+        g_Env->pTextureManager = NULL;
+
+        SAM_DELETE g_Env->pMaterialManager;
+        g_Env->pMaterialManager = NULL;
+
+        SAM_DELETE g_Env->pRenderWindow;
+        g_Env->pRenderWindow = NULL;
     }
 }

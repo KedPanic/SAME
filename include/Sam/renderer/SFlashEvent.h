@@ -23,6 +23,7 @@
 
 #include <SamConfig.h>
 
+#if defined(ENABLE_FLASH)
 namespace sam
 {
     /// @enum Flash keycode
@@ -189,5 +190,7 @@ namespace sam
     /// @return flash key or FK_Num if not found.
     extern SAM_API EFlashKeycode toFlashKey(EKey _eKey);
 }
+
+#endif // ENABLE_FLASH
 
 #endif // __SFLASH_EVENT__

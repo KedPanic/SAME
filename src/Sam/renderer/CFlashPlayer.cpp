@@ -18,10 +18,11 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "renderer/SamPCH.h"
+#include "SamRendererPCH.h"
 #include "FlashSerialization.h"
 #include "CRenderWindow.h"
 
+#if defined(ENABLE_FLASH)
 #import "PROGID:ShockwaveFlash.ShockwaveFlash" named_guids
 #include "CFlashPlayer.h"
 #include "CFlashEvent.h"
@@ -639,3 +640,5 @@ namespace sam
             m_pExternalInterfaceListener->OnExternalInterface(_sFunction, _pArgs, _iNbArgs);
     }
 }
+
+#endif //ENABLE_FLASH

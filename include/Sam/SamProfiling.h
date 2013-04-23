@@ -21,7 +21,7 @@
 #ifndef __SAM_PROFILING__
 #define __SAM_PROFILING__
 
-#include <profiling/SamPCH.h>
+#include <profiling/SamProfilingPCH.h>
 
 #include <profiling/CMemoryTracker.h>
 

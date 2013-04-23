@@ -18,8 +18,9 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "renderer/SamPCH.h"
+#include "SamRendererPCH.h"
 
+#if defined(ENABLE_FLASH)
 namespace sam
 {
     const EFlashKeycode FK_UNKNOWN = FK_Num;
@@ -140,3 +141,5 @@ namespace sam
         return s_InputKey2FlashKey[_eKey];
     }
 }
+
+#endif // ENABLE_FLASH

@@ -44,3 +44,10 @@ tools/SamBox/qt/GeneratedFiles/
 *.suo
 *.user
 *.opensdf
+build/
+*.tlog
+*.lastbuildstate
+external/tinyxml2/tinyxml2.vcxproj
+external/tinyxml2/tinyxml2.vcxproj.filters
+external/cJSON/cJSON.vcxproj
+external/cJSON/cJSON.vcxproj.filters

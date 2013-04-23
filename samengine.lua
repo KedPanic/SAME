@@ -13,17 +13,17 @@
 		SamRenderer = {
 			name = "SamRenderer",
 			subfolder = "renderer",
-			dependencies = { "SamCommon", "dx11" }
+			dependencies = { "SamCommon", "render" }
 		},
 		SamSound = {
 			name = "SamSound",
 			subfolder = "sound",
-			dependencies = { "SamCommon" }
+			dependencies = { "SamCommon", "audio" }
 		},
 		SamInput = {
 			name = "SamInput",
 			subfolder = "input",
-			dependencies = { "SamCommon" }
+			dependencies = { "SamCommon", "input" }
 		},
 		SamEntitySystem = {
 			name = "SamEntitySystem",
@@ -33,7 +33,7 @@
 		SamFramework = {
 			name = "SamFramework",
 			subfolder = "framework",
-			dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem" }
+			dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "render", "audio", "input" }
 		}
 	}	
 	-- create dependencies informations.
@@ -60,8 +60,8 @@
 			local platformRootFolder = "sam/platform/"
 			
 			-- precompiled header
-			pchheader("include/"..folder.."SamPCH.h")
-			pchsource("src/"..folder.."SamPCH.cpp")
+			pchheader("include/"..folder..proj.name.."PCH.h")
+			pchsource("src/"..folder..proj.name.."PCH.cpp")
 			
 			-- set specific platform source folder.
 			if os.is("windows") == true then

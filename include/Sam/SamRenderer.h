@@ -21,7 +21,7 @@
 #ifndef __SAM_RENDERER__
 #define __SAM_RENDERER__
 
-#include <renderer/SamPCH.h>
+#include <renderer/SamRendererPCH.h>
 
 #include <renderer/CRenderWindow.h>
 #include <renderer/CCamera.h>

@@ -21,7 +21,7 @@
 #ifndef __SAM_COMMON__
 #define __SAM_COMMON__
 
-#include <common/SamPCH.h>
+#include <common/SamCommonPCH.h>
 
 #include <common/base/CAllocator.h>
 #include <common/base/CLog.h>

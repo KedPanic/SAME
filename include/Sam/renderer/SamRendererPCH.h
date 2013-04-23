@@ -18,22 +18,55 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamCommonPCH.h"
-#include "common/base/CTimer.h"
-#include <ctime>
+#ifndef __SAM_RENDERER_PCH__
+#define __SAM_RENDERER_PCH__
+
+/* sam engine */
+#include "SamCommon.h"
+#include "renderer/EShaderState.h"
+#include "renderer/ETexture.h"
+#include "renderer/Color.h"
+
+#ifdef SAM_PLATFORM_WIN
+#   include <D3D11.h>
+#   include <D3DX11.h>
+#   include <D3Dcompiler.h>
+#else
+#   error "unsupported platform"
+#endif
+
+// sam engine renderer subsystem macro export
+#ifdef SAM_RENDERER_EXPORTS
+#   define SAM_RENDERER_API LIBRARY_EXPORT
+#else
+#   define SAM_RENDERER_API LIBRARY_IMPORT
+#endif
+
+//#define ENABLE_FLASH
 
 namespace sam
 {
-    /// @brief Retrieves current time in seconds.
+    class CFont;
+    class CMaterial;
+    class CMaterialManager;
+    class CPixelShader;
+    class CRenderWindow;
+    class CTexture;
+	class CTextureManager;
+    class CVertexBuffer;
+    class CVertexShader;
+
+    typedef uint32 FontID;
+
+    /// @brief Initialize renderer module.
     /// 
-    /// @return Elapsed time since starting application at the call.
-    float CTimer::GetAsyncCurrTime()
-    {
-        LARGE_INTEGER nFrequency, nCurrentTime;
+    /// @param _pEnv Global environment variable.
+    /// 
+    /// @return Created render window.
+    extern SAM_RENDERER_API CRenderWindow *CreateRenderManager(Env *_pEnv);
 
-        QueryPerformanceFrequency(&nFrequency);
-        QueryPerformanceCounter(&nCurrentTime);
-
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
-    }
+    /// @brief Close renderer module.
+    extern SAM_RENDERER_API void DestroyRenderManager();
 }
+
+#endif // __SAM_RENDERER_PCH__

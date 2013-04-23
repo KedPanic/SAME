@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "common/SamPCH.h"
+#include "SamCommonPCH.h"
 #include "common/base/ID.h"
 #include "common/base/StringUtil.h"
 

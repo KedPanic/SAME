@@ -81,6 +81,13 @@ namespace sam
 		/// @remarks return value have to be deleted by the user.
 		char *ReadValue(const char *p_sName);
 
+		/// @brief Read integer value with specified name.
+		/// 
+		///  @param p_sName Name of the value.
+		/// 
+		///  @return Integer value.
+		int ReadIntValue(const char *p_sName);
+
 		/// @brief Read value with specified name.
 		/// 
 		/// @param p_sName Name of the value

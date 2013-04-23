@@ -98,7 +98,7 @@ typedef std::list<String> VString;
 #define LIBRARY_IMPORT __declspec(dllimport)
 
 // define debug macro
-#ifdef _DEBUG
+#ifdef DEBUG
 #	define SAM_DEBUG
 #	define DEBUG_BREAK __debugbreak()
 

@@ -18,26 +18,17 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __SAM_FRAMEWORK_PCH__
-#define __SAM_FRAMEWORK_PCH__
+#ifndef __SAM_PROFILING_PCH__
+#define __SAM_PROFILING_PCH__
 
-#include <SamCommon.h>
-#include <SamRenderer.h>
-#include <SamSound.h>
-#include <SamInput.h>
+/* sam engine */
+#include <common/SamPlatform.h>
 
-// sam engine framework macro export
-#ifdef SAM_FRAMEWORK_EXPORTS
-#   define SAM_FRAMEWORK_API LIBRARY_EXPORT
+// sam engine profiling subsystem macro export
+#ifdef SAM_PROFILING_EXPORTS
+#   define SAM_PROFILING_API LIBRARY_EXPORT
 #else
-#   define SAM_FRAMEWORK_API LIBRARY_IMPORT
+#   define SAM_PROFILING_API LIBRARY_IMPORT
 #endif
 
-namespace sam
-{
-	class CLocalizationManager;
-
-	extern IFramework *g_pFramework;
-}
-
-#endif // __SAM_FRAMEWORK_PCH__
+#endif // __SAM_PROFILING_PCH__

@@ -43,12 +43,27 @@ solution "SamEngine"
 			include(file)
 		end
 	
-	--------------------------------------------------------------------	
-	dependencies["dx11"] = {
-		lib = { "d3dx11", "d3dcompiler", "dxgi", "DxErr", "d3d11" },
-		include = "$(DXSDK_DIR)/Include",
-		libdir = "$(DXSDK_DIR)/Lib/x86",
-	}
+	--------------------------------------------------------------------
+	-------------------------------------- specific library per platform
+	if os.is("windows") == true then
+		dependencies["render"] = {
+			lib = { "d3dx11", "d3dcompiler", "dxgi", "DxErr", "d3d11" },
+			include = "$(DXSDK_DIR)/Include",
+			libdir = "$(DXSDK_DIR)/Lib/x86",
+		}
+		
+		dependencies["input"] = {
+			lib = { "XInput", "dinput8", "dxguid" },
+			include = "$(DXSDK_DIR)/Include",
+			libdir = "$(DXSDK_DIR)/Lib/x86",
+		}
+		
+		dependencies["audio"] = {
+			lib = { "X3DAudio" },
+			include = "$(DXSDK_DIR)/Include",
+			libdir = "$(DXSDK_DIR)/Lib/x86",
+		}
+	end
 	
 	--------------------------------------------------------------------
 	------------------------------------------  CREATION OF SAM PROJECTS

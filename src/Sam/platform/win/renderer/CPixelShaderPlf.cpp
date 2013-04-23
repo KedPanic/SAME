@@ -18,7 +18,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "renderer/SamPCH.h"
+#include "SamRendererPCH.h"
 #include "renderer/CPixelShader.h"
 #include "renderer/CVertexBuffer.h"
 #include "renderer/CRenderWindow.h"
