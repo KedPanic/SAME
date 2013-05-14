@@ -260,6 +260,16 @@ namespace sam
 		return sResult;
 	}
 
+	// Read integer value with specified name.
+	int CJSONSerializer::ReadIntValue(const char *p_sName)
+	{
+		// Go to next element.
+		NextNode(p_sName);
+
+		SAM_ASSERT(m_pCurrentElement->type == cJSON_Number, "Malformated json file '%s', value '%s' is not a number", m_sFilename, p_sName);	
+		return m_pCurrentElement->valueint;
+	}
+
 	// Read value with specified name.
 	void CJSONSerializer::ReadValue(const char *p_sName, bool  &p_bValue)
 	{

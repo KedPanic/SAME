@@ -32,7 +32,7 @@ namespace sam
 	/// @param p_sAppName Name of the application.
 	IFramework::IFramework(const char *p_sAppName)
 		: m_sSaveDir(NULL), m_sDataDir(NULL), m_sModData(NULL), 
-		m_sAppName(NULL), m_bMod(false), m_pDLLGame(0), 
+		m_sAppName(p_sAppName), m_bMod(false), m_pDLLGame(0), 
 		m_pTimer(NULL), m_pFirstFrameworkListener(NULL)
 	{
 	}
@@ -40,6 +40,10 @@ namespace sam
 	/// @brief Destructor.
 	IFramework::~IFramework()
 	{
+		if(m_sSaveDir)
+		{
+			SAM_DELETE_ARRAY m_sSaveDir;
+		}
 	}
 
     /// @brief Initialize system.
@@ -48,7 +52,7 @@ namespace sam
     /// @param p_eModuleToInit Flag for module to init.
     ///
     /// @return Global environment variables.
-    Env *IFramework::Initialize(const char *p_sSaveDir, uint32 p_eModuleToInit /*= e_FM_All*/)
+    Env *IFramework::Initialize(const char *p_sSaveDir, uint32 p_eModuleToInit /*= e_FrameworkModule_All*/)
 	{
         // Initialize common module.
         Env *pEnv = InitCommon();
@@ -77,46 +81,65 @@ namespace sam
         g_Env->pLog->SetFilename(homePath);
 
         // Initialize sub components.
-        if(p_eModuleToInit & e_FM_Renderer)
+        if(p_eModuleToInit & e_FrameworkModule_Renderer)
         {
             CreateRenderManager(pEnv)->SetWndProc(WndProc);
 
             char renderConfigFile[MAX_PATH];
             // check if file exist in the home directory.
             // we always use the last configuration set by the player.
+			bool bSerialize = true;
             sprintf(renderConfigFile, "%s/defaultrendererconfig.cfg", m_sSaveDir);
             if(!IsFile(renderConfigFile))
             {
                 // check if file exist in the application directory.
                 char currentPath[MAX_PATH];
-                if(!GetCurrentWorkingDirectory(MAX_PATH, currentPath))
-                {
-                    SamLogError("Unable to find working directory.");
-                    return NULL;
+                if(GetCurrentWorkingDirectory(MAX_PATH, currentPath))
+                {     
+					sprintf(currentPath, "%s/defaultrendererconfig.cfg", currentPath);
+					if(IsFile(currentPath))
+					{
+						// copy file to save directory.
+						CopyFile(currentPath, renderConfigFile);
+					}
+					else
+					{
+						SamLogError("Unable to read default renderer configuration file %s.", currentPath);
+						bSerialize = false;
+					}
+					
                 }
-
-                sprintf(currentPath, "%s/defaultrendererconfig.cfg", currentPath);
-                if(!IsFile(currentPath))
-                {
-                    SamLogError("Unable to read default renderer configuration file %s.", currentPath);
-                    return NULL;
-                }
-
-                // copy file to save directory.
-                CopyFile(currentPath, renderConfigFile);
+				else
+				{
+					SamLogWarning("Unable to find working directory.");
+					bSerialize = false;
+				}				
             }
 
             // Read configuration file.
-            helper::Serialize(e_Serializer_JSon, &m_oRenderConfig, renderConfigFile, true);            
+            if(!bSerialize || !helper::Serialize(e_Serializer_JSon, &m_oRenderConfig, renderConfigFile, true))
+			{
+				SamLogWarning("Malformed renderer configuration file, set to default settings");
+
+				m_oRenderConfig.m_nWidth = 800;
+				m_oRenderConfig.m_nHeight = 600;
+				m_oRenderConfig.m_bFullscreen = false;
+			}
+
+			// create the window
+			SAM_HWND nHWNW = g_Env->pRenderWindow->Create(m_sAppName, m_oRenderConfig.m_nWidth, m_oRenderConfig.m_nHeight, 0, 0, 0, 1, m_oRenderConfig.m_bFullscreen);
+
+			// create input system
+			CreateInputManager(g_Env, nHWNW);
         }
 
 
-        if(p_eModuleToInit & e_FM_Sound)
+        if(p_eModuleToInit & e_FrameworkModule_Sound)
         {
             //CreateSoundEngine(pEnv);
         }
 
-        if(p_eModuleToInit & e_FM_Physics)
+        if(p_eModuleToInit & e_FrameworkModule_Physics)
         {
             //CreatePhysicalWorld(pEnv);
         }

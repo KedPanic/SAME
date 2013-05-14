@@ -83,9 +83,9 @@ namespace sam
         // write message.        
         vsnprintf_s(&aBuffer[4], sizeof(aBuffer) - 4, _TRUNCATE, _sFormat, _pArg);
 
-        uint32 nSize = strlen(aBuffer) + 1;
+        uint32 nSize = strlen(aBuffer);
         aBuffer[nSize] = '\n';
-        m_File.Write(aBuffer, nSize);
+        m_File.Write(aBuffer, nSize + 1);
 		m_File.Flush();
 
         // send message to callback.

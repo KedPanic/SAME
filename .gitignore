@@ -51,3 +51,12 @@ external/tinyxml2/tinyxml2.vcxproj
 external/tinyxml2/tinyxml2.vcxproj.filters
 external/cJSON/cJSON.vcxproj
 external/cJSON/cJSON.vcxproj.filters
+external/wxWidgets/demos/*
+external/wxWidgets/docs/*
+external/wxWidgets/tests/*
+external/wxWidgets/interface/*
+external/wxWidgets/misc/*
+external/wxWidgets/samples/*
+external/wxWidgets/utils/*
+external/wxWidgets/distrib/*
+external/wxWidgets/debian/*

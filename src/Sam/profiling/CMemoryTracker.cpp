@@ -135,7 +135,7 @@ namespace sam
         {
             logFile << "</TABLE>\n<BR/><BR/>" 
                 << "Memory Leak :\n"
-                << "\t<TABLE width=\"100%\" height=\"100%\" border=\"1\">\n"
+                << "\t<TABLE width=\"100%\" border=\"1\">\n"
                 << "\t\t<TR height=\"25\">\n"
                 << "\t\t\t<TD>Type</TD><TD>Add.</TD><TD>File</TD><TD>Line</TD>\n"
                 << "\t\t</TR>\n";

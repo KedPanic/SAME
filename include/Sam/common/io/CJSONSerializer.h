@@ -62,7 +62,7 @@ namespace sam
         /// 
         /// @param _sElement Name of the element.
         /// 
-        /// @return false if the element doesn't'nt exist.
+        /// @return false if the element doesn't exist.
         bool BeginElem(const char *_sElement);
 
         /// @brief Ending current element
@@ -76,6 +76,13 @@ namespace sam
 		/// 
 		/// @remarks return value have to be deleted by the user.
 		char *ReadValue(const char *p_sName);
+
+		/// @brief Read integer value with specified name.
+		/// 
+		///  @param p_sName Name of the value.
+		/// 
+		///  @return Integer value.
+		int ReadIntValue(const char *p_sName);
 
 		/// @brief Read value with specified name.
 		/// 

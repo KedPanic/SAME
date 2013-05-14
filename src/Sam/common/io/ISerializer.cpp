@@ -115,17 +115,17 @@ namespace sam
 
 			case e_Serializer_JSon:
 				{
-// 					CJSONSerializer oSerializer(p_sFilename);
-// 					oSerializer.BeginSerialization(p_bReading, p_pSerializable->GetSerializeName());
-// 					if(p_bReading)
-// 					{
-// 						p_pSerializable->Read(&oSerializer);
-// 					}
-// 					else
-// 					{
-// 						p_pSerializable->Write(&oSerializer);
-// 					}
-// 					oSerializer.EndSerialization();
+					CJSONSerializer oSerializer(p_sFilename);
+					oSerializer.BeginSerialization(p_bReading, p_pSerializable->GetSerializeName());
+					if(p_bReading)
+					{
+						p_pSerializable->Read(&oSerializer);
+					}
+					else
+					{
+						p_pSerializable->Write(&oSerializer);
+					}
+					oSerializer.EndSerialization();
 				}
 				break;
 

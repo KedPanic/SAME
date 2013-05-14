@@ -76,11 +76,11 @@ namespace sam
     /// @enum Module Id.
     enum EFrameworkModule
     {        
-        e_FM_Renderer = 1 << 0,
-        e_FM_Sound    = 1 << 1,
-        e_FM_Physics  = 1 << 2,
+        e_FrameworkModule_Renderer = 1 << 0, // Initialize input
+        e_FrameworkModule_Sound    = 1 << 1,
+        e_FrameworkModule_Physics  = 1 << 2,
 
-        e_FM_All = e_FM_Renderer | e_FM_Sound | e_FM_Physics,
+        e_FrameworkModule_All = e_FrameworkModule_Renderer | e_FrameworkModule_Sound | e_FrameworkModule_Physics,
     };
 
 
@@ -102,7 +102,7 @@ namespace sam
         /// @param p_eModuleToInit Flag for module to init.
         ///
 		/// @return Global environment variables.
-		Env *Initialize(const char *p_sSaveDir, uint32 p_eModuleToInit = e_FM_All);
+		Env *Initialize(const char *p_sSaveDir, uint32 p_eModuleToInit = e_FrameworkModule_All);
 
         /// @brief Shutdown application.        
         void Shutdown();
@@ -205,7 +205,7 @@ namespace sam
 		char *m_sSaveDir;     ///< Game save directory.
 		char *m_sDataDir;     ///< Game data directory.
 		char *m_sModData;     ///< Mod data directory.
-		char *m_sAppName;     ///< Name of the application.
+		const char *m_sAppName;	///< Name of the application.
         bool m_bMod;          ///< True if a mod was loaded.
         Library m_pDLLGame;   ///< DLL of the game was loaded.
 //        IGame *m_pGame;       ///< Pointer to the actual game.

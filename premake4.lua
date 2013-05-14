@@ -30,12 +30,18 @@ solution "SamEngine"
 	]]--
 	configurations { "Debug", "Profile", "Release" }
 	
+	local DEBUG_FLAG = "DEBUG"
+	if os.is("windows") == true then
+		DEBUG_FLAG = "_DEBUG"
+	end
+	
 	--------------------------------------------------------------------
 	---------------------------  CREATION EXTERNAL DEPENDENCIES PROJECTS
 	dependencies = {}
 	local dependencie_folder = {
 		"external/cJSON/premake4.lua",
 		"external/tinyxml2/premake4.lua",
+		"external/wxWidgets/premake4.lua",
 	}
 	
 	group "external"
@@ -69,3 +75,6 @@ solution "SamEngine"
 	------------------------------------------  CREATION OF SAM PROJECTS
 	group "engine"
 		dofile("samengine.lua")
+
+	group "tool"
+		dofile("sambox.lua")
