@@ -270,7 +270,7 @@ namespace sam
         }
         else
         {
-            dwStyle |= /*WS_CLIPCHILDREN | WS_CLIPSIBLINGS | */WS_CAPTION;
+            dwStyle |= /*WS_CLIPCHILDREN | WS_CLIPSIBLINGS | */WS_CAPTION | WS_SYSMENU;
 
             RECT rect = {0, 0, _iWidth, _iHeight};
             AdjustWindowRect(&rect, dwStyle, false);

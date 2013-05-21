@@ -78,3 +78,5 @@ solution "SamEngine"
 
 	group "tool"
 		dofile("sambox.lua")
+		
+	include("samples/premake4.lua")

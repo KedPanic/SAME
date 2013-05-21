@@ -37,7 +37,7 @@ CProject::~CProject()
 // Initialize the project.
 bool CProject::Initialize(SConfiguration *p_pConfig)
 {
-
+	return true;
 }
 
 // Serialize the object

@@ -48,7 +48,7 @@
 		project(proj.name)
 			location("build/".._ACTION)
 			kind "SharedLib"
-			language "C++"			
+			language "C++"				
 			
 			local commonFlags = { "EnableSSE", "EnableSSE2", "NoExceptions" }
 			
@@ -67,6 +67,8 @@
 			if os.is("windows") == true then
 				platformFolder = platformFolder.."win/"..lowerName.."/"
 				platformRootFolder = platformRootFolder.."win/"
+				
+				postbuildcommands { "copy \"$(TargetPath)\" \"$(TargetDir)\\..\\..\\bin\\$(Configuration)\\$(TargetFileName)\" /Y" }
 			elseif os.is("linux") == true then
 				platformFolder = platformFolder.."linux/"..lowerName.."/"
 				platformRootFolder = platformRootFolder.."linux/"
@@ -110,7 +112,7 @@
 			
 			
 			------------------------------------------------------------
-			--------------------------------------------  CONFIGURATIONS
+			--------------------------------------------  CONFIGURATIONS			
 			configuration "Debug"
 				defines { DEBUG_DEF, "ENABLE_PROFILING", "SAM_"..upperName.."_EXPORTS" }
 				flags { "Symbols", commonFlags }
@@ -122,7 +124,7 @@
 					links { "SamProfiling", libraries }
 				else
 					links { libraries }
-				end
+				end						
 				
 			configuration "Profile"
 				defines { "NDEBUG", "ENABLE_PROFILING" }

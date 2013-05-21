@@ -153,7 +153,9 @@ namespace sam
             logFile << "</TABLE>\n";
         }	
         else
+		{
             logFile << "</TABLE>\n<BR/><BR/><B>No memory leak</B>\n";
+		}
 
         logFile.flush();
     }

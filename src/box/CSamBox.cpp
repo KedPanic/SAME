@@ -159,7 +159,7 @@ void CSamBox::OnCreateProject(CCreateProjectEvent &p_oEvent)
 	{
 		CProject::SConfiguration *pConfiguration = (CProject::SConfiguration*)p_oEvent.GetEventObject();
 
-		m_pProject = SAM_ALLOC(CProject);
+		m_pProject = SAM_NEW(CProject);
 		m_pProject->Initialize(pConfiguration);
 	}
 }

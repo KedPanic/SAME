@@ -67,7 +67,7 @@ project("SamBox")
 		defines { DEBUG_DEF, "ENABLE_PROFILING" }
 		flags { "Symbols", commonFlags }
 		objdir("build/".._ACTION.."/obj/debug/SamBox")
-		implibdir "lib/debug/"
+		implibdir "bin/debug/"
 		targetdir "bin/debug/"
 		debugdir  "bin/debug/"
 		libdirs { "lib/debug/", libraries_dir }
@@ -77,7 +77,7 @@ project("SamBox")
 		defines { "NDEBUG", "ENABLE_PROFILING" }
 		flags { "Symbols", commonFlags }
 		objdir("build/".._ACTION.."/obj/profile/SamBox")
-		implibdir "lib/profile/"
+		implibdir "bin/profile/"
 		targetdir "bin/profile/"
 		debugdir  "bin/profile/"
 		libdirs { "lib/profile/", libraries_dir }
@@ -87,7 +87,7 @@ project("SamBox")
 		defines { "NDEBUG" }
 		flags { "Optimize", "FatalWarnings", commonFlags }
 		objdir("build/".._ACTION.."/obj/release/SamBox")
-		implibdir "lib/release/"
+		implibdir "bin/release/"
 		targetdir "bin/release/"
 		debugdir  "bin/release/"
 		libdirs { "lib/release/", libraries_dir }

@@ -21,8 +21,10 @@
 #ifndef __PROJECT__
 #define __PROJECT__
 
-class CProject : public ISerializable
+class CProject : public sam::ISerializable
 {
+	IMPLEMENT_SERIALIZABLE(CProject, "project");
+
 public:
 	struct SConfiguration : public wxObject
 	{

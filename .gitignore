@@ -38,18 +38,6 @@ external/nvtt/project/vc10/squish/Debug/
 external/nvtt/project/vc10/nvcore/Debug/
 tools/build/vc10/Debug/
 tools/SamBox/qt/GeneratedFiles/
-
-# generated files
-*.sdf
-*.suo
-*.user
-*.opensdf
-*.tlog
-*.lastbuildstate
-external/tinyxml2/tinyxml2.vcxproj
-external/tinyxml2/tinyxml2.vcxproj.filters
-external/cJSON/cJSON.vcxproj
-external/cJSON/cJSON.vcxproj.filters
 external/wxWidgets/demos/*
 external/wxWidgets/docs/*
 external/wxWidgets/tests/*
@@ -71,3 +59,20 @@ external/wxWidgets/build/wince/*
 external/wxWidgets/build/tools/*
 external/wxWidgets/build/osx/*
 external/wxWidgets/build/os2/*
+
+# generated files
+*.sdf
+*.suo
+*.user
+*.opensdf
+*.tlog
+*.lastbuildstate
+*.manifest
+*.res
+*.rc
+external/tinyxml2/tinyxml2.vcxproj
+external/tinyxml2/tinyxml2.vcxproj.filters
+external/cJSON/cJSON.vcxproj
+external/cJSON/cJSON.vcxproj.filters
+samples/renderer/1_basic/basic.vcxproj
+samples/renderer/1_basic/basic.vcxproj.filters
