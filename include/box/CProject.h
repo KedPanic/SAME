@@ -21,7 +21,7 @@
 #ifndef __PROJECT__
 #define __PROJECT__
 
-class CProject
+class CProject : public ISerializable
 {
 public:
 	struct SConfiguration : public wxObject
@@ -29,8 +29,38 @@ public:
 
 	};
 
+	/// @brief Default constructor.
+	CProject();
+
+	/// @brief Destructor.
+	~CProject();
+
+	/// @brief Initialize the project.
+	/// 
+	/// @param p_pConfig Configuration.
+	bool Initialize(SConfiguration *p_pConfig);
+
+	/// @brief Retrieve if the project have changed since the last save.
+	/// 
+	/// @return True if the project is dirty.
+	bool IsDirty() const {return m_bIsDirty;}
+
+	/// @brief Flag the project as dirty.
+	void Dirty() {m_bIsDirty = true;}
+
+	/// @brief Serialize the object
+	/// 
+	/// @param p_pContext Pointer to the context
+	void Read(sam::ISerializer *p_pContext);
+
+	/// @brief Serialize the object
+	/// 
+	/// @param p_pContext Pointer to the context
+	void Write(sam::ISerializer *p_pContext);
+
 private:
 	SConfiguration *m_pConfiguration;
+	bool m_bIsDirty;
 };
 
 #endif // __PROJECT__

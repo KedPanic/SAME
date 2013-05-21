@@ -112,7 +112,7 @@
 			------------------------------------------------------------
 			--------------------------------------------  CONFIGURATIONS
 			configuration "Debug"
-				defines { "DEBUG", "ENABLE_PROFILING", "SAM_"..upperName.."_EXPORTS" }
+				defines { DEBUG_DEF, "ENABLE_PROFILING", "SAM_"..upperName.."_EXPORTS" }
 				flags { "Symbols", commonFlags }
 				objdir("build/".._ACTION.."/obj/debug/"..proj.name)
 				implibdir "lib/debug/"

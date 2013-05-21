@@ -50,6 +50,7 @@ namespace sam
 #endif
 	}
 
+#if defined(SAM_DEBUG)
 	// Default constructor.
 	ID::ID()
 		: m_nID(-1)
@@ -77,4 +78,5 @@ namespace sam
 
 		return m_sID.c_str();
 	}
+#endif
 }

@@ -97,6 +97,20 @@ bool CSamBox::CloseCurrentProject()
 		return true;
 	}
 
+
+	if(m_pProject->IsDirty())
+	{
+		switch(wxMessageBox(wxT("Do you want to save your project ?"), wxT(""), wxCANCEL | wxYES_NO))
+		{
+		case wxYES:
+			
+			break;
+
+		case wxCANCEL:
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -145,7 +159,7 @@ void CSamBox::OnCreateProject(CCreateProjectEvent &p_oEvent)
 	{
 		CProject::SConfiguration *pConfiguration = (CProject::SConfiguration*)p_oEvent.GetEventObject();
 
-		//m_pProject = new CProject;
-		//m_pProject->Initialize(pConfiguration);
+		m_pProject = SAM_ALLOC(CProject);
+		m_pProject->Initialize(pConfiguration);
 	}
 }

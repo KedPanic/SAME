@@ -30,9 +30,9 @@ solution "SamEngine"
 	]]--
 	configurations { "Debug", "Profile", "Release" }
 	
-	local DEBUG_FLAG = "DEBUG"
+	DEBUG_DEF = "DEBUG"
 	if os.is("windows") == true then
-		DEBUG_FLAG = "_DEBUG"
+		DEBUG_DEF = "_DEBUG"
 	end
 	
 	--------------------------------------------------------------------

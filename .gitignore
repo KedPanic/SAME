@@ -44,7 +44,6 @@ tools/SamBox/qt/GeneratedFiles/
 *.suo
 *.user
 *.opensdf
-build/
 *.tlog
 *.lastbuildstate
 external/tinyxml2/tinyxml2.vcxproj
@@ -60,3 +59,15 @@ external/wxWidgets/samples/*
 external/wxWidgets/utils/*
 external/wxWidgets/distrib/*
 external/wxWidgets/debian/*
+build/*
+external/wxWidgets/build/buildbot/*
+external/wxWidgets/build/bakefiles/*
+external/wxWidgets/build/msw/ipch/*
+external/wxWidgets/build/msw/vc_mswuddll/*
+external/wxWidgets/build/aclocal/*
+external/wxWidgets/obj/*
+external/wxWidgets/build/autoconf_prepend-include/*
+external/wxWidgets/build/wince/*
+external/wxWidgets/build/tools/*
+external/wxWidgets/build/osx/*
+external/wxWidgets/build/os2/*

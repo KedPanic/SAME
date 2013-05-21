@@ -18,36 +18,28 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamBoxPCH.h"
-#include "CProject.h"
+#ifndef __INITIALIZING_THREAD__
+#define __INITIALIZING_THREAD__
 
-// Default constructor.
-CProject::CProject()
-	: m_pConfiguration(NULL), m_bIsDirty(false)
+/// @brief Thread used when we launch the editor.
+class CInitializingThread : public wxThread
 {
+public:
+	/// @brief Constructor.
+	/// 
+	/// @param p_pSplashScreen Application.
+	CInitializingThread(CSplashScreen *p_pSplashScreen);
 
-}
+	wxThread::ExitCode Entry();
 
-/// @brief Destructor.
-CProject::~CProject()
-{
-	SAM_DELETE m_pConfiguration;
-}
+private:
+	CSamBox *m_pApp;
+	CSplashScreen *m_pSplashScreen;
 
-// Initialize the project.
-bool CProject::Initialize(SConfiguration *p_pConfig)
-{
+	/// @brief Send event to the splash screen.
+	/// 
+	/// @param p_sMessage New message to show.
+	void SendEvent(const wxString &p_sMessage);
+};
 
-}
-
-// Serialize the object
-void CProject::Read(sam::ISerializer *p_pContext)
-{
-
-}
-
-// Serialize the object
-void CProject::Write(sam::ISerializer *p_pContext)
-{
-
-}
+#endif // __INITIALIZING_THREAD__

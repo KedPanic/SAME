@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CTASK_H__
-#define __CTASK_H__
+#ifndef __CTASK__
+#define __CTASK__
 
 namespace sam
 {	
@@ -41,4 +41,4 @@ namespace sam
 	};
 }
 
-#endif // __CTASK_H__
+#endif // __CTASK__

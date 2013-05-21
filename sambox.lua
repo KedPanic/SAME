@@ -28,8 +28,6 @@ project("SamBox")
 	for i, dep in pairs(SamBox.dependencies) do
 		if dependencies[""..dep] ~= nil then
 			table.insert(libraries, dependencies[""..dep].lib)
-			
-			print(type(dependencies[""..dep].include))
 			--if type(dependencies[""..dep].include) ~= "array" then
 				table.insert(includes, dependencies[""..dep].include)
 			--[[else
@@ -66,13 +64,14 @@ project("SamBox")
 	------------------------------------------------------------
 	--------------------------------------------  CONFIGURATIONS
 	configuration "Debug"
-		defines { DEBUG_FLAG, "ENABLE_PROFILING" }
+		defines { DEBUG_DEF, "ENABLE_PROFILING" }
 		flags { "Symbols", commonFlags }
 		objdir("build/".._ACTION.."/obj/debug/SamBox")
 		implibdir "lib/debug/"
-		targetdir "bin/debug/"			
+		targetdir "bin/debug/"
+		debugdir  "bin/debug/"
 		libdirs { "lib/debug/", libraries_dir }
-		links { "SamProfiling", libraries, "wxbase29ud", "wxexpatd", "wxregexud", "wxzlibd", "wxpngd", "wxjpegd", "wxtiffd", "wxmsw29ud_aui", "wxbase29ud", "wxmsw29ud_core", "rpcrt4", "comctl32" }
+		links { "SamProfiling", libraries, "wxbase29ud", "wxbase29ud_xml", "wxexpatd", "wxjpegd", "wxmsw29ud_adv", "wxmsw29ud_aui", "wxmsw29ud_core", "wxmsw29ud_html", "wxmsw29ud_xrc", "wxpngd", "wxregexud", "wxzlibd", "wxtiffd", "rpcrt4", "comctl32" }
 			
 	configuration "Profile"
 		defines { "NDEBUG", "ENABLE_PROFILING" }
@@ -80,6 +79,7 @@ project("SamBox")
 		objdir("build/".._ACTION.."/obj/profile/SamBox")
 		implibdir "lib/profile/"
 		targetdir "bin/profile/"
+		debugdir  "bin/profile/"
 		libdirs { "lib/profile/", libraries_dir }
 		links { "SamProfiling", libraries, "wxbase29u", "wxexpat", "wxregexu", "wxzlib", "wxpng", "wxjpeg", "wxtiff", "wxmsw29u_aui", "wxbase29u", "wxmsw29u_core", "rpcrt4", "comctl32" }
 				
@@ -89,5 +89,6 @@ project("SamBox")
 		objdir("build/".._ACTION.."/obj/release/SamBox")
 		implibdir "lib/release/"
 		targetdir "bin/release/"
+		debugdir  "bin/release/"
 		libdirs { "lib/release/", libraries_dir }
-		links { libraries }
+		links { libraries, "wxbase29u", "wxexpat", "wxregexu", "wxzlib", "wxpng", "wxjpeg", "wxtiff", "wxmsw29u_aui", "wxbase29u", "wxmsw29u_core", "rpcrt4", "comctl32" }

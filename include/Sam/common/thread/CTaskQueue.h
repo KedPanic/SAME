@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CTASK_QUEUE_H__
-#define __CTASK_QUEUE_H__
+#ifndef __CTASK_QUEUE__
+#define __CTASK_QUEUE__
 
 namespace sam
 {
@@ -29,7 +29,19 @@ namespace sam
 		CTaskQueue();
 		~CTaskQueue();
 
+		/// @brief Add a new task.
+		/// 
+		/// @param p_pTask New task to add in the queue.
+		void AddTask(CTask *p_pTask);
+
+		/// @brief Get the next task and remove it from the queue.
+		/// 
+		/// @return Next task or nullptr if there is no more task.
+		CTask *GetNextTask();
+
 	private:
+		typedef std::deque<CTask*> Tasks;
+		Tasks m_aTasks; ///< Task queue.
 	};
 }
 
