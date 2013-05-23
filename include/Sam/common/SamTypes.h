@@ -26,14 +26,14 @@ namespace sam
     /// @enum Data type. used for every customizable features.
     enum ETypeID
     {
-        TI_Int,
-        TI_Short,
-        TI_Char,
-        TI_UInt,
-        TI_UShort,
-        TI_UChar,
-        TI_Float,
-        TI_Half,
+        e_Type_Int,
+        e_Type_Short,
+        e_Type_Char,
+        e_Type_UInt,
+        e_Type_UShort,
+        e_Type_UChar,
+        e_Type_Float,
+        e_Type_Half,
     };
 
     enum EResult

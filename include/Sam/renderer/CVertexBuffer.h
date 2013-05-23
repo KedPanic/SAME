@@ -26,18 +26,18 @@ namespace sam
     /// @enum Vertex semantics.
     enum EVertexSemantic
     {
-        VS_Position,
-        VS_Blend_Weights,
-        VS_Blend_Indices,
-        VS_Normal,
-        VS_Diffuse,
-        VS_Specular,
-        VS_Binormal,
-        VS_Tangent,
-        VS_Texture_Coord0,
+        e_VertexSemantic_Position,
+        e_VertexSemantic_Blend_Weights,
+        e_VertexSemantic_Blend_Indices,
+        e_VertexSemantic_Normal,
+        e_VertexSemantic_Diffuse,
+        e_VertexSemantic_Specular,
+        e_VertexSemantic_Binormal,
+        e_VertexSemantic_Tangent,
+        e_VertexSemantic_Texture_Coord0,
 
         // More todo...
-        VS_Nb,
+        e_VertexSemantic_Nb,
     };
 
     /// @enum Vertex usage.

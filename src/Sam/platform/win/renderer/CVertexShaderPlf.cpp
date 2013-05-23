@@ -126,7 +126,7 @@ namespace sam
         }
 
         HRESULT hResult = g_Env->pRenderWindow->GetD3DDevice()->CreateInputLayout(layout, p_pVertexBuffer->GetNbElements(), m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), &m_pInputLayout);
-        SAM_DELETE_ARRAY layout;
+        SAM_FREE_ARRAY(layout);
         if(hResult != S_OK)
         {
             return false;

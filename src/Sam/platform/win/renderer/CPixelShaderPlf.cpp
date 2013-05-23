@@ -33,7 +33,7 @@ namespace sam
     }
 
     // Destructor.
-    CPixelShader::~CPixelShader(void)
+    CPixelShader::~CPixelShader()
     {
     }
 

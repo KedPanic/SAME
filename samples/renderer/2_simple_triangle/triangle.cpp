@@ -73,8 +73,11 @@ LRESULT CALLBACK WndProc(HWND p_hWnd, UINT p_nMessage, WPARAM p_wParam, LPARAM p
 	return 0;
 }
 #endif
+//////////////////////////////////////////////////////////////////////////
 
-
+static CVertexBuffer *s_pVertexBuffer = NULL;
+static CVertexShader *s_pVertexShader = NULL;
+static CPixelShader *s_pPixelShader = NULL;
 void Initialize()
 {
 	// Init common module.
@@ -84,16 +87,42 @@ void Initialize()
 	pEnv->pLog->SetFilename("samengine.log");
 
 	// Create and setup window.
-	CreateRenderManager(pEnv);
+	CRenderWindow *pRenderer = CreateRenderManager(pEnv);
 
-	g_Env->pRenderWindow->SetWndProc(& WndProc);
-	g_Env->pRenderWindow->Create("Sample: basic", 800, 600, 24, 24, 8, 1, false);
-	g_Env->pRenderWindow->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
-	g_Env->pRenderWindow->ShowMouseCursor(true);
+	pRenderer->SetWndProc(& WndProc);
+	pRenderer->Create("Sample: basic", 800, 600, 24, 24, 8, 1, false);
+	pRenderer->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
+	pRenderer->ShowMouseCursor(true);
+
+	// Create triangle.
+	s_pVertexBuffer = g_Env->pRenderWindow->CreateVertexBuffer();
+	SVertexDeclaration oVertexDeclaration;
+	oVertexDeclaration.m_eSemantic = e_VertexSemantic_Position;
+	oVertexDeclaration.m_eType = e_Type_Float;
+	oVertexDeclaration.m_nNbComponents = 3;
+	oVertexDeclaration.m_nOffset = 0;
+	s_pVertexBuffer->Initialize(&oVertexDeclaration, 1, 3);	
+
+	g_Env->pRenderWindow->SetVertexBuffer(0, s_pVertexBuffer);
+
+	f32 fVector[9] = {
+		0.0f, 0.5f, 0.5f,
+		0.5f, -0.5f, 0.5f,
+		-0.5f, -0.5f, 0.5f
+	};
+	s_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
+
+	// Create simple shader.
+	CFile oFile("../data/shaders/simple.fx");
+	s_pVertexShader = pRenderer->CreateVertexShader(&oFile, 0, "VS", "vs_4_0");
+	s_pVertexShader->CreateInputLayout(s_pVertexBuffer);
+
+	s_pPixelShader = pRenderer->CreatePixelShader(&oFile, 0, "PS", "ps_4_0");
 }
 
 void Shutdown()
 {
+	SAM_DELETE s_pVertexBuffer;
 	DestroyRenderManager();
 	ShutdownCommon();
 }
@@ -116,7 +145,13 @@ int main()
 		}
 		else
 		{
-			g_Env->pRenderWindow->BeginScene(EClearType_Color);
+			g_Env->pRenderWindow->BeginScene(EClearType_Color);			
+			
+			g_Env->pRenderWindow->SetVertexShader(s_pVertexShader);
+			g_Env->pRenderWindow->SetPixelShader(s_pPixelShader);
+			
+			g_Env->pRenderWindow->Draw(3, 0);
+
 			g_Env->pRenderWindow->EndScene();
 		}
 	}

@@ -1,6 +1,4 @@
-local sample_project_files = {
-	"renderer/1_basic/premake4.lua",
-}
+local sample_project_files = os.matchfiles("**premake4.lua")
 
 samples = {}
 for _, project in pairs(sample_project_files) do
@@ -42,10 +40,10 @@ for folder, sample in pairs(samples) do
 			
 			-- create virtual folder.
 			vpaths {
-				["**"] = { "**.h", "**.cpp" }
+				["**"] = { folder.."**.h", folder.."**.cpp" }
 			}
 								
-			files { "**.h", "**.cpp" }
+			files { folder.."**.h", folder.."**.cpp" }
 			
 			------------------------------------------------------------
 			--------------------------------------------  CONFIGURATIONS
@@ -55,8 +53,9 @@ for folder, sample in pairs(samples) do
 				objdir(folder.."/obj/debug/")
 				implibdir "../bin/debug/"
 				targetdir "../bin/debug/"			
+				debugdir  "../bin/debug/"
 				libdirs { "../lib/debug/", libraries_dir }
-				links { libraries }
+				links { "SamProfiling", libraries }
 				
 			configuration "Profile"
 				defines { "NDEBUG", "ENABLE_PROFILING" }
@@ -64,8 +63,9 @@ for folder, sample in pairs(samples) do
 				objdir(folder.."/obj/profile/")
 				implibdir "../bin/profile/"
 				targetdir "../bin/profile/"
+				debugdir  "../bin/profile/"
 				libdirs { "../lib/profile/", libraries_dir }
-				links { libraries }
+				links { "SamProfiling", libraries }
 				
 			configuration "Release"
 				defines { "NDEBUG" }
@@ -73,6 +73,7 @@ for folder, sample in pairs(samples) do
 				objdir(folder.."/obj/release/")
 				implibdir "../bin/release/"
 				targetdir "../bin/release/"
+				debugdir  "../bin/release/"
 				libdirs { "../lib/release/", libraries_dir }
 				links { libraries }
 			------------------------------------------------------------	

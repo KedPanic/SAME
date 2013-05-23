@@ -212,6 +212,9 @@ namespace sam
         //                  SHADER MANAGEMENT             //
         //================================================//
 
+		/// @brief Set constant buffer.
+		void SetConstantBuffer()
+
         /// @brief Create vertex buffer.
         CVertexBuffer *CreateVertexBuffer(void);
 
@@ -264,6 +267,9 @@ namespace sam
         /// 
         /// @param p_pShader Shader.
         void SetPixelShader(CPixelShader *p_pShader);
+
+		/// @brief Delete all created shaders.
+		void DeleteAllShaders();
 
 
         //================================================//

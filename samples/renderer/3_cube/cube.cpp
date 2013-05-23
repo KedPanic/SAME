@@ -59,11 +59,11 @@ LRESULT CALLBACK WndProc(HWND p_hWnd, UINT p_nMessage, WPARAM p_wParam, LPARAM p
 	case WM_ACTIVATE:
 		if(p_wParam == WA_INACTIVE)
 		{
-			
+
 		}
 		else
 		{
-			
+
 		}
 
 	default:
@@ -73,7 +73,17 @@ LRESULT CALLBACK WndProc(HWND p_hWnd, UINT p_nMessage, WPARAM p_wParam, LPARAM p
 	return 0;
 }
 #endif
+//////////////////////////////////////////////////////////////////////////
 
+static CVertexBuffer *s_pVertexBuffer = NULL;
+static CVertexShader *s_pVertexShader = NULL;
+static CPixelShader *s_pPixelShader = NULL;
+
+static Matrix44 s_World;
+static Matrix44 s_View;
+static Matrix44 s_Projection;
+
+static CCamera s_oCamera;
 
 void Initialize()
 {
@@ -84,16 +94,63 @@ void Initialize()
 	pEnv->pLog->SetFilename("samengine.log");
 
 	// Create and setup window.
-	CreateRenderManager(pEnv);
+	CRenderWindow *pRenderer = CreateRenderManager(pEnv);
 
-	g_Env->pRenderWindow->SetWndProc(& WndProc);
-	g_Env->pRenderWindow->Create("Sample: basic", 800, 600, 24, 24, 8, 1, false);
-	g_Env->pRenderWindow->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
-	g_Env->pRenderWindow->ShowMouseCursor(true);
+	pRenderer->SetWndProc(& WndProc);
+	pRenderer->Create("Sample: basic", 800, 600, 24, 24, 8, 1, false);
+	pRenderer->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
+	pRenderer->ShowMouseCursor(true);
+	pRenderer->SetViewport(0, 0, 800, 600);
+
+	// Create triangle.
+	s_pVertexBuffer = g_Env->pRenderWindow->CreateVertexBuffer();
+	SVertexDeclaration oVertexDeclaration[] = {
+		{
+			e_VertexSemantic_Position,
+			0,
+			8,
+			e_Type_Float
+		},
+		{
+			e_VertexSemantic_Diffuse,
+			12,
+			8,
+			e_Type_Float
+		}
+	};
+	s_pVertexBuffer->Initialize(oVertexDeclaration, 2, 8);	
+
+	g_Env->pRenderWindow->SetVertexBuffer(0, s_pVertexBuffer);
+
+	f32 fVector[9] = {
+		0.0f, 0.5f, 0.5f,
+		0.5f, -0.5f, 0.5f,
+		-0.5f, -0.5f, 0.5f
+	};
+	s_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
+
+	// Create simple shader.
+	CFile oFile("../data/shaders/simple.fx");
+	s_pVertexShader = pRenderer->CreateVertexShader(&oFile, 0, "VS", "vs_4_0");
+	s_pVertexShader->CreateInputLayout(s_pVertexBuffer);
+
+	s_pPixelShader = pRenderer->CreatePixelShader(&oFile, 0, "PS", "ps_4_0");
+
+	// Initialize world matrix
+	s_World.SetIdentity();
+
+	// Setup camera and viewport.
+	Vector3 vEye(0.0f, 1.0f, -5.0f);
+	Vector3 vAt(0.0f, 1.0f, 0.0f);
+	Vector3 vUp(0.0f, 1.0f, 0.0f);
+	s_oCamera.LookAt(vEye, vAt, vUp);
+
+	s_oCamera.SetPerspective(800, 600);
 }
 
 void Shutdown()
 {
+	SAM_DELETE s_pVertexBuffer;
 	DestroyRenderManager();
 	ShutdownCommon();
 }
@@ -105,7 +162,7 @@ int main()
 #endif
 { 
 	Initialize();
-	
+
 	MSG msg;
 	while(!s_bClose)
 	{
@@ -116,7 +173,15 @@ int main()
 		}
 		else
 		{
-			g_Env->pRenderWindow->BeginScene(EClearType_Color);
+			// Clear back buffer.
+			g_Env->pRenderWindow->BeginScene(EClearType_Color);			
+
+			g_Env->pRenderWindow->SetVertexShader(s_pVertexShader);
+			g_Env->pRenderWindow->SetConstantBuffer();
+			g_Env->pRenderWindow->SetPixelShader(s_pPixelShader);
+
+			g_Env->pRenderWindow->Draw(3, 0);
+
 			g_Env->pRenderWindow->EndScene();
 		}
 	}

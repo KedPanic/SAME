@@ -27,7 +27,7 @@
 
 namespace sam
 {    
-    class CPixelShader : public IAllocated
+    class SAM_RENDERER_API CPixelShader : public IAllocated
     {
     public:
         /// @brief Constructor.

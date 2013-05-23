@@ -27,7 +27,7 @@
 
 namespace sam
 {    
-    class CVertexShader : public IAllocated
+    class SAM_RENDERER_API CVertexShader : public IAllocated
     {
     public:
         /// @brief Constructor.

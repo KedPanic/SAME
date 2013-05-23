@@ -28,20 +28,20 @@ namespace sam
     {
         switch(_eType)
         {
-        case TI_Int:
-        case TI_UInt:
+        case e_Type_Int:
+        case e_Type_UInt:
             return 4;
 
-        case TI_Short:
-        case TI_UShort:
+        case e_Type_Short:
+        case e_Type_UShort:
             return 2;
 
-        case TI_Char:
-        case TI_UChar:
+        case e_Type_Char:
+        case e_Type_UChar:
             return 1;
 
-        case TI_Float:
-        case TI_Half:
+        case e_Type_Float:
+        case e_Type_Half:
         default:
             return 4;
         }
@@ -80,7 +80,7 @@ namespace sam
 
         if(m_pVertexDeclaration)
         {
-            SAM_DELETE_ARRAY m_pVertexDeclaration;
+            SAM_FREE_ARRAY(m_pVertexDeclaration);
         }
     }
 

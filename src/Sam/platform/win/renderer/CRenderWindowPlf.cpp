@@ -154,6 +154,8 @@ namespace sam
     {
         SAM_DELETE g_pTextureManager;
         g_pTextureManager = 0;
+
+		DeleteAllShaders();
     }
 
     // Initialize DirectX11 context.
@@ -349,9 +351,15 @@ namespace sam
     /// @param _iWidth Width of the viewport.
     /// @param _iHeight Height of the viewport.
     void CRenderWindow::SetViewport(int _iX, int _iY, int _iWidth, int _iHeight)
-    {        
+    {   
+		//	FLOAT TopLeftX;
+		//	FLOAT TopLeftY;
+		//	FLOAT Width;
+		//	FLOAT Height;
+		//	FLOAT MinDepth;
+		//	FLOAT MaxDepth;
         D3D11_VIEWPORT viewport = {(FLOAT)_iX, (FLOAT)_iY, (FLOAT)_iWidth, (FLOAT)_iHeight, 0.0f, 1.0f};
-        
+		
         m_pContext->RSSetViewports(1, &viewport);
     }
 
@@ -614,7 +622,6 @@ namespace sam
         if(m_DefaultRenderState.m_pVertexBuffer != _pVertexBuffer)
         {
             m_DefaultRenderState.m_pVertexBuffer = _pVertexBuffer;
-            m_DefaultRenderState.m_pVertexShader->CreateInputLayout(pVertexBuffer);
 
             uint32 nOffset = 0;
             uint32 nStride = _pVertexBuffer->GetStride();
@@ -740,6 +747,24 @@ namespace sam
         m_DefaultRenderState.m_pPixelShader = (CPixelShader*)p_pShader;
         m_pContext->PSSetShader(m_DefaultRenderState.m_pPixelShader->GetD3DPixelShader(), NULL, 0);
     }
+
+	// Delete all created shaders.
+	void CRenderWindow::DeleteAllShaders()
+	{
+		CPixelShader *pPixelShader = m_pFirstPixelShader;
+		while(m_pFirstPixelShader)
+		{
+			m_pFirstPixelShader = pPixelShader->GetNext();
+			SAM_DELETE pPixelShader;
+		}
+
+		CVertexShader *pVertexShader = m_pFirstVertexShader;
+		while(m_pFirstVertexShader)
+		{
+			m_pFirstVertexShader = pVertexShader->GetNext();
+			SAM_DELETE pVertexShader;
+		}
+	}
 
 
     //================================================//

@@ -1,5 +1,5 @@
-samples["renderer/1_basic"] = {
-	name = "1_basic",
+samples["renderer/3_cube"] = {
+	name = "3_cube",
 	group = "renderer",
 	dependencies = { "SamCommon", "SamRenderer", "render" }
 }

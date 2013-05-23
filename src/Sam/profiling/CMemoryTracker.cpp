@@ -37,11 +37,11 @@ namespace sam
         m_pMemoryTracker = this;
 
         // clean file.
-        logFile.open("DSMemoryDebug.html");
+        logFile.open("MemoryTracker.html");
         logFile.close();
 
         // create log file            
-        logFile.open("DSMemoryDebug.html", std::ios_base::out | std::ios_base::app);
+        logFile.open("MemoryTracker.html", std::ios_base::out | std::ios_base::app);
 
         // HTML Header
         logFile << "<HTML>\n"
