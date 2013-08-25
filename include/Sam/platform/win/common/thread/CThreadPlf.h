@@ -26,14 +26,9 @@ namespace sam
 	class SAM_COMMON_API CThread : public IAllocated
 	{
 	public:
-		typedef int32 (*ThreadRoutine)(void *);
-
 		/// @brief Default constructor.
-		///
-		/// @param p_pfRoutine Pointer function called by the thread.
-		/// @param p_pData Data sent to the pointer function.
-		CThread(ThreadRoutine p_pfRoutine, void *p_pData);
-		~CThread();
+		CThread();
+		virtual ~CThread();
 
 		/// @brief Create the thread.
 		/// 
@@ -48,22 +43,32 @@ namespace sam
 		/// @return True if no error occurred.
 		bool Start();
 
+		/// @brief Stop the thread.
+		void Stop();
+
+		/// @brief Retrieves if the thread is running.
+		/// 
+		/// @return True if the thread is running.
+		bool IsRunning();
+
+		/// @brief Yield the execution to another thread on the current processor.
+		void Yield();
+
+	protected:
+		/// @brief Call the routine.
+		/// 
+		/// @return Thread return.
+		virtual int32 Run() = 0;
+
 	private:
 		HANDLE m_pThread;
 		uint32 m_nID;
-
-		ThreadRoutine m_pfRoutine;
-		void *m_pData;
+		bool   m_bIsRunning;
 
 		/// @brief Entry point for the thread.
 		/// 
 		/// @param p_pData This pointer.
-		static DWORD WINAPI ThreadEntry(LPVOID p_pData);
-
-		/// @brief Call the routine.
-		/// 
-		/// @return Thread return.
-		int32 Run();
+		static DWORD WINAPI ThreadEntry(LPVOID p_pData);	
 	};
 }
 

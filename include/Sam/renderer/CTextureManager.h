@@ -24,7 +24,7 @@
 namespace sam
 {
     /// @brief Texture manager.
-    class CTextureManager : public IAllocated
+    class SAM_RENDERER_API CTextureManager : public IAllocated
     {
     public:
 		/// @brief Constructor.

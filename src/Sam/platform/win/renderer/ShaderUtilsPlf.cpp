@@ -21,6 +21,7 @@
 #include "SamRendererPCH.h"
 #include "renderer/ShaderUtilsPlf.h"
 #include "renderer/CRenderWindow.h"
+#include "renderer/EShaderState.h"
 
 namespace sam
 {
@@ -51,4 +52,21 @@ namespace sam
 
         return true;
     }
+
+	// Retrieves dx11 comparison function.
+	D3D11_COMPARISON_FUNC GetComparaisonFunc(EComparisonFunc p_eComparisonFunc)
+	{
+		static D3D11_COMPARISON_FUNC s_aComparisonFunc[] = {
+			D3D11_COMPARISON_NEVER,
+			D3D11_COMPARISON_LESS,
+			D3D11_COMPARISON_LESS_EQUAL,
+			D3D11_COMPARISON_EQUAL,			
+			D3D11_COMPARISON_GREATER_EQUAL,
+			D3D11_COMPARISON_GREATER,
+			D3D11_COMPARISON_NOT_EQUAL,
+			D3D11_COMPARISON_ALWAYS
+		};
+
+		return s_aComparisonFunc[p_eComparisonFunc];
+	}
 }

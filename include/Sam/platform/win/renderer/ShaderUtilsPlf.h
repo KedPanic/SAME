@@ -24,6 +24,13 @@
 namespace sam
 {
     extern bool CompileShader(void *p_pData, uint32 p_nSize, const char *p_sFuncName, const char *p_sProfile, ID3DBlob **p_ppBlob);
+
+	/// @brief Retrieves dx11 comparison function.
+	/// 
+	/// @param p_eComparisonFunc Sam Engine comparison function.
+	/// 
+	/// @return Dx11 comparison function.
+	extern D3D11_COMPARISON_FUNC GetComparaisonFunc(EComparisonFunc p_eComparisonFunc);
 }
 
 #endif // __SHADER_UTIL_PLF__

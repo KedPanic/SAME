@@ -48,7 +48,7 @@ namespace sam
 
 		// Retrieves file buffer.
         CTexture *pTexture = SAM_NEW CTexture;
-        if(pTexture->CreateTexture(p_pTexture->Data(), p_pTexture->Size(), _eUsage, _eType))
+        if(pTexture->CreateTexture(p_pTexture->Data(), p_pTexture->Size(), _eUsage, _eType) == false)
         {
 			pTexture->Release();
             SAM_DELETE pTexture;
@@ -58,7 +58,7 @@ namespace sam
         m_aTextures[m_iCurrentTextureID] = pTexture;
         m_iCurrentTextureID++;
 
-		return NULL;
+		return pTexture;
 	}
 
     // Create empty texture.

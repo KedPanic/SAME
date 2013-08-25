@@ -25,6 +25,11 @@
 			subfolder = "input",
 			dependencies = { "SamCommon", "input" }
 		},
+		SamNetwork = {
+			name = "SamNetwork",
+			subfolder = "network",
+			dependencies = { "SamCommon", "network" }
+		},
 		SamEntitySystem = {
 			name = "SamEntitySystem",
 			subfolder = "entitysystem",

@@ -69,6 +69,12 @@ solution "SamEngine"
 			include = "$(DXSDK_DIR)/Include",
 			libdir = "$(DXSDK_DIR)/Lib/x86",
 		}
+		
+		dependencies["network"] = {
+			lib = { "Ws2_32" },
+			include = "",
+			libdir = "",
+		}
 	end
 	
 	--------------------------------------------------------------------
@@ -78,5 +84,6 @@ solution "SamEngine"
 
 	group "tool"
 		dofile("sambox.lua")
+		include("tools/premake4.lua")
 		
 	include("samples/premake4.lua")

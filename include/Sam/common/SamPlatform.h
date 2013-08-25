@@ -27,7 +27,6 @@
 #define ALIGN(addr, size) ALIGN_UP(addr, size)
 
 #include <common/Platform.h>
-#include <common/system/System.h>
 
 // Profiling.
 #if defined SAM_DEBUG && !defined SAM_PROFILING_EXPORTS

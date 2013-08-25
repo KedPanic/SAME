@@ -212,9 +212,6 @@ namespace sam
         //                  SHADER MANAGEMENT             //
         //================================================//
 
-		/// @brief Set constant buffer.
-		void SetConstantBuffer()
-
         /// @brief Create vertex buffer.
         CVertexBuffer *CreateVertexBuffer(void);
 
@@ -270,6 +267,13 @@ namespace sam
 
 		/// @brief Delete all created shaders.
 		void DeleteAllShaders();
+
+		/// @brief Create sampler state.
+		/// 
+		/// @param p_oSamplerStateParams Sampler state parameters.
+		/// 
+		/// @return Pointer to the sampler state or null.
+		CSamplerState *CreateSamplerState(const SSamplerStateParams &p_oSamplerStateParams);
 
 
         //================================================//

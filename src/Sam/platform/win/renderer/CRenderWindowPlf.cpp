@@ -25,6 +25,7 @@
 #include "renderer/CMaterialManager.h"
 #include "renderer/CPixelShader.h"
 #include "renderer/CVertexShader.h"
+#include "renderer/CSamplerState.h"
 
 #include <DxErr.h>
 
@@ -187,8 +188,8 @@ namespace sam
         };
 
         UINT createDeviceFlags = 0;
-#ifdef _DEBUG
-        createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#ifdef SAM_DEBUG
+        //createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
         // try to load with DX11 feature.
@@ -766,6 +767,15 @@ namespace sam
 		}
 	}
 
+	// Create sampler state.
+	CSamplerState *CRenderWindow::CreateSamplerState(const SSamplerStateParams &p_oSamplerStateParams)
+	{
+		CSamplerState *pSamplerState = SAM_NEW CSamplerState;
+		pSamplerState->Initialize(p_oSamplerStateParams);
+
+		return pSamplerState;
+	}
+
 
     //================================================//
     //                  INTERNAL USE                  //
@@ -774,6 +784,7 @@ namespace sam
     // Load DirectX error.
     void CRenderWindow::LogError(HRESULT _hResult, const char *_pMsg /*= ""*/)
     {
+#if defined(SAM_PROFILING)
         switch(_hResult)
         {
         case D3D11_ERROR_FILE_NOT_FOUND:
@@ -816,5 +827,6 @@ namespace sam
             SamLogError("Alternate success value, indicating a successful but nonstandard completion (the precise meaning depends on context). %s\n", _pMsg);
             break;
         }
+#endif
     }
 }

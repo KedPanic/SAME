@@ -22,7 +22,7 @@
 #define __PLUGIN_TEXTURE_EXPORTER_DXT_PCH__
 
 #include <SamCommon.h>
-#include <exports/TextureExporter.h>
+#include <ITextureExporter.h>
 #include <nvtt/nvtt.h>
 
 #ifdef __cplusplus

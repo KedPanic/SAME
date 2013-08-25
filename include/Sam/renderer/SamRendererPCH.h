@@ -51,10 +51,13 @@ namespace sam
     class CMaterialManager;
     class CPixelShader;
     class CRenderWindow;
+	class CSamplerState;
     class CTexture;
 	class CTextureManager;
     class CVertexBuffer;
     class CVertexShader;
+
+	struct SSamplerStateParams;
 
     typedef uint32 FontID;
 

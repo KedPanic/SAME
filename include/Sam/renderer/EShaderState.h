@@ -53,17 +53,17 @@ namespace sam
         BO_Max,
     };
 
-    /// @enum Comparison function used for depth and alpha testing.
+    /// @enum Comparison function used for depth, alpha, stencil testing.
     enum EComparisonFunc
     {
-        CF_Never,           ///< Never pass.
-        CF_Less,            ///< Passes if the current value is less than the reference value.
-        CF_Less_Equal,      ///< Passes if the current value is less than or equal to the reference value.
-        CF_Equal,           ///< Passes if the current value is equal to the reference value.
-        CF_Greater_Equal,   ///< Passes if the current value is greater than or equal to the reference value.
-        CF_Greater,         ///< Passes if the current value is greater than the reference value.
-        CF_Not_Equal,       ///< Passes if the current value is not equal to the reference value.
-        CF_Always,          ///< Always pass.
+        e_ComparisonFunc_Never,           ///< Never pass.
+        e_ComparisonFunc_Less,            ///< Passes if the current value is less than the reference value.
+        e_ComparisonFunc_Less_Equal,      ///< Passes if the current value is less than or equal to the reference value.
+        e_ComparisonFunc_Equal,           ///< Passes if the current value is equal to the reference value.
+        e_ComparisonFunc_Greater_Equal,   ///< Passes if the current value is greater than or equal to the reference value.
+        e_ComparisonFunc_Greater,         ///< Passes if the current value is greater than the reference value.
+        e_ComparisonFunc_Not_Equal,       ///< Passes if the current value is not equal to the reference value.
+        e_ComparisonFunc_Always,          ///< Always pass.
     };
 
     /// @enum Stencil operations.

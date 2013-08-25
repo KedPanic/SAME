@@ -52,13 +52,17 @@ namespace sam
 			{
 			}
 		}
+
+		/// @brief Entry point for the thread.
+		/// 
+		/// @param p_pData This pointer.
+		static DWORD WINAPI ThreadEntry(LPVOID p_pData);
 	}
 
 	// Default constructor.
-	CThread::CThread(ThreadRoutine p_pfRoutine, void *p_pData)
-		: m_pThread(NULL), m_nID(-1), m_pfRoutine(p_pfRoutine), m_pData(p_pData)
+	CThread::CThread()
+		: m_pThread(NULL), m_nID(-1), m_bIsRunning(false)
 	{
-		SAM_ASSERT(p_pfRoutine != NULL, "Routine is required to used a thread");
 	}
 
 	CThread::~CThread()
@@ -88,15 +92,26 @@ namespace sam
 	{
 		SAM_ASSERT(m_pThread != NULL, "Thread was not created");
 
+		m_bIsRunning = true;
 		return ResumeThread(m_pThread) != -1;
 	}
 
-	// Call the routine.
-	int32 CThread::Run()
+	// Stop the thread.
+	void CThread::Stop()
 	{
-		SAM_ASSERT(m_pfRoutine != NULL, "Routine is required to run the thread");
+		m_bIsRunning = false;
+	}
 
-		return m_pfRoutine(m_pData);
+	// Retrieves if the thread is running.
+	bool CThread::IsRunning()
+	{
+		return m_bIsRunning;
+	}
+
+	// Yield the execution to another thread on the current processor.
+	void CThread::Yield()
+	{
+		SwitchToThread();
 	}
 
 	// Entry point for the thread.

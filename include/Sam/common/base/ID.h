@@ -28,8 +28,9 @@ namespace sam
 	{
 	public:
 		// Default constructor.
-		ID();
+		ID();		
 		ID(uint32 p_nID);
+		ID(const ID &p_nID);
 
 		ID& operator =(const ID &p_oID)
 		{
@@ -47,10 +48,8 @@ namespace sam
 			return m_nID == p_oID.m_nID;
 		}
 
-#if defined(SAM_DEBUG)
 		void SetReadableID(const char *p_sID);
-		const char *GetReadableID();
-#endif
+		const char *GetReadableID() const;
 
 	private:
 		uint32 m_nID;	///< Integer ID generated from String.

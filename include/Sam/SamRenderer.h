@@ -30,6 +30,7 @@
 #include <renderer/Color.h>
 #include <renderer/CPixelShader.h>
 #include <renderer/CVertexShader.h>
+#include <renderer/CSamplerState.h>
 #include <renderer/CTexture.h>
 #include <renderer/CTextureManager.h>
 #include <renderer/CVertexBuffer.h>

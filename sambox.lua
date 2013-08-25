@@ -1,5 +1,5 @@
 SamBox = {
-	dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "render", "audio", "input", "wxWidgets" }
+	dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "LibSamExporter", "render", "audio", "input", "wxWidgets" }
 }
 		
 project("SamBox")

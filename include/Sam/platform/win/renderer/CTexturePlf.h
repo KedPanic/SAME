@@ -105,8 +105,19 @@ namespace sam
         /// @param _nSide For cubemap (side of the "cube").
         void Unmap(uint32 _nLevel = 0, uint32 _nSide = 0);
 
+		//================================================//
+		//                  INTERNAL USE                  //
+		//================================================//
+
+		/// @brief Retrieves texture.
+		/// 
+		/// @return Pointer to the texture.
+		ID3D11ShaderResourceView *GetTexture() const {return m_pShaderResourceView;}
+
     private:
         ID3D11Resource *m_pTexture;
+		ID3D11ShaderResourceView *m_pShaderResourceView;
+
         uint32 m_nMipLevels;     ///< Mip levels.
         int m_iID;               ///< Unique ID of the texture.
         int m_iWidth, m_iHeight; ///< Size of the texture.

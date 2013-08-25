@@ -23,6 +23,8 @@
 #include <common/io/CResourceStorageManager.h>
 #include <cJSON.h>
 #include <common/SamModuleInit.h>
+#include <template/TVector.h>
+#include <thread/CJobManager.h>
 
 void *json_malloc(size_t p_nSize)
 {
@@ -36,7 +38,7 @@ void json_free(void *p_pPtr)
 
 namespace sam
 {
-	SSystem g_System;
+	//SSystem g_oSystem;
 
     /// @brief Initialize common module.
     ///
@@ -67,11 +69,12 @@ namespace sam
         g_Env->pLocalizationManager = NULL;
 
 		// Initialize system info.
-		g_System.Initialize();
+		g_oSystem.Initialize();
 
         // create sub system.
         g_Env->pLog = SAM_NEW CLog;
         g_Env->pResourceStorageManager = SAM_NEW CResourceStorageManager;
+		g_Env->pJobManager = SAM_NEW CJobManager;
 
 		return g_Env;
     }

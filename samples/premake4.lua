@@ -1,15 +1,22 @@
 local sample_project_files = os.matchfiles("**premake4.lua")
+table.remove(sample_project_files, 1)
 
 samples = {}
-for _, project in pairs(sample_project_files) do
-	include(project)
+for index, sampleProject in pairs(sample_project_files) do	
+	include(sampleProject)
+end
+
+for index, sample in pairs(samples) do
+	sample.folder = path.getdirectory(sample_project_files[index])
+	sample.name = path.getbasename(sample.folder)
 end
 
 for folder, sample in pairs(samples) do
 	group("samples/"..sample.group)
 		project(sample.name)
+			local folder = sample.folder
 			location(folder)
-			kind "WindowedApp"
+			kind(sample.kind)
 			language "C++"			
 					
 			local commonFlags = { "WinMain", "EnableSSE", "EnableSSE2" }
@@ -36,19 +43,25 @@ for folder, sample in pairs(samples) do
 					end
 				end
 			end
-			includedirs { "../include/sam", "../include/"..platformRootFolder, includes }	
+			includedirs { "../include/sam", "../include/"..platformRootFolder, includes, folder.."/../../sampleapp/" }	
 			
 			-- create virtual folder.
+			local filePattern = { folder.."**.h", folder.."**.cpp", folder.."/readme.txt" }
+			local commonPattern = { folder.."/../../sampleapp/**.h", folder.."/../../sampleapp/**.cpp" }
 			vpaths {
-				["**"] = { folder.."**.h", folder.."**.cpp" }
+				["**"] = filePattern,
+				["sampleapp/**"] = commonPattern
 			}
 								
-			files { folder.."**.h", folder.."**.cpp" }
+			files { 
+				filePattern,
+				commonPattern
+			}
 			
 			------------------------------------------------------------
 			--------------------------------------------  CONFIGURATIONS
 			configuration "Debug"
-				defines { DEBUG_DEF, "ENABLE_PROFILING" }
+				defines { DEBUG_DEF, "ENABLE_PROFILING", sample.defines }
 				flags { "Symbols", commonFlags }
 				objdir(folder.."/obj/debug/")
 				implibdir "../bin/debug/"
@@ -58,7 +71,7 @@ for folder, sample in pairs(samples) do
 				links { "SamProfiling", libraries }
 				
 			configuration "Profile"
-				defines { "NDEBUG", "ENABLE_PROFILING" }
+				defines { "NDEBUG", "ENABLE_PROFILING", sample.defines }
 				flags { "Symbols", commonFlags }
 				objdir(folder.."/obj/profile/")
 				implibdir "../bin/profile/"
@@ -68,7 +81,7 @@ for folder, sample in pairs(samples) do
 				links { "SamProfiling", libraries }
 				
 			configuration "Release"
-				defines { "NDEBUG" }
+				defines { "NDEBUG", sample.defines }
 				flags { "Optimize", "FatalWarnings", commonFlags }
 				objdir(folder.."/obj/release/")
 				implibdir "../bin/release/"

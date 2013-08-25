@@ -112,7 +112,7 @@ namespace sam
 	{
 		SAM_ASSERT(m_pFile != NULL, "m_pFile is null");
 
-		return fwrite(_pData, _iSize, 1, m_pFile);
+		return fwrite(_pData, sizeof(char), _iSize, m_pFile);
 	}
 
 	// Set the position in the stream.

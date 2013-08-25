@@ -21,14 +21,14 @@
 #ifndef __SAM_COMMON_PCH__
 #define __SAM_COMMON_PCH__
 
-#include <common/SamConfig.h>
-
 // sam engine common subsystem macro export
 #ifdef SAM_COMMON_EXPORTS
 #   define SAM_COMMON_API LIBRARY_EXPORT
 #else
 #   define SAM_COMMON_API LIBRARY_IMPORT
 #endif
+
+#include <common/SamConfig.h>
 
 #include <common/io/CFile.h>
 #include <common/base/CLog.h>

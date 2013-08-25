@@ -76,8 +76,6 @@ external/cJSON/cJSON.vcxproj
 external/cJSON/cJSON.vcxproj.filters
 samples/renderer/1_basic/basic.vcxproj
 samples/renderer/1_basic/basic.vcxproj.filters
-samples/*.filters
-samples/**.vcxproj
 *.unsuccessfulbuild
 samples/renderer/1_basic/1_basic.vcxproj
 samples/renderer/1_basic/1_basic.vcxproj.filters
@@ -85,3 +83,12 @@ samples/renderer/2_simple_triangle/2_simple_triangle.vcxproj
 samples/renderer/2_simple_triangle/2_simple_triangle.vcxproj.filters
 samples/renderer/3_cube/3_cube.vcxproj
 samples/renderer/3_cube/3_cube.vcxproj.filters
+
+samples/common/thread/thread.vcxproj
+samples/common/thread/thread.vcxproj.filters
+samples/network/1_helloworld/1_helloworld.vcxproj
+samples/network/1_helloworld/1_helloworld.vcxproj.filters
+samples/renderer/3_texturing/3_texturing.vcxproj
+samples/renderer/3_texturing/3_texturing.vcxproj.filters
+samples/renderer/4_cube/4_cube.vcxproj
+samples/renderer/4_cube/4_cube.vcxproj.filters

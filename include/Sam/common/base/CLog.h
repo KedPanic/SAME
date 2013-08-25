@@ -31,7 +31,7 @@ namespace sam
         ELog_Error,
     };
 
-    /// @brief Simple log callback.
+    /// @brief Log callback.
     class ILogCallback
     {
     public:
@@ -41,7 +41,9 @@ namespace sam
         virtual void OnWriteMessage(ELogType _eType, const String &_sMessage) = 0;
     };
 
-    /// @brief Simple log file.
+    /// @brief Log file.
+	/// 
+	/// @remarks: Log is available in debug and profile.
     class SAM_COMMON_API CLog : public IAllocated
     {
     public:
@@ -99,26 +101,37 @@ namespace sam
 // Helper method to log
 INLINE void SamLog(const char *_sFormat, ...)
 {
+#if defined(SAM_PROFILING)
     va_list args;
     va_start(args, _sFormat);
     sam::g_Env->pLog->LogMessage(sam::ELog_Message, _sFormat, args);
     va_end(args);
+#endif
 }
 
 INLINE void SamLogWarning(const char *_sFormat, ...)
 {
+#if defined(SAM_PROFILING)
     va_list args;
     va_start(args, _sFormat);
     sam::g_Env->pLog->LogMessage(sam::ELog_Warning, _sFormat, args);
     va_end(args);
+#endif
 }
 
-INLINE void SamLogError(const char *_sFormat, ...)
+INLINE void SamLogErrorNoAssert(const char *_sFormat, ...)
 {
+#if defined(SAM_PROFILING)
     va_list args;
     va_start(args, _sFormat);
     sam::g_Env->pLog->LogMessage(sam::ELog_Error, _sFormat, args);
     va_end(args);
+#endif
 }
+
+// We want to break when an error occurred.
+#define SamLogError(p_sFormat, ...)					\
+	SamLogErrorNoAssert(p_sFormat, ##__VA_ARGS__);	\
+	SAM_ASSERT(false, p_sFormat, ##__VA_ARGS__)		\
 
 #endif // __CLOG__

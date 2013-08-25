@@ -58,8 +58,14 @@ namespace sam
 	}
 
 	ID::ID(uint32 p_nID)
-		: m_nID(p_nID)
+		: m_nID(p_nID), m_sID(toStringT(m_nID))
 	{
+	}
+
+	ID::ID(const ID &p_nID)
+		: m_nID(p_nID.m_nID)
+	{
+		SetReadableID(p_nID.m_sID.c_str());
 	}
 
 	void ID::SetReadableID(const char *p_sID)
@@ -69,13 +75,8 @@ namespace sam
 		m_sID = p_sID;
 	}
 
-	const char *ID::GetReadableID()
+	const char *ID::GetReadableID() const
 	{
-		if(m_sID.empty())
-		{
-			m_sID = toStringT(m_nID);
-		}
-
 		return m_sID.c_str();
 	}
 #endif

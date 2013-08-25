@@ -28,7 +28,7 @@ namespace sam
 {
     // Constructor.
     CTexture::CTexture()
-        : m_pTexture(NULL), m_iID(-1), m_iWidth(0), m_iHeight(0), m_eType(e_Texture_Unknown) {}
+        : m_pTexture(NULL), m_pShaderResourceView(NULL), m_iID(-1), m_iWidth(0), m_iHeight(0), m_eType(e_Texture_Unknown) {}
 
     // Destructor.
     CTexture::~CTexture()
@@ -139,6 +139,10 @@ namespace sam
         desc.MiscFlags  = 0;  
         desc.BindFlags  = D3D11_BIND_SHADER_RESOURCE;
 
+		D3D11_SHADER_RESOURCE_VIEW_DESC oShaderResourceViewDesc;
+		ZeroMemory(&oShaderResourceViewDesc, sizeof(D3D11_SHADER_RESOURCE_VIEW_DESC));
+		oShaderResourceViewDesc.Format = p_eFormat;
+
         if(p_eUsage == e_TextureUsage_Dynamic)
         {
             desc.Usage          = D3D11_USAGE_DYNAMIC;
@@ -150,22 +154,61 @@ namespace sam
             desc.CPUAccessFlags = 0;               
         }
 
-        // its a cubemap.
+        // its a cubemap.		
         if(m_eType == e_Texture_CubeMap)
         {
             desc.MiscFlags |= D3D11_RESOURCE_MISC_TEXTURECUBE;
             desc.ArraySize = 6;
+			
+			oShaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+			oShaderResourceViewDesc.TextureCube.MipLevels = m_nMipLevels;
         }
-
+		else
+		{
+			oShaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			oShaderResourceViewDesc.Texture2D.MipLevels = m_nMipLevels;
+			oShaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+		}
+		
         SamLog("Have to implement Texture Settings Quality");
         desc.SampleDesc.Count = 1;
         desc.SampleDesc.Quality = 0;
 
+		// compute pitch
+		uint8 nBytePerPixel = GetBitsPerPixel(p_eFormat) / 8;
+		uint32 nPitch = 0;
+		for(uint32 level = 1; level <= m_nMipLevels; ++level)
+		{
+			nPitch += (m_iWidth / level) * nBytePerPixel;
+		}
+
         // set data.
-        D3D11_SUBRESOURCE_DATA initialData;
-        ZeroMemory(&initialData, sizeof(D3D11_SUBRESOURCE_DATA));
-        initialData.pSysMem = p_pBuffer;
-        initialData.SysMemPitch = m_iWidth * GetBitsPerPixel(desc.Format);
-        return g_Env->pRenderWindow->GetD3DDevice()->CreateTexture2D(&desc, &initialData, (ID3D11Texture2D**)&m_pTexture) == S_OK;
+        D3D11_SUBRESOURCE_DATA *initialData = SAM_ALLOC_ARRAY(D3D11_SUBRESOURCE_DATA, m_nMipLevels);
+		ZeroMemory(&initialData[0], sizeof(D3D11_SUBRESOURCE_DATA));        
+		initialData[0].pSysMem = p_pBuffer;
+		initialData[0].SysMemPitch = nPitch;
+		for(uint32 level = 1; level < m_nMipLevels; ++level)
+		{
+			ZeroMemory(&initialData[level], sizeof(D3D11_SUBRESOURCE_DATA));
+
+			initialData[level].pSysMem = ((uint8*)initialData[level - 1].pSysMem) + ((m_iWidth / level) * nBytePerPixel);
+			initialData[level].SysMemPitch = nPitch;
+		}
+        HRESULT hResult =  g_Env->pRenderWindow->GetD3DDevice()->CreateTexture2D(&desc, initialData, (ID3D11Texture2D**)&m_pTexture);
+		SAM_FREE_ARRAY(initialData);
+		if(hResult == S_OK)
+		{
+			// Create shader view.			
+			HRESULT hResult =  g_Env->pRenderWindow->GetD3DDevice()->CreateShaderResourceView(m_pTexture, &oShaderResourceViewDesc, &m_pShaderResourceView);
+			if(hResult != S_OK)
+			{
+				g_Env->pRenderWindow->LogError(hResult);
+			}
+
+			return true;
+		}
+		
+		g_Env->pRenderWindow->LogError(hResult);
+		return false;
     }
 }

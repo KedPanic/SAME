@@ -22,45 +22,36 @@
 #define __SAM_PARAM__
 
 namespace sam
-{	
-	/// @enum Define type of parameter
-	enum EParamType
-	{
-		e_ParamType_Bool,
-		e_ParamType_Int,
-		e_ParamType_Float,
-		e_ParamType_String,
-		e_ParamType_Void,
-	};
-
+{
 	/// @brief Parameter
 	struct SParam
 	{
-		EParamType m_eType;		///< Type of the parameter.
-		const char *m_sName;	///< Name of the parameter.
+		ETypeID		m_eType;	///< Type of the parameter.
+		const ID	m_nID;		///< ID of the parameter.
 
 		union
 		{
-			bool  b;
-			int   i;
-			float f;
+			bool	b;
+			int32	i;
+			f32		f;
+			uint32	ui;
 			const char *str;
 		}m_oValue; ///< Value of the parameter.
 
 		/// @brief Default constructor
 		///
-		/// @param p_sName Name of the parameter.
-		SParam(const char *p_sName)
-			: m_eType(e_ParamType_Void), m_sName(p_sName)
+		/// @param p_nID ID of the parameter.
+		SParam(const ID p_nID)
+			: m_eType(e_Type_Void), m_nID(p_nID)
 		{
 		}
 
 		/// @brief Boolean constructor.
 		/// 
 		/// @param p_bValue Value.
-		/// @param p_sName Name of the parameter.
-		SParam(bool p_bValue, const char *p_sName)
-			: m_eType(e_ParamType_Bool), m_sName(p_sName)
+		/// @param p_nID ID of the parameter.
+		SParam(bool p_bValue, const ID p_nID)
+			: m_eType(e_Type_Bool), m_nID(p_nID)
 		{
 			m_oValue.b = p_bValue;
 		}
@@ -68,19 +59,29 @@ namespace sam
 		/// @brief Integer constructor.
 		/// 
 		/// @param p_nValue Value.
-		/// @param p_sName Name of the parameter.
-		SParam(int p_nValue, const char *p_sName)
-			: m_eType(e_ParamType_Int), m_sName(p_sName)
+		/// @param p_nID ID of the parameter.
+		SParam(int32 p_nValue, const ID p_nID)
+			: m_eType(e_Type_Int), m_nID(p_nID)
 		{
 			m_oValue.i = p_nValue;
+		}
+
+		/// @brief Integer constructor.
+		/// 
+		/// @param p_nValue Value.
+		/// @param p_nID ID of the parameter.
+		SParam(uint32 p_nValue, const ID p_nID)
+			: m_eType(e_Type_UInt), m_nID(p_nID)
+		{
+			m_oValue.ui = p_nValue;
 		}
 
 		/// @brief Real constructor.
 		/// 
 		/// @param p_fValue Value.
-		/// @param p_sName Name of the parameter.
-		SParam(float p_fValue, const char *p_sName)
-			: m_eType(e_ParamType_Float), m_sName(p_sName)
+		/// @param p_nID ID of the parameter.
+		SParam(float p_fValue, const ID p_nID)
+			: m_eType(e_Type_Float), m_nID(p_nID)
 		{
 			m_oValue.f = p_fValue;
 		}
@@ -88,9 +89,9 @@ namespace sam
 		/// @brief String constructor.
 		/// 
 		/// @param p_sValue Value.
-		/// @param p_sName Name of the parameter.
-		SParam(const char *p_sValue, const char *p_sName)
-			: m_eType(e_ParamType_String), m_sName(p_sName)
+		/// @param p_nID ID of the parameter.
+		SParam(const char *p_sValue, const ID p_nID)
+			: m_eType(e_Type_Char), m_nID(p_nID)
 		{
 			m_oValue.str = p_sValue;
 		}

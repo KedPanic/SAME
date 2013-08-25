@@ -1,5 +1,6 @@
-samples["renderer/3_cube"] = {
-	name = "3_cube",
+local sample = {
+	kind = "WindowedApp",
 	group = "renderer",
 	dependencies = { "SamCommon", "SamRenderer", "render" }
 }
+table.insert(samples, sample)

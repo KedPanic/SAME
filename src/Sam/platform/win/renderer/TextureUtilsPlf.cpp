@@ -108,7 +108,7 @@ namespace sam
 
 		case DXGI_FORMAT_BC3_UNORM:
 		case DXGI_FORMAT_BC5_UNORM:
-			return 8;
+			return 32;
 
 		default:
 			SAM_ASSERT(0, "Unsupported texture format");

@@ -33,7 +33,7 @@ namespace sam
 			m_aFormat[0].m_nFormat = e_Format_BC1;
 			m_aFormat[0].m_sReadableName = "RGB compressed BC1";
 			m_aFormat[1].m_nFormat = e_Format_BC2;
-			m_aFormat[0].m_sReadableName = "RGBA compressed BC2";
+			m_aFormat[1].m_sReadableName = "RGBA compressed BC2";
 			m_aFormat[2].m_nFormat = e_Format_BC3;
 			m_aFormat[2].m_sReadableName = "RGBA compressed BC3";
 		}

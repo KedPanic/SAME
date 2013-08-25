@@ -115,8 +115,9 @@ namespace sam
 #   define SAM_FREE(Ptr) sam::CAllocator::Free((void*)Ptr)
 #	define SAM_FREE_ARRAY(Ptr) sam::CAllocator::Free((void*)Ptr)
 // internal type
-#	define SAM_NEW      new (__FILE__, __LINE__)
-#	define SAM_DELETE     delete
+#	define SAM_NEW			new (__FILE__, __LINE__)
+#	define SAM_NEW_ARRAY	new (__FILE__, __LINE__)
+#	define SAM_DELETE		delete
 #   define SAM_DELETE_ARRAY delete[]
 #else
 // external type
@@ -125,8 +126,9 @@ namespace sam
 #   define SAM_FREE(Ptr) delete Ptr
 #   define SAM_FREE_ARRAY(Ptr) delete[] Ptr
 // internal type
-#	define SAM_NEW      new
-#	define SAM_DELETE     delete
+#	define SAM_NEW			new
+#	define SAM_NEW_ARRAY	new
+#	define SAM_DELETE		delete
 #   define SAM_DELETE_ARRAY delete[]
 #endif
 

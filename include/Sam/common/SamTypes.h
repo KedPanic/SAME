@@ -34,6 +34,8 @@ namespace sam
         e_Type_UChar,
         e_Type_Float,
         e_Type_Half,
+		e_Type_Bool,
+		e_Type_Void,
     };
 
     enum EResult

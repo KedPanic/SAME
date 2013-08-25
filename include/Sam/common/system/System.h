@@ -26,7 +26,7 @@
 namespace sam
 {
 	/// @brief System informations.
-	struct SSystem
+	struct SAM_COMMON_API SSystem
 	{
 		SCPU m_oCPU;			///< CPU Informations.
 		uint32 m_nSystemMemory;	///< System memory amount (in megabyte)
@@ -42,7 +42,7 @@ namespace sam
 		void Initialize();
 	};
 	
-	extern SSystem g_System;
+	SAM_COMMON_API SSystem g_oSystem;
 }
 
 #endif // __SAM_SYSTEM_H__

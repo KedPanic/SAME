@@ -52,26 +52,63 @@ namespace sam
 				T m_current;
 			};
 
-			Vector(uint32 p_nNbElements)
-				: m_nNbElements(p_nNbElements)
+			/// @brief Default constructor.
+			/// 
+			/// @param p_nGranularity Base size of the array.
+			Vector(uint32 p_nGranularity = 8)
+				: m_pData(NULL), m_nSize(0), m_nNbElements(0), m_nGranularity(p_nGranularity)
 			{
-				
+				SAM_ASSERT(p_nGranularity != 0, "the granularity can't be equal to 0");
 			}
+
+			/// @brief Set the current size of the array.
+			void SetSize(uint32 p_nSize)
+			{
+				Resize(p_nSize);
+			}
+
+			/// @brief Clear the vector.
+			void Clear()
+			{
+				memset(m_pData, 0, sizeof(T) * m_nNbElements);
+				m_nNbElements = 0;
+			}
+
+			/// @brief Retrieves if the vector is empty.
+			///
+			/// @return true if the vector is empty.
+			bool IsEmpty() const {return m_nNbElements == 0;}
+
+			/// @brief Retrieves the number of allocated elements.
+			///
+			/// @return the number of allocated elements.
+			uint32 GetNbElements() const {return m_nNbElements;}
 
 			T& Push(T p_Value)
 			{
-				m_pData[m_nSize] = p_Value;
-				++m_nSize;
-
 				if(m_nSize == m_nNbElements)
 				{
-					Reallocate();
+					Resize(m_nSize + m_nGranularity);
 				}
+
+				++m_nNbElements;
+				return m_pData[m_nNbElements - 1] = p_Value;
 			}
 
-			T& operator[] (uint32 p_nIndex)
+			T& Alloc()
 			{
-				SAM_ASSERT(p_nIndex < m_nNbElements);
+				if(m_nSize == m_nNbElements)
+				{
+					Resize(m_nSize + m_nGranularity);
+				}
+
+				++m_nNbElements;
+				return m_pData[m_nNbElements - 1];
+			}
+
+			T& operator[] (uint32 p_nIndex) const
+			{
+				SAM_ASSERT(p_nIndex < m_nNbElements, "Index is out of the number of elements.");
 
 				return m_pData[p_nIndex];
 			}
@@ -79,19 +116,32 @@ namespace sam
 		private:
 			T *m_pData;
 			uint32 m_nSize;
-			uint32 m_nNbElements;			
+			uint32 m_nNbElements;
+			uint32 m_nGranularity;
 
-			void Allocate()
+			void Resize(uint32 p_nNewSize)
 			{
-				m_pData = SAM_ALLOC_ARRAY(T, m_nNbElements);
-			}
+				T *pOldData = m_pData;
 
-			void Reallocate()
-			{
-				m_nNbElements *= 2;
-				m_pData = realloc(m_pData, m_nNbElements * sizeof(T))
+				p_nNewSize += m_nGranularity;
+				m_pData = SAM_ALLOC_ARRAY(T, p_nNewSize * sizeof(T));
+
+				if(pOldData)
+				{
+					memcpy(m_pData, pOldData, m_nSize);
+					SAM_FREE_ARRAY(pOldData);
+
+					if(p_nNewSize < m_nNbElements)
+					{
+						m_nNbElements = p_nNewSize;
+					}
+				}
+
+				m_nSize = p_nNewSize;
 			}
 		};
+
+
 	}
 }
 

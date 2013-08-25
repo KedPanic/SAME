@@ -24,6 +24,7 @@
 #include <common/SamCommonPCH.h>
 
 #include <common/base/CAllocator.h>
+#include <common/base/CFunctor.h>
 #include <common/base/CLog.h>
 #include <common/base/CTimer.h>
 #include <common/base/ID.h>
@@ -32,6 +33,7 @@
 
 #include <common/io/CResourceStorageManager.h>
 #include <common/io/CFile.h>
+#include <common/io/CMemoryStream.h>
 #include <common/io/ISerializable.h>
 #include <common/io/CBinarySerializer.h>
 #include <common/io/CJSONSerializer.h>
@@ -42,5 +44,12 @@
 #include <common/math/Matrix.h>
 
 #include <common/template/TList.h>
+#include <common/template/TVector.h>
+
+#include <common/thread/CAtomic.h>
+#include <common/thread/CMutex.h>
+#include <common/thread/CThread.h>
+#include <common/thread/CJobArray.h>
+#include <common/thread/CJobManager.h>
 
 #endif

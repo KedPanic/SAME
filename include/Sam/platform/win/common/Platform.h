@@ -27,6 +27,7 @@
 #include <map>
 #include <list>
 #include <vector>
+#include <queue>
 
 #include <string>
 #include <cstdio>
@@ -41,8 +42,13 @@
 
 #include <shlobj.h>
 
+// undef some windows stuffs.
 #ifdef CopyFile
 #   undef CopyFile
+#endif
+
+#ifdef Yield
+#	undef Yield
 #endif
 
 #define INLINE __forceinline
@@ -126,11 +132,16 @@ static bool SamAssert(bool p_bCondition, const char *_sFormat, ...)
 		if(SamAssert(_bCondition, "File %s - Line %d\n"#_sMessage, __FILE__, __LINE__, ##__VA_ARGS__)) \
 			DEBUG_BREAK;	\
 	}
+
+#define SAM_TRAP(p_bCondition)	\
+	while(!(p_bCondition)) {DEBUG_BREAK;}
+
 #else
 #	define DEBUG_BREAK
 
 #   define SamAssert(_bCondition, _sFormat, _pArg)
 #   define SAM_ASSERT(_bCondition, _sMessage, ...)
+#	define SAM_TRAP(p_bCondition)
 #endif // _DEBUG
 
 //*******************************************//
@@ -140,6 +151,7 @@ void SamLogWarning(const char *_sFormat, ...);
 void SamLogError(const char *_sFormat, ...);
 
 typedef HMODULE Library;
+typedef FARPROC Symbol;
 
 #if defined SAM_DEBUG
 #	define SHARED_LIBRARY_EXT "_D.dll"
@@ -203,7 +215,7 @@ static bool SamFreeLibrary(Library p_pLibHandle)
 /// @param p_sSymbolName Symbol to find.
 ///
 /// @return Symbol address.
-static INLINE FARPROC SamGetSymbol(Library p_pLibHandle, const char *p_sSymbolName)
+static INLINE Symbol SamGetSymbol(Library p_pLibHandle, const char *p_sSymbolName)
 {
 	return GetProcAddress(p_pLibHandle, p_sSymbolName);
 }

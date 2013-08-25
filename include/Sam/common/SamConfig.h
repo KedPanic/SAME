@@ -22,6 +22,7 @@
 #define __SAM_ENGINE_CONFIG__
 
 #include "common/SamPlatform.h"
+#include "common/system/System.h"
 
 // enumeration
 #include "common/SamTypes.h"
@@ -40,8 +41,10 @@ namespace sam
 	
 	class CInputManager;
 	class CEntitySystem;
-    class CLocalizationManager;
-    class CLog;
+	class CJobArray;
+	class CJobManager;
+	class CLog;
+    class CLocalizationManager;    
     class CMaterialManager;
 	class CRenderWindow;
 	class CResourceStorageManager;
@@ -51,7 +54,7 @@ namespace sam
     class IFramework;
     class IGame;
     class ISerializer;
-    class ISerializable;    
+    class ISerializable;
     
     /// @brief Global environment variables.
     /// @remarks Will be created by CommonInit()
@@ -66,6 +69,7 @@ namespace sam
         CMaterialManager *pMaterialManager;
         CTextureManager *pTextureManager;
 		CEntitySystem *m_pEntitySystem;
+		CJobManager *pJobManager;
 /*
         ISoundManager *pSoundManager;
         IPhysicalWorld *pPhysicalWorld;

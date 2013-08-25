@@ -36,7 +36,7 @@ namespace sam
         "SPECULAR",         // VS_Specular,
         "BINORMAL",         // VS_Binormal,
         "TANGENT",          // VS_Tangent,
-        "TEXCOORD0"         // VS_Texture_Coord0,
+        "TEXCOORD"          // VS_Texture_Coord0,
     };
 
     static DXGI_FORMAT gs_eFormat[8][4] =
@@ -110,25 +110,35 @@ namespace sam
             m_pInputLayout = NULL;
         }
 
-        D3D11_INPUT_ELEMENT_DESC *layout = SAM_ALLOC_ARRAY(D3D11_INPUT_ELEMENT_DESC, p_pVertexBuffer->GetNbElements());
-        uint32 nOffset = 0;
-        for(uint32 i = 0; i < p_pVertexBuffer->GetNbElements(); ++i)
-        {
-            layout[i].SemanticName = gs_SemanticName[p_pVertexBuffer->GetSemantic(i)];
-            layout[i].SemanticIndex = 0;
-            layout[i].Format = gs_eFormat[p_pVertexBuffer->GetTypeID(i)][p_pVertexBuffer->GetNbComponent(i) - 1];
-            layout[i].InputSlot = 0;
-            layout[i].AlignedByteOffset = nOffset;
-            layout[i].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-            layout[i].InstanceDataStepRate = 0;
+        D3D11_INPUT_ELEMENT_DESC *layout = SAM_ALLOC_ARRAY(D3D11_INPUT_ELEMENT_DESC, p_pVertexBuffer->GetNbElements());        
+		{
+			uint32 nOffset = 0;
+			uint32 index = 0;
+			while(true)
+			{
+				layout[index].SemanticName = gs_SemanticName[p_pVertexBuffer->GetSemantic(index)];
+				layout[index].SemanticIndex = 0;
+				layout[index].Format = gs_eFormat[p_pVertexBuffer->GetTypeID(index)][p_pVertexBuffer->GetNbComponent(index) - 1];
+				layout[index].InputSlot = 0;
+				layout[index].AlignedByteOffset = nOffset;
+				layout[index].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+				layout[index].InstanceDataStepRate = 0;
 
-            nOffset += p_pVertexBuffer->GetOffset(i);
-        }
+				++index;
+				if(index >= p_pVertexBuffer->GetNbElements())
+				{
+					break;
+				}
+				
+				nOffset += p_pVertexBuffer->GetOffset(index);
+			}
+		}
 
         HRESULT hResult = g_Env->pRenderWindow->GetD3DDevice()->CreateInputLayout(layout, p_pVertexBuffer->GetNbElements(), m_pBlob->GetBufferPointer(), m_pBlob->GetBufferSize(), &m_pInputLayout);
         SAM_FREE_ARRAY(layout);
         if(hResult != S_OK)
         {
+			g_Env->pRenderWindow->LogError(hResult);
             return false;
         }
 

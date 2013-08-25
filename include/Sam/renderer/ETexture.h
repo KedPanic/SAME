@@ -65,22 +65,7 @@ namespace sam
         e_TextureMap_Read,            ///< Read access.
         e_TextureMap_Write,           ///< Write access.
         e_TextureMap_ReadWrite,       ///< R/W access.
-    };
-
-	/// @enum Texture wrapping mode.
-	enum ETextureWrap
-	{
-		e_TextureWrap_Mirror,
-		e_TextureWrap_Repeat,
-		e_TextureWrap_Clamp,
-	};
-
-	/// @enum Texture filtering.
-	enum ETextureFilter
-	{
-		e_TextureFilter_Point,
-		e_TextureFilter_Linear,
-	};
+    };	
 }
 
 #endif // __ETEXTURE__
