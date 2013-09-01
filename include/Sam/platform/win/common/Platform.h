@@ -23,6 +23,9 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
+#pragma warning(push)
+#pragma warning(disable : 4530 )
+
 #include <set>
 #include <map>
 #include <list>
@@ -41,6 +44,7 @@
 #include <xmmintrin.h>
 
 #include <shlobj.h>
+#pragma warning(pop)
 
 // undef some windows stuffs.
 #ifdef CopyFile

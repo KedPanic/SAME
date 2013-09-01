@@ -40,6 +40,9 @@ namespace sam
 		case WSAEWOULDBLOCK:
 			return "A non-blocking socket operation could not be completed immediately.";
 
+		case WSAECONNRESET:
+			return "An existing connection was forcibly closed by the remote host.";
+
 		default:
 			SAM_TRAP(false);
 			return "Unknow error";

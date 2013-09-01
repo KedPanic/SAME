@@ -21,15 +21,8 @@
 */
 
 /* cJSON */
-/* JSON parser in C. */
-#include <string.h>
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <float.h>
-#include <limits.h>
-#include <ctype.h>
-#include "cJSON.h"
+#include "SamCommonPCH.h"
+#include "common/io/cJSON.h"
 
 static const char *ep;
 
@@ -134,7 +127,10 @@ static char *print_number(cJSON *item)
 	if (fabs(((double)item->valueint)-d)<=DBL_EPSILON && d<=INT_MAX && d>=INT_MIN)
 	{
 		str=(char*)cJSON_malloc(21);	/* 2^64+1 can be represented in 21 chars. */
-		if (str) sprintf(str,"%d",item->valueint);
+		if (str != NULL)
+		{
+			sprintf(str, "%d", item->valueint);
+		}
 	}
 	else
 	{

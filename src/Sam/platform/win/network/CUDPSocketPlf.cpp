@@ -107,7 +107,7 @@ namespace sam
 	}
 
 	// Send data to a specific destination.
-	uint32 CUDPSocket::Send(char *p_sData, uint32 p_nSize, CNetAddress *p_oTo)
+	uint32 CUDPSocket::Send(const char *p_sData, uint32 p_nSize, CNetAddress *p_oTo)
 	{
 		SAM_ASSERT(m_hSocket != InvalidSocket, "Socket is not created");
 

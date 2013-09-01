@@ -54,6 +54,9 @@ namespace sam
 		/// @brief Yield the execution to another thread on the current processor.
 		void Yield();
 
+		/// @brief Wait until the thread is not finish.
+		void Wait();
+
 	protected:
 		/// @brief Call the routine.
 		/// 

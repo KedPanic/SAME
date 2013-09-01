@@ -38,6 +38,7 @@
 #include <common/io/CBinarySerializer.h>
 #include <common/io/CJSONSerializer.h>
 #include <common/io/CXMLSerializer.h>
+#include <common/io/CBitStream.h>
 
 #include <common/math/Math.h>
 #include <common/math/Vector.h>

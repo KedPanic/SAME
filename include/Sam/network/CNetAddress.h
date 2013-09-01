@@ -61,6 +61,11 @@ namespace sam
 		/// @return The integer representation of the ip address.
 		uint32 GetIp();
 
+		/// @brief Set the ip address from string
+		/// 
+		/// @param p_sIp Ip address.
+		void SetIp(const char *p_sIp);
+
 		/// @brief Set the ip address in network byte order.
 		/// 
 		/// @param p_nIp Ip address.

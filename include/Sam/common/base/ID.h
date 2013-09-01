@@ -48,6 +48,11 @@ namespace sam
 			return m_nID == p_oID.m_nID;
 		}
 
+		uint32 GetID()
+		{
+			return m_nID;
+		}
+
 		void SetReadableID(const char *p_sID);
 		const char *GetReadableID() const;
 

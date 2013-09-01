@@ -33,7 +33,7 @@ namespace sam
 {
     struct cmp_str
     {
-        bool operator()(const char *_pStrA, const char *_pStrB)
+        bool operator()(const char *_pStrA, const char *_pStrB) const
         {
             return strcmp(_pStrA, _pStrB) < 0;
         }

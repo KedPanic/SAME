@@ -21,7 +21,7 @@
 #include "SamCommonPCH.h"
 #include <common/base/CLog.h>
 #include <common/io/CResourceStorageManager.h>
-#include <cJSON.h>
+#include <common/io/cJSON.h>
 #include <common/SamModuleInit.h>
 #include <template/TVector.h>
 #include <thread/CJobManager.h>

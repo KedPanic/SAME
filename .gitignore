@@ -92,3 +92,5 @@ samples/renderer/3_texturing/3_texturing.vcxproj
 samples/renderer/3_texturing/3_texturing.vcxproj.filters
 samples/renderer/4_cube/4_cube.vcxproj
 samples/renderer/4_cube/4_cube.vcxproj.filters
+samples/network/2_chat/2_chat.vcxproj
+samples/network/2_chat/2_chat.vcxproj.filters

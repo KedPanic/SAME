@@ -8,7 +8,7 @@
 		SamCommon = {
 			name = "SamCommon",
 			subfolder = "common",
-			dependencies = { "cJSON", "tinyxml2" }
+			dependencies = { "tinyxml2" }
 		},
 		SamRenderer = {
 			name = "SamRenderer",
@@ -132,7 +132,7 @@
 				end						
 				
 			configuration "Profile"
-				defines { "NDEBUG", "ENABLE_PROFILING" }
+				defines { "NDEBUG", "ENABLE_PROFILING", "SAM_"..upperName.."_EXPORTS" }
 				flags { "Symbols", commonFlags }
 				objdir("build/".._ACTION.."/obj/profile/"..proj.name)
 				implibdir "lib/profile/"
@@ -145,7 +145,7 @@
 				end
 				
 			configuration "Release"
-				defines { "NDEBUG" }
+				defines { "NDEBUG", "SAM_"..upperName.."_EXPORTS" }
 				flags { "Optimize", "FatalWarnings", commonFlags }
 				objdir("build/".._ACTION.."/obj/release/"..proj.name)
 				implibdir "lib/release/"

@@ -114,6 +114,12 @@ namespace sam
 		SwitchToThread();
 	}
 
+	/// @brief Wait until the thread is not finish.
+	void CThread::Wait()
+	{
+		WaitForSingleObject(m_pThread, INFINITE);
+	}
+
 	// Entry point for the thread.
 	DWORD CThread::ThreadEntry(LPVOID p_pData)
 	{

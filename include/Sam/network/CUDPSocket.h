@@ -58,7 +58,7 @@ namespace sam
 		/// @param p_oTo Address of the target.
 		/// 
 		/// @return Number of bytes sent.
-		uint32 Send(char *p_sData, uint32 p_nSize, CNetAddress *p_oTo);
+		uint32 Send(const char *p_sData, uint32 p_nSize, CNetAddress *p_oTo);
 		
 		/// @brief Receives a datagram.
 		/// 

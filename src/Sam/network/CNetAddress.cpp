@@ -54,13 +54,21 @@ namespace sam
 	// Retrieve the string representation of the ip address.
 	const char *CNetAddress::ToString()
 	{
-		return NULL;
+		static char s_sBuffer[16];
+		sprintf(s_sBuffer, "%d.%d.%d.%d", m_nIp[0], m_nIp[1], m_nIp[2], m_nIp[3]);
+		return s_sBuffer;
 	}
 
 	// Retrieve the integer representation of the ip address in network byte order.
 	uint32 CNetAddress::GetIp()
 	{
 		return *(uint32*)&m_nIp;
+	}
+
+	// Set the ip address from string
+	void CNetAddress::SetIp(const char *p_sIp)
+	{
+		*(uint32*)&m_nIp = inet_addr(p_sIp);
 	}
 
 	// Set the ip address in network byte order.

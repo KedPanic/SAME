@@ -39,7 +39,6 @@ solution "SamEngine"
 	---------------------------  CREATION EXTERNAL DEPENDENCIES PROJECTS
 	dependencies = {}
 	local dependencie_folder = {
-		"external/cJSON/premake4.lua",
 		"external/tinyxml2/premake4.lua",
 		"external/wxWidgets/premake4.lua",
 	}
