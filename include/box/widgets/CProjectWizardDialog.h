@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __PROJECT_WIZARD_FRAME__
-#define __PROJECT_WIZARD_FRAME__
+#ifndef __SAMBOX_PROJECT_WIZARD_FRAME__
+#define __SAMBOX_PROJECT_WIZARD_FRAME__
 
 class CProjectWizardDialog : public wxDialog
 {
@@ -40,6 +40,8 @@ private:
 
 	void OnBrowseProjectLocation(wxCommandEvent &p_oEvent);
 	void OnCreateProject(wxCommandEvent &p_oEvent);
+	void OnOpenProject(wxCommandEvent &p_oEvent);
+	void OnOpenOtherProject(wxCommandEvent &p_oEvent);
 };
 
-#endif // __PROJECT_WIZARD_FRAME__
+#endif // __SAMBOX_PROJECT_WIZARD_FRAME__

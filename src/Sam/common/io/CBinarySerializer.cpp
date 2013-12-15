@@ -169,6 +169,11 @@ namespace sam
 		m_oFile.Write(&p_nValue, sizeof(int));
 	}
 
+	void CBinarySerializer::WriteValue(const char *p_sName, const uint32  &p_nValue)
+	{
+		m_oFile.Write(&p_nValue, sizeof(uint32));
+	}
+
 	void CBinarySerializer::WriteValue(const char *p_sName, const char *p_sValue)
 	{
 		m_oFile.Write(p_sValue, strlen(p_sValue) + 1);

@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __BOXAUINOTEBOOK__
-#define __BOXAUINOTEBOOK__
+#ifndef __SAMBOX_BOXAUINOTEBOOK__
+#define __SAMBOX_BOXAUINOTEBOOK__
 
 /// @brief
 class boxAuiNotebook : public wxAuiNotebook
@@ -37,4 +37,4 @@ public:
 private:
 };
 
-#endif // __BOXAUINOTEBOOK__
+#endif // __SAMBOX_BOXAUINOTEBOOK__

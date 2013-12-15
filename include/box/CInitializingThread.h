@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __INITIALIZING_THREAD__
-#define __INITIALIZING_THREAD__
+#ifndef __SAMBOX_INITIALIZING_THREAD__
+#define __SAMBOX_INITIALIZING_THREAD__
 
 /// @brief Thread used when we launch the editor.
 class CInitializingThread : public wxThread
@@ -42,4 +42,4 @@ private:
 	void SendEvent(const wxString &p_sMessage);
 };
 
-#endif // __INITIALIZING_THREAD__
+#endif // __SAMBOX_INITIALIZING_THREAD__

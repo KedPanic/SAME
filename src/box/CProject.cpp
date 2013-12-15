@@ -20,18 +20,30 @@
 //===========================================
 #include "SamBoxPCH.h"
 #include "CProject.h"
+#include "CSamBox.h"
+#include "CPlatform.h"
+#include "resources/CFolder.h"
 
 // Default constructor.
-CProject::CProject()
-	: m_pConfiguration(NULL), m_bIsDirty(false)
+CProject::CProject(const String &p_sName, const String &p_sPath)
+	: m_sName(p_sName), m_sPath(p_sPath), m_bIsDirty(false), m_pAssetFolder(NULL)
 {
+	m_pAssetFolder = SAM_NEW CFolder("Packages", m_sPath + "/assets/");
 
+	// send the event.
+	// sam::g_Env->pSignalManager->QueueSignal(new CCreateFolderSignal(m_pAssetFolder));
+
+	// add the PC platform (it is the default platform).
+	SAM_TRAP(g_pSamBox->GetSupportedPlatforms().empty() == false);
+	CPlatform *pPlatform = *g_pSamBox->GetSupportedPlatforms().begin();
+	SAM_TRAP(pPlatform->GetName() == "PC");
+	m_oConfiguration.m_aPlatforms.push_back(pPlatform);
 }
 
 /// @brief Destructor.
 CProject::~CProject()
 {
-	SAM_DELETE m_pConfiguration;
+	SAM_FREE(m_pAssetFolder);
 }
 
 // Initialize the project.
@@ -49,5 +61,28 @@ void CProject::Read(sam::ISerializer *p_pContext)
 // Serialize the object
 void CProject::Write(sam::ISerializer *p_pContext)
 {
+	Platforms::iterator oPlatformIt = m_oConfiguration.m_aPlatforms.begin();
+	Platforms::iterator oPlatformItEnd = m_oConfiguration.m_aPlatforms.end();
+	while(oPlatformIt != oPlatformItEnd)
+	{
+		p_pContext->BeginElem("platform");
+		p_pContext->WriteValue("id", (*oPlatformIt)->GetId());
+		p_pContext->WriteValue("name", (*oPlatformIt)->GetName().c_str());
+		p_pContext->EndElem();
+	}			
+}
 
+// Create new package.
+CFolder *CProject::CreatePackage(const String &p_sName)
+{
+	// create the folder.
+	CFolder *pFolder = SAM_NEW CFolder(p_sName, m_pAssetFolder->GetPath() + p_sName, m_pAssetFolder);
+
+	// add the package to the root folder.
+	m_pAssetFolder->AddResource(pFolder);
+
+	// send the event.
+	sam::g_Env->pSignalManager->QueueSignal(new CResourceCreatedSignal(pFolder));
+
+	return pFolder;
 }

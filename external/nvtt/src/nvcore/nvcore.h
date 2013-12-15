@@ -119,7 +119,7 @@
 
 
 // cmake config
-#include "nvconfig.h"
+//#include "nvconfig.h"
 
 
 // Type definitions:

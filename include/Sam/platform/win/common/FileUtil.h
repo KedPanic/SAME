@@ -143,6 +143,11 @@ namespace sam
     {
         return ::CopyFileA(p_sBaseFile, p_sDestFile, false) != 0;
     }
+
+
+	/// @brief Retrieves the last modification time of the specified file.
+	/// 
+	/// @param p_sPath File path.
 }
 
 #endif // __WIN_FILEUTIL__

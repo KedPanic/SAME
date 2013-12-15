@@ -18,23 +18,25 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __INITIALIZING_THREAD__
-#define __INITIALIZING_THREAD__
+#ifndef __SAMBOX_GAUGE_THREAD__
+#define __SAMBOX_GAUGE_THREAD__
 
-/// @brief Thread used when we launch the editor.
-class CInitializingThread : public wxThread
+/// @brief Thread used when we load a project
+class CGaugeThread : public wxThread
 {
 public:
 	/// @brief Constructor.
 	/// 
 	/// @param p_pSplashScreen Application.
-	CInitializingThread(CSplashScreen *p_pSplashScreen);
+	CGaugeThread(CProject *p_pProject);
 
 	wxThread::ExitCode Entry();
 
 private:
-	CSamBox *m_pApp;
-	CSplashScreen *m_pSplashScreen;
+	CProject *m_pProject;
+	wxProgressDialog *m_pProgressDialog;
+
+	void ParseFolder(CFolder *p_pParentFolder);
 
 	/// @brief Send event to the splash screen.
 	/// 
@@ -42,4 +44,4 @@ private:
 	void SendEvent(const wxString &p_sMessage);
 };
 
-#endif // __INITIALIZING_THREAD__
+#endif // __SAMBOX_GAUGE_THREAD__

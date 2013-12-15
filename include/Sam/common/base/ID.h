@@ -43,9 +43,34 @@ namespace sam
 			return *this;
 		}
 
+		bool operator !=(const ID &p_oID) const
+		{
+			return m_nID != p_oID.m_nID;
+		}
+
 		bool operator ==(const ID &p_oID) const
 		{
 			return m_nID == p_oID.m_nID;
+		}
+
+		bool operator ==(ID &p_oID) const
+		{
+			return m_nID == p_oID.m_nID;
+		}
+
+		bool operator ==(const uint32 &p_nValue) const
+		{
+			return m_nID == p_nValue;
+		}
+
+		bool operator <(const ID &p_oID) const
+		{
+			return m_nID < p_oID.m_nID;
+		}
+
+		operator uint32()
+		{
+			return m_nID;
 		}
 
 		uint32 GetID()
@@ -59,10 +84,12 @@ namespace sam
 	private:
 		uint32 m_nID;	///< Integer ID generated from String.
 		String m_sID;	///< Readable ID for debug only.
-	};
+	};	
 #else
 	typedef uint32 ID;
 #endif
+
+	static const ID InvalidId = ~0;
 
 	/// @brief Create unique ID from string.
 	/// 

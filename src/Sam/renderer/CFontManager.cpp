@@ -41,7 +41,7 @@ namespace sam
     /// @param p_nSize Height of the font.
     /// 
     /// @return Generated font ID or 0.
-    FontID CFontManager::CreateFont(const char *p_sName, uint32 p_nSize)
+    ID CFontManager::CreateFont(const char *p_sName, uint32 p_nSize)
     {     
         return 1;
     }
@@ -51,7 +51,7 @@ namespace sam
     /// @param p_nFontID ID.
     /// 
     /// @return True if succeed.
-    bool CFontManager::DeleteFont(FontID p_nFontID)
+    bool CFontManager::DeleteFont(ID p_nFontID)
     {
         return true;
     }
@@ -61,7 +61,7 @@ namespace sam
     /// @param p_sFontID ID.
     /// 
     /// @return Pointer to the font or NULL if not found.
-    CFont *CFontManager::GetFont(FontID p_nFontID) const
+    CFont *CFontManager::GetFont(ID p_nFontID) const
     {
         return NULL;
     }

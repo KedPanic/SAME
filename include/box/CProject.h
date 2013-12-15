@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __PROJECT__
-#define __PROJECT__
+#ifndef __SAMBOX_PROJECT__
+#define __SAMBOX_PROJECT__
 
 class CProject : public sam::ISerializable
 {
@@ -27,12 +27,15 @@ class CProject : public sam::ISerializable
 
 public:
 	struct SConfiguration : public wxObject
-	{
-
+	{		
+		Platforms m_aPlatforms; ///< Supported platform by the project.
 	};
 
 	/// @brief Default constructor.
-	CProject();
+	/// 
+	/// @param p_sName Project name.
+	/// @param p_sPath Absolute path.
+	CProject(const String &p_sName, const String &p_sPath);
 
 	/// @brief Destructor.
 	~CProject();
@@ -41,6 +44,16 @@ public:
 	/// 
 	/// @param p_pConfig Configuration.
 	bool Initialize(SConfiguration *p_pConfig);
+
+	/// @brief Retrieves project name.
+	/// 
+	/// @return Project name.
+	const String &GetProjectName() const {return m_sName;}
+
+	/// @brief Retrieves project path.
+	/// 
+	/// @return Project path.
+	const String &GetProjectPath() const {return m_sPath;}
 
 	/// @brief Retrieve if the project have changed since the last save.
 	/// 
@@ -60,9 +73,30 @@ public:
 	/// @param p_pContext Pointer to the context
 	void Write(sam::ISerializer *p_pContext);
 
+	/// @brief Retrieves asset folder.
+	/// 
+	/// @return Asset folder.
+	CFolder *GetAssetFolder() const {return m_pAssetFolder;}
+
+	/// @brief Create new package.
+	/// 
+	/// @param p_sName Name of the package.
+	///
+	/// @return Created package.
+	CFolder *CreatePackage(const String &p_sName);
+
+	/// @brief Retrieves the configuration.
+	/// 
+	/// @return The configuration.
+	const SConfiguration &GetConfiguration() const {return m_oConfiguration;}
+
 private:
-	SConfiguration *m_pConfiguration;
+	String m_sName; ///< Project name.
+	String m_sPath; ///< Absolute path.
+	SConfiguration m_oConfiguration;
 	bool m_bIsDirty;
+
+	CFolder  *m_pAssetFolder;	///< Asset folder.
 };
 
-#endif // __PROJECT__
+#endif // __SAMBOX_PROJECT__

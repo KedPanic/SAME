@@ -24,7 +24,7 @@
 namespace sam
 {
 	/// @brief Atomic integer operations.
-	class CAtomicInteger
+	class SAM_COMMON_API CAtomicInteger
 	{
 	public:
 		CAtomicInteger();

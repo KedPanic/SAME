@@ -22,7 +22,12 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.			
 ]]--
 solution "SamEngine"
-	location("build/".._ACTION)
+	-- create required folder
+	os.mkdir("bin/debug/plugins")
+	os.mkdir("bin/profile/plugins")
+	os.mkdir("bin/release/plugins")
+	
+	location("build/".._ACTION)	
 	--[[ 
 		Debug: non optimized with debug information
 		Profile: optimized with debug information
@@ -41,6 +46,8 @@ solution "SamEngine"
 	local dependencie_folder = {
 		"external/tinyxml2/premake4.lua",
 		"external/wxWidgets/premake4.lua",
+		"external/nvtt/premake4.lua",
+		"external/freeimage/premake4.lua",
 	}
 	
 	group "external"
@@ -82,7 +89,7 @@ solution "SamEngine"
 		dofile("samengine.lua")
 
 	group "tool"
-		dofile("sambox.lua")
 		include("tools/premake4.lua")
+		dofile("sambox.lua")		
 		
 	include("samples/premake4.lua")

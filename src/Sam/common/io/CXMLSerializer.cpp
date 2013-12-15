@@ -296,6 +296,11 @@ namespace sam
 		m_pCurrentElement->SetAttribute(p_sName, p_nValue);
 	}
 
+	void CXMLSerializer::WriteValue(const char *p_sName, const uint32 &p_nValue)
+	{
+		m_pCurrentElement->SetAttribute(p_sName, p_nValue);
+	}
+
 	void CXMLSerializer::WriteValue(const char *p_sName, const char *p_sValue)
 	{
 		m_pCurrentElement->SetAttribute(p_sName, p_sValue);

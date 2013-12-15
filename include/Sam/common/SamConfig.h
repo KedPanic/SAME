@@ -48,7 +48,8 @@ namespace sam
     class CMaterialManager;
 	class CRenderWindow;
 	class CResourceStorageManager;
-    class CTextureManager;	
+	class CSignalManager;
+    class CTextureManager;		
 
 	class IResourceStorage;
     class IFramework;
@@ -70,6 +71,7 @@ namespace sam
         CTextureManager *pTextureManager;
 		CEntitySystem *m_pEntitySystem;
 		CJobManager *pJobManager;
+		CSignalManager *pSignalManager;
 /*
         ISoundManager *pSoundManager;
         IPhysicalWorld *pPhysicalWorld;

@@ -44,6 +44,15 @@ namespace sam
 		/// @return True if no error occurred.
         bool BeginSerialization(bool _bRead, const char *_sName);
 
+		/// @brief Called at starting (de)serialization
+		/// 
+		/// @param p_pBuffer Memory buffer to read.
+		/// @param p_nSize Buffer size.
+		/// @param p_sName Name of the root element to serialize.
+		/// 
+		/// @return True if no error occurred.
+		bool BeginSerialization(uint8 *p_pBuffer, uint32 p_nSize, const char *p_sName);
+
         /// @brief Called at ending serialization
         void EndSerialization();
 
@@ -101,6 +110,7 @@ namespace sam
 		/// @param p_*Value Value.
 		void WriteValue(const char *p_sName, const bool  &p_bValue);
 		void WriteValue(const char *p_sName, const int   &p_nValue);
+		void WriteValue(const char *p_sName, const uint32  &p_nValue);
 		void WriteValue(const char *p_sName, const char *p_sValue);
 		void WriteValue(const char *p_sName, const Vector3 &p_vValue);
 		void WriteValue(const char *p_sName, const float &p_fValue);

@@ -75,6 +75,7 @@ typedef std::wstring UString;
 typedef HWND SAM_HWND;
 typedef FILE File;
 typedef std::list<String> VString;
+typedef time_t Time;
 
 #ifdef SAM_32BITS
 	typedef char int8;
@@ -152,7 +153,7 @@ static bool SamAssert(bool p_bCondition, const char *_sFormat, ...)
 //            DYNAMIC LIBRARY                //
 //*******************************************//
 void SamLogWarning(const char *_sFormat, ...);
-void SamLogError(const char *_sFormat, ...);
+void SamLogErrorNoAssert(const char *_sFormat, ...);
 
 typedef HMODULE Library;
 typedef FARPROC Symbol;
@@ -189,7 +190,9 @@ static Library SamLoadLibrary(const char *_pLibName)
         char *sErrorMsg = NULL;
         GetLastError(&sErrorMsg);
 
-        SamLogError("Unable to load the dynamic library '%s' - error message : '%s'", _pLibName, sErrorMsg);
+        SamLogErrorNoAssert("Unable to load the dynamic library '%s' - error message : '%s'", _pLibName, sErrorMsg);
+		SAM_ASSERT(false, "Unable to load the dynamic library '%s' - error message : '%s'", _pLibName, sErrorMsg);
+
         return NULL;
     }
 

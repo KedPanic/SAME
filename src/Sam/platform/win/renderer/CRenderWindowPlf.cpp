@@ -31,6 +31,10 @@
 
 namespace sam
 {
+	static CVertexBuffer *s_pSphere      = NULL;
+	static CVertexBuffer *s_pCube		 = NULL;
+	static CVertexBuffer *s_pRectangle   = NULL;
+
     bool CheckSupportedDisplayFormat(DXGI_SWAP_CHAIN_DESC *_pSwapChainDesc, int _nWidth, int _nHeight)
     {
         HRESULT result;
@@ -233,6 +237,9 @@ namespace sam
 
 		// Set viewport.
 		SetViewport(0, 0, m_nWidth, m_nHeight);
+
+		// create static primitive.
+		s_pRectangle = CreateVertexBuffer();
 
 		return true;
 	}
@@ -490,6 +497,7 @@ namespace sam
     /// @param _vPointB Second point of the line.
     void CRenderWindow::DrawLine(const Vector3 &_vPointA, const Vector3 &_vPointB, const Color &_Color)
     {
+		m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
        // sf::Color color(_Color.r * 255, _Color.g * 255, _Color.b * 255, _Color.a * 255);
         //m_RenderWindow.Draw(sf::Shape::Line(_vPointA.x, _vPointA.y, _vPointB.x, _vPointB.y, 1.f, color));
     }
@@ -501,6 +509,7 @@ namespace sam
     /// @param _Color   Color of the sphere.
     void CRenderWindow::DrawSphere(const Vector3 &_vCenter, float _fRadius, const Color &_Color)
     {
+		
         //sf::Color color(_Color.r * 255, _Color.g * 255, _Color.b * 255, _Color.a * 255);
         //m_RenderWindow.Draw(sf::Shape::Circle(_vCenter.x, _vCenter.y, _fRadius, color));
     }
@@ -512,6 +521,12 @@ namespace sam
     /// @param _pColor	   Vertex color.	
     void CRenderWindow::DrawVertices(const Vector3 *_pvVertices, uint32 _nNbVertex, const Color *_pColor)
     {
+// 		SVertexDeclaration aVertexDeclaration[] = {
+// 
+// 		};
+// 
+// 		CVertexBuffer *pVertexBuffer = CreateVertexBuffer();
+// 		pVertexBuffer->Initialize()
 //         sf::Shape polygon;
 //         for(int i = 0; i < _nNbVertex; ++i)
 //         {

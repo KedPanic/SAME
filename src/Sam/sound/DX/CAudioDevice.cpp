@@ -37,7 +37,7 @@ namespace sam
 	/// @brief Initialize audio device.
 	EResult CAudioDevice::Initialize(IXAudio2 *_pAudioEngine)
 	{
-        SAM_ASSERT(_pAudioEngine, "Audio engine is null");
+        SAM_ASSERT(_pAudioEngine != NULL, "Audio engine is null");
 
 		EResult result = EResult_Success;
 

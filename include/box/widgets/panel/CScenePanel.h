@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __SCENE_PANEL__
-#define __SCENE_PANEL__
+#ifndef __SAMBOX_SCENE_PANEL__
+#define __SAMBOX_SCENE_PANEL__
 
 class CScenePanel : public wxPanel
 {
@@ -29,4 +29,4 @@ public:
 private:
 };
 
-#endif // __SCENE_PANEL__
+#endif // __SAMBOX_SCENE_PANEL__

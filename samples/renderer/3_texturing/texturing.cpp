@@ -83,9 +83,9 @@ public:
 		sam::SSamplerStateParams oSamplerStateParams;
 		oSamplerStateParams.m_eMagFilter		= sam::e_SamplerMagFilter_Linear;
 		oSamplerStateParams.m_eMinFilter		= sam::e_SamplerMinFilter_Linear;
-		oSamplerStateParams.m_eWrapU			= sam::e_SamplerWrap_Repeat;
-		oSamplerStateParams.m_eWrapV			= sam::e_SamplerWrap_Repeat;
-		oSamplerStateParams.m_eWrapW			= sam::e_SamplerWrap_Repeat;
+		oSamplerStateParams.m_eWrapU			= sam::e_TextureWrap_Repeat;
+		oSamplerStateParams.m_eWrapV			= sam::e_TextureWrap_Repeat;
+		oSamplerStateParams.m_eWrapW			= sam::e_TextureWrap_Repeat;
 		oSamplerStateParams.m_eComparisonFunc	= sam::e_ComparisonFunc_Never;
 		oSamplerStateParams.m_nMinLOD			= 0;
 		oSamplerStateParams.m_nMaxLOD			= 16;

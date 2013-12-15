@@ -43,21 +43,21 @@ namespace sam
         /// @param p_nSize Height of the font.
         /// 
         /// @return Generated font ID or 0.
-        FontID CreateFont(const char *p_sName, uint32 p_nSize);
+        ID CreateFont(const char *p_sName, uint32 p_nSize);
 
         /// @brief Delete font.
         /// 
         /// @param p_nFontID ID.
         /// 
         /// @return True if succeed.
-        bool DeleteFont(FontID p_nFontID);
+        bool DeleteFont(ID p_nFontID);
 
         /// @brief Retrieves font by name.
         /// 
         /// @param p_sFontID ID.
         /// 
         /// @return Pointer to the font or NULL if not found.
-        CFont *GetFont(FontID p_nFontID) const;
+        CFont *GetFont(ID p_nFontID) const;
 
     private:
         CFont *m_pFirstFont; ///< First font of the linked list.

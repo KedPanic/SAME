@@ -91,7 +91,8 @@ namespace sam
 		/// @param p_sName Name of the value
 		/// @param p_*Value Value.
 		void WriteValue(const char *p_sName, const bool  &p_bValue);
-		void WriteValue(const char *p_sName, const int   &p_nValue);
+		void WriteValue(const char *p_sName, const int   &p_nValue);	
+		void WriteValue(const char *p_sName, const uint32  &p_nValue);
 		void WriteValue(const char *p_sName, const char *p_sValue);
 		void WriteValue(const char *p_sName, const Vector3 &p_vValue);
 		void WriteValue(const char *p_sName, const float &p_fValue);

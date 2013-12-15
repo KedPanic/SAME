@@ -60,7 +60,9 @@ namespace nvtt
         bool cudaSupported;
         bool cudaEnabled;
 
+#if defined HAVE_CUDA
         nv::AutoPtr<nv::CudaContext> cuda;
+#endif
 
         TaskDispatcher * dispatcher;
         //SequentialTaskDispatcher defaultDispatcher;

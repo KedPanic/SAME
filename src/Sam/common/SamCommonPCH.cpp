@@ -25,6 +25,7 @@
 #include <common/SamModuleInit.h>
 #include <template/TVector.h>
 #include <thread/CJobManager.h>
+#include <thread/CSignalManager.h>
 
 void *json_malloc(size_t p_nSize)
 {
@@ -75,6 +76,7 @@ namespace sam
         g_Env->pLog = SAM_NEW CLog;
         g_Env->pResourceStorageManager = SAM_NEW CResourceStorageManager;
 		g_Env->pJobManager = SAM_NEW CJobManager;
+		g_Env->pSignalManager = SAM_NEW CSignalManager;
 
 		return g_Env;
     }
@@ -85,6 +87,8 @@ namespace sam
         SAM_ASSERT(g_Env != NULL, "Common module is not initialized");
 
         // Free sub system.
+		SAM_DELETE g_Env->pSignalManager;
+		SAM_DELETE g_Env->pJobManager;
         SAM_DELETE g_Env->pResourceStorageManager;
         SAM_DELETE g_Env->pLog;
 

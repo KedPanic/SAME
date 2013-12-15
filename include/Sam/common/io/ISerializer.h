@@ -103,6 +103,7 @@ namespace sam
 		/// @param p_*Value Value.
 		virtual void WriteValue(const char *p_sName, const bool  &p_bValue) = 0;
 		virtual void WriteValue(const char *p_sName, const int   &p_nValue) = 0;
+		virtual void WriteValue(const char *p_sName, const uint32  &p_nValue) = 0;
 		virtual void WriteValue(const char *p_sName, const char *p_sValue) = 0;
 		virtual void WriteValue(const char *p_sName, const Vector3 &p_vValue) = 0;
 		virtual void WriteValue(const char *p_sName, const float &p_fValue) = 0;

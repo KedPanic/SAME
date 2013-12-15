@@ -58,9 +58,11 @@ using namespace nvtt;
 Compressor::Compressor() : m(*new Compressor::Private())
 {
     // CUDA initialization.
+#if defined HAVE_CUDA
     m.cudaSupported = cuda::isHardwarePresent();
-    m.cudaEnabled = false;
-    m.cuda = NULL;
+	m.cuda = NULL;
+#endif
+    m.cudaEnabled = false;    
 
     enableCudaAcceleration(m.cudaSupported);
 
@@ -75,6 +77,7 @@ Compressor::~Compressor()
 
 void Compressor::enableCudaAcceleration(bool enable)
 {
+#if defined HAVE_CUDA
     if (m.cudaSupported)
     {
         m.cudaEnabled = enable;
@@ -90,6 +93,7 @@ void Compressor::enableCudaAcceleration(bool enable)
             m.cuda = NULL;
         }
     }
+#endif
 }
 
 bool Compressor::isCudaAccelerationEnabled() const

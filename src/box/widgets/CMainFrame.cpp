@@ -24,8 +24,15 @@
 #include "widgets/CMainFrame.h"
 #include "widgets/CProjectWizardDialog.h"
 
+// panel
+#include "widgets/panel/CConsolePanel.h"
+#include "widgets/panel/CProjectPanel.h"
+#include "widgets/panel/CPackagesPanel.h"
+#include "widgets/panel/CPropertiesPanel.h"
+
 #include "CSamBox.h"
 #include "CProject.h"
+#include "LocalizationIDs.h"
 
 // Create menu bar.
 wxMenuBar *CreateMenuBar()
@@ -60,6 +67,7 @@ wxMenuBar *CreateMenuBar()
 const long CMainFrame::ID_MAIN_NOTEBOOK = wxNewId();
 const long CMainFrame::ID_RIGHT_NOTEBOOK = wxNewId();
 const long CMainFrame::ID_BOTTOM_NOTEBOOK = wxNewId();
+const long CMainFrame::ID_LEFT_NOTEBOOK = wxNewId();
 
 // Constructor.
 CMainFrame::CMainFrame(wxWindow *p_pParent, wxWindowID p_nId /*= -1*/)
@@ -71,7 +79,9 @@ CMainFrame::CMainFrame(wxWindow *p_pParent, wxWindowID p_nId /*= -1*/)
 
 	m_pAuiManager = SAM_ALLOC(wxAuiManager)(this, wxAUI_MGR_DEFAULT);
 
+	//////////////////////////////////////////////////////////////////////////
 	// Main notebook.
+	//////////////////////////////////////////////////////////////////////////
 	m_pMainNotebook = SAM_ALLOC(boxAuiNotebook)(this, ID_MAIN_NOTEBOOK, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE);	
 	wxAuiPaneInfo oPaneInfo;
 	oPaneInfo.Name(wxT("MainNotebook"));
@@ -79,36 +89,65 @@ CMainFrame::CMainFrame(wxWindow *p_pParent, wxWindowID p_nId /*= -1*/)
 	oPaneInfo.Caption(wxT("Test"));
 	m_pAuiManager->AddPane(m_pMainNotebook, oPaneInfo);
 
+	//////////////////////////////////////////////////////////////////////////
 	// Right notebook.
+	//////////////////////////////////////////////////////////////////////////
 	m_pRightNotebook = SAM_ALLOC(boxAuiNotebook)(this, ID_RIGHT_NOTEBOOK, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE);
 	wxAuiPaneInfo oRightPaneInfo;
 	oRightPaneInfo.Name(wxT("RightNotebook"));
 	oRightPaneInfo.CaptionVisible(true);
 	oRightPaneInfo.PinButton(true);
 	oRightPaneInfo.Right();
-	oRightPaneInfo.MinSize(150, 150);
+	oRightPaneInfo.MinSize(250, 150);
 	oRightPaneInfo.Caption(wxT("Properties"));
-	m_pAuiManager->AddPane(m_pRightNotebook, oRightPaneInfo);
 
+	CPropertiesPanel *pPropertiesPanel = SAM_ALLOC(CPropertiesPanel)(this);
+	m_pAuiManager->AddPane(pPropertiesPanel, oRightPaneInfo);
+
+	//////////////////////////////////////////////////////////////////////////
+	// Left notebook.
+	//////////////////////////////////////////////////////////////////////////
+	m_pLeftNotebook = SAM_ALLOC(boxAuiNotebook)(this, ID_LEFT_NOTEBOOK, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE);
+	wxAuiPaneInfo oLeftPaneInfo;
+	oLeftPaneInfo.Name(wxT("LeftNotebook"));
+	oLeftPaneInfo.CaptionVisible(true);
+	oLeftPaneInfo.PinButton(true);
+	oLeftPaneInfo.Left();
+	oLeftPaneInfo.MinSize(150, 150);
+	oLeftPaneInfo.Caption(wxT("Assets"));
+
+	CPackagesPanel *pPackagesPanel = SAM_ALLOC(CPackagesPanel)(this);
+	m_pAuiManager->AddPane(pPackagesPanel, oLeftPaneInfo);
+
+
+	//////////////////////////////////////////////////////////////////////////
 	// Bottom notebook.
+	//////////////////////////////////////////////////////////////////////////
 	m_pBottomNotebook = SAM_ALLOC(boxAuiNotebook)(this, ID_BOTTOM_NOTEBOOK, wxDefaultPosition, wxDefaultSize, wxAUI_NB_DEFAULT_STYLE);
 	wxAuiPaneInfo oBottomPaneInfo;
 	oBottomPaneInfo.Name(wxT("BottomNotebook"));
 	oBottomPaneInfo.CaptionVisible(true);
 	oBottomPaneInfo.PinButton(true);
 	oBottomPaneInfo.Bottom();
-	oBottomPaneInfo.MinSize(150, 150);
+	oBottomPaneInfo.MinSize(150, 200);
 	oBottomPaneInfo.Caption(wxT("Tools"));
 	m_pAuiManager->AddPane(m_pBottomNotebook, oBottomPaneInfo);
-
 	m_pAuiManager->Update();
+
+	/* project page */
+//	CProjectPanel *pProjectPanel = SAM_ALLOC(CProjectPanel)(m_pBottomNotebook);
+//	m_pBottomNotebook->AddPage(pProjectPanel, NOTEBOOK_TOOLS_PROJECT);
+
+	/* console page */
+	CConsolePanel *pConsolePanel = SAM_ALLOC(CConsolePanel)(m_pBottomNotebook);
+	m_pBottomNotebook->AddPage(pConsolePanel, NOTEBOOK_TOOLS_CONSOLE);	
 
 	CreateEventTable();
 }
 
 CMainFrame::~CMainFrame()
 {
-	m_pAuiManager->UnInit();	
+	m_pAuiManager->UnInit();
 }
 
 // Create dynamic events.

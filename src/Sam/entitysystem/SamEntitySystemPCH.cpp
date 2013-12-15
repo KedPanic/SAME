@@ -19,6 +19,7 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
 #include "SamEntitySystemPCH.h"
+#include "CEntityManager.h"
 
 //===================================//
 // DLL Create/Destroy implementation //

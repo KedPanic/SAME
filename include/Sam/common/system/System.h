@@ -43,6 +43,12 @@ namespace sam
 	};
 	
 	SAM_COMMON_API SSystem g_oSystem;
+
+	/// @brief Convert a timestamp to string.
+	/// 
+	/// @param p_oTimestamp Timestamp to transform to string.
+	/// @param p_sTimeString Allocated buffer where we will write the timestamp
+	SAM_COMMON_API void TimeStampToStr(Time p_oTimestamp, char *p_sTimeString);
 }
 
 #endif // __SAM_SYSTEM_H__

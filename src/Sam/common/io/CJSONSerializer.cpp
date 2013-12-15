@@ -45,26 +45,7 @@ namespace sam
             CFile file;
             if(file.Open(m_sFilename, e_OM_Read))
             {
-                uint8 *pData = file.Data();
-                m_pRoot = cJSON_Parse((char*)pData);
-                if(m_pRoot == NULL)
-                {
-                    SamLogError("Unable to load json file '%s'", m_sFilename); 
-
-					return false;
-                }
-                
-				// check if the file is not empty.
-				if(m_pRoot->child)
-				{
-					m_pCurrentElement = m_pRoot->child;
-				}
-				else
-				{
-					m_pCurrentElement = m_pRoot;
-				}				
-
-				return true;
+                return BeginSerialization(file.Data(), file.Size(), _sName);
             }            
 		}
         else
@@ -74,6 +55,28 @@ namespace sam
         }
 
 		return false;
+	}
+
+	// Called at starting (de)serialization
+	bool CJSONSerializer::BeginSerialization(uint8 *p_pBuffer, uint32 p_nSize, const char *p_sName)
+	{
+		m_pRoot = cJSON_Parse((char*)p_pBuffer);
+		if(m_pRoot == NULL)
+		{
+			return false;
+		}
+
+		// check if the file is not empty.
+		if(m_pRoot->child)
+		{
+			m_pCurrentElement = m_pRoot->child;
+		}
+		else
+		{
+			m_pCurrentElement = m_pRoot;
+		}				
+
+		return true;
 	}
 
 	/// @brief Called at ending serialization
@@ -168,6 +171,20 @@ namespace sam
 				return false;
 			}
 
+			// check if it is the current node.
+			if(m_pCurrentElement->string && strcmp(m_pCurrentElement->string, _sElement) == 0)
+			{
+				m_pCurrentElement = m_pCurrentElement->child;
+				return true;
+			}
+
+			// check if it is a child node.
+			if(m_pCurrentElement->child && m_pCurrentElement->child->string && strcmp(m_pCurrentElement->child->string, _sElement) == 0)
+			{
+				m_pCurrentElement =  m_pCurrentElement->child->child;
+				return true;
+			}
+
 			// check if we are already in the array.
 			if(m_pCurrentElement->parent)
 			{
@@ -180,7 +197,7 @@ namespace sam
 				}
 			}
 
-			// check if it is not the current node.
+			// check if it is the next node.
 			if(!m_pCurrentElement->string || strcmp(m_pCurrentElement->string, _sElement) != 0)
 			{
 				// check if it is the next element.
@@ -188,15 +205,7 @@ namespace sam
 				{
 					m_pCurrentElement = m_pCurrentElement->next;
 				}
-			}
-					
-
-			// Check if the array is not empty.
-			if(m_pCurrentElement->child)
-			{
-				m_pCurrentElement = m_pCurrentElement->child;
-				return true;
-			}
+			}			
 
 			return false; // No elements inside the array.
         }
@@ -231,18 +240,29 @@ namespace sam
 		if(m_bRead)
 		{
 			// check if we are at the end of the array.
-			if(!m_pCurrentElement->parent->next)
+			if(!m_pCurrentElement)
 			{
-				m_pCurrentElement = m_pCurrentElement->parent->parent->next; // go to the next node. can be null.
+				// nothing to do
 			}
-			else
+
+			// find next element
+			cJSON *pElement = m_pCurrentElement;
+			while(pElement)
 			{
-				m_pCurrentElement = m_pCurrentElement->parent->next;
+				if(pElement->parent && pElement->parent->next)
+				{
+					pElement = pElement->parent->next;
+					break;
+				}
+
+				pElement = pElement->parent;
 			}
+
+			m_pCurrentElement = pElement;
 		}
 		else
 		{
-			m_pCurrentElement = m_pCurrentElement->parent;
+			m_pCurrentElement = m_pCurrentElement->parent->parent;
 		}
 	}
 
@@ -381,6 +401,11 @@ namespace sam
 		cJSON_AddItemToObject(m_pCurrentElement, p_sName, cJSON_CreateNumber(p_nValue));
 	}
 
+	void CJSONSerializer::WriteValue(const char *p_sName, const uint32  &p_nValue)
+	{
+		cJSON_AddItemToObject(m_pCurrentElement, p_sName, cJSON_CreateNumber(p_nValue));
+	}
+
 	void CJSONSerializer::WriteValue(const char *p_sName, const char *p_sValue)
 	{
 		cJSON_AddItemToObject(m_pCurrentElement, p_sName, cJSON_CreateString(p_sValue));
@@ -410,6 +435,7 @@ namespace sam
     {
         SAM_ASSERT(m_pCurrentElement != NULL, "Current element is null");
 
+		// go to the first element of the current array.
         if(m_pCurrentElement->child)
         {
 			m_pCurrentElement = m_pCurrentElement->child;

@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CIP_ADDRESS__
-#define __CIP_ADDRESS__
+#ifndef __CNET_ADDRESS__
+#define __CNET_ADDRESS__
 
 namespace sam
 {
@@ -87,4 +87,4 @@ namespace sam
 	};
 }
 
-#endif // __CIP_ADDRESS__
+#endif // __CNET_ADDRESS__

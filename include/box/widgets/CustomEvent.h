@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CUSTOM_EVENT__
-#define __CUSTOM_EVENT__
+#ifndef __SAMBOX_CUSTOM_EVENT__
+#define __SAMBOX_CUSTOM_EVENT__
 
 //////////////////////////////////////////////////////////////////////////
 //							END OF INITIALIZATION						//
@@ -32,7 +32,7 @@ class CInitCompletedEvent : public wxEvent
 {
 public:
 	/// @brief Constructor.
-	CInitCompletedEvent(int p_nWinId = 0)
+	CInitCompletedEvent(int p_nWinId = wxID_ANY)
 		: wxEvent(p_nWinId, boxEVT_INIT_COMPLETED)
 	{
 
@@ -59,11 +59,36 @@ typedef void (wxEvtHandler::*boxInitCompletedEventFunction)(CInitCompletedEvent&
 
 
 //////////////////////////////////////////////////////////////////////////
-//							LOADING PROGRESS		 					//
+//							LOADING COMPLETED		 					//
 //////////////////////////////////////////////////////////////////////////
-class CLoadingProgressEvent : public wxEvent
-{
+class CLoadingCompletedEvent;
+wxDECLARE_EVENT(boxEVT_LOADING_COMPLETED, CLoadingCompletedEvent);
 
+class CLoadingCompletedEvent : public wxEvent
+{
+public:
+	/// @brief Constructor.
+	CLoadingCompletedEvent(int p_nWinId = wxID_ANY)
+		: wxEvent(p_nWinId, boxEVT_LOADING_COMPLETED)
+	{
+
+	}
+
+	/// @brief Copy constructor.
+	/// 
+	/// @param p_oEvent Instance to copy.
+	CLoadingCompletedEvent(const CLoadingCompletedEvent &p_oEvent)
+		: wxEvent(p_oEvent)
+	{
+	}
+
+	/// @brief Copy the event.
+	/// 
+	/// @return Pointer to the copy.
+	virtual wxEvent *Clone() const {return new CLoadingCompletedEvent(*this); }
+
+private:
+	wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(CLoadingCompletedEvent);
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,8 +101,8 @@ class COpenProjectEvent : public wxEvent
 {
 public:
 	/// @brief Constructor.
-	COpenProjectEvent(int p_nWinId = 0)
-		: wxEvent(p_nWinId, boxEVT_OPEN_PROJECT)
+	COpenProjectEvent(int p_nWinId = wxID_ANY)
+		: wxEvent(p_nWinId, boxEVT_OPEN_PROJECT), m_sPath("'")
 	{
 
 	}
@@ -86,7 +111,7 @@ public:
 	/// 
 	/// @param p_oEvent Instance to copy.
 	COpenProjectEvent(const COpenProjectEvent &p_oEvent)
-		: wxEvent(p_oEvent)
+		: wxEvent(p_oEvent), m_sPath(p_oEvent.m_sPath)
 	{
 	}
 
@@ -94,7 +119,20 @@ public:
 	/// 
 	/// @return Pointer to the copy.
 	virtual wxEvent *Clone() const {return new COpenProjectEvent(*this); }
+
+	/// @brief Set the project.
+	///
+	/// @param p_sPath Project path.
+	void SetProjectParth(const wxString &p_sPath) {m_sPath = p_sPath;}
+
+	/// @brief Retrieves the project path.
+	/// 
+	/// @return Project path.
+	const wxString &GetProjectPath() const {return m_sPath;}
+
 private:
+	wxString m_sPath; ///< Project path.
+
 	wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(COpenProjectEvent);
 };
 
@@ -110,8 +148,8 @@ class CCreateProjectEvent : public wxEvent
 {
 public:
 	/// @brief Constructor.
-	CCreateProjectEvent(int p_nWinId = 0)
-		: wxEvent(p_nWinId, boxEVT_CREATE_PROJECT)
+	CCreateProjectEvent(int p_nWinId = wxID_ANY)
+		: wxEvent(p_nWinId, boxEVT_CREATE_PROJECT), m_sPath("")
 	{
 
 	}
@@ -119,8 +157,8 @@ public:
 	/// @brief Copy constructor.
 	/// 
 	/// @param p_oEvent Instance to copy.
-	CCreateProjectEvent(const COpenProjectEvent &p_oEvent)
-		: wxEvent(p_oEvent)
+	CCreateProjectEvent(const CCreateProjectEvent &p_oEvent)
+		: wxEvent(p_oEvent), m_sPath(p_oEvent.m_sPath)
 	{
 	}
 
@@ -128,10 +166,70 @@ public:
 	/// 
 	/// @return Pointer to the copy.
 	virtual wxEvent *Clone() const {return new CCreateProjectEvent(*this); }
+
+	/// @brief Set the project.
+	///
+	/// @param p_sPath Project path.
+	void SetProjectParth(const wxString &p_sPath) {m_sPath = p_sPath;}
+
+	/// @brief Retrieves the project path.
+	/// 
+	/// @return Project path.
+	const wxString &GetProjectPath() const {return m_sPath;}
+
 private:
+	wxString m_sPath; ///< Project path.
+
 	wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(CCreateProjectEvent);
 };
 
 typedef void (wxEvtHandler::*boxCreateProjectEventFunction)(CCreateProjectEvent&);
 
-#endif // __CUSTOM_EVENT__
+//////////////////////////////////////////////////////////////////////////
+//								CREATE PACKAGE							//
+//////////////////////////////////////////////////////////////////////////
+class CCreatePackageEvent;
+wxDECLARE_EVENT(boxEVT_CREATE_PACKAGE, CCreatePackageEvent);
+
+class CCreatePackageEvent : public wxCommandEvent
+{
+public:
+	/// @brief Constructor.
+	CCreatePackageEvent(int p_nWinId = wxID_ANY)
+		: wxCommandEvent(boxEVT_CREATE_PACKAGE, p_nWinId), m_pPackage(NULL)
+	{
+
+	}
+
+	/// @brief Copy constructor.
+	/// 
+	/// @param p_oEvent Instance to copy.
+	CCreatePackageEvent(const CCreatePackageEvent &p_oEvent)
+		: wxCommandEvent(p_oEvent), m_pPackage(p_oEvent.m_pPackage)
+	{
+	}
+
+	/// @brief Copy the event.
+	/// 
+	/// @return Pointer to the copy.
+	virtual wxEvent *Clone() const {return new CCreatePackageEvent(*this); }
+
+	/// @brief Set the created package.
+	/// 
+	/// @param p_pPackage Created package.
+	void SetPackage(CFolder *p_pPackage) {m_pPackage = p_pPackage;}
+
+	/// @brief Retrieves created package.
+	/// 
+	/// @return Pointer to the created package.
+	CFolder *GetPackage() const {return m_pPackage;}
+
+private:
+	CFolder *m_pPackage;
+
+	wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(CCreatePackageEvent);
+};
+
+typedef void (wxEvtHandler::*boxCreatePackageEventFunction)(CCreatePackageEvent&);
+
+#endif // __SAMBOX_CUSTOM_EVENT__

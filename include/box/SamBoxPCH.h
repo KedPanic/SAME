@@ -33,6 +33,12 @@
 #include <wx/menu.h>
 #include <wx/menuitem.h>
 #include <wx/dir.h>
+#include <wx/treectrl.h>
+#include <wx/progdlg.h>
+#include <wx/dcbuffer.h>
+#include <wx/mimetype.h>
+
+#include <FreeImage.h>
 
 #include <SamCommon.h>
 #include <SamRenderer.h>
@@ -40,15 +46,67 @@
 #include <SamSound.h>
 #include <SamEntitySystem.h>
 
-// Declare custom wxWidgets event.
-#include <widgets/CustomEvent.h>
-
 class boxAuiNotebook;
 class CProject;
 class CSamBox;
 class CSplashScreen;
+class CPlatform;
+class CTexturePropertiesPanel;
+
+/// @enum Window identifiers
+enum EWindowID
+{
+	e_WindowID_PackagePanel,
+};
+
+typedef std::vector<CPlatform*> Platforms;
+
+
+//////////////////////////////////////////////////////////////////////////
+// RESOURCES
+//////////////////////////////////////////////////////////////////////////
+class CFolder;
+class CMeshResource;
+class CPackage;
+class CResourceManager;
+class IResource;
+class IResourceFactory;
+class CTextureResource;
+
+#include <resources/SMeshMetadata.h>
+#include <resources/STextureMetadata.h>
+
+/// @enum Type of resource.
+enum EResourceType
+{
+	e_ResourceType_Font,
+	e_ResourceType_Texture,
+	e_ResourceType_Mesh,
+
+	e_ResourceType_Unknown,
+	e_ResourceType_Nb = e_ResourceType_Unknown,
+
+	e_ResourceType_Folder // special resource.
+};
+
+//////////////////////////////////////////////////////////////////////////
+// EXPORTERS
+//////////////////////////////////////////////////////////////////////////
+class CExporterManager;
+class IExporter;
+class IExporterListener;
+
+typedef std::vector<sam::SParam> ExportParams;
 
 // Global variable.
 extern CSamBox *g_pSamBox;
+extern CResourceManager *g_pResourceManager;
+extern CExporterManager *g_pExporterManager; 
+
+// Declare custom wxWidgets event.
+#include <CustomSignal.h>
+#include <widgets/CustomEvent.h>
+#include <ImageList.h>
+#include <LocalizationIDs.h>
 
 #endif // __SAMBOX_PCH__

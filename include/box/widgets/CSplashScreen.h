@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __SPLASHSCREEN__
-#define __SPLASHSCREEN__
+#ifndef __SAMBOX_SPLASHSCREEN__
+#define __SAMBOX_SPLASHSCREEN__
 
 /// @brief Splash screen used when we launch the editor.
 /// 
@@ -50,4 +50,4 @@ private:
 	wxStaticText *m_pText; ///< Message to show the advance.
 };
 
-#endif // __SPLASHSCREEN__
+#endif // __SAMBOX_SPLASHSCREEN__

@@ -21,18 +21,20 @@
 #ifndef __SAMBOX_APP__
 #define __SAMBOX_APP__
 
-#include "CInitializingThread.h"
-
 /// @brief Root class.
 class CSamBox : public wxApp
 {
 public:
 	/// @brief Constructor.
 	CSamBox();
+	~CSamBox();
 
 	virtual bool OnInit();
 
 	virtual int OnExit();
+
+	/// @brief Called when the app is idle. We use the idle time to update the engine.
+	void OnIdle(wxIdleEvent &p_oEvent);
 
 	/// @brief Retrieves path of the data folder.
 	/// 
@@ -44,11 +46,46 @@ public:
 	/// @return User home path.
 	const wxString GetHomePath() const {return m_oStdPaths.GetUserDataDir();}
 
+	/// @brief Add a supported platform could be used by a project.
+	/// 
+	/// @param p_sPlatformFilename Path of the platform configuration file.
+	void AddPlatform(const wxString &p_sPlatformFilename);
+
+	/// @brief Add a supported platform could be used by a project.
+	/// 
+	/// @param p_pPlatform Created platform.
+	void AddPlatform(CPlatform *p_pPlatform);
+
+	/// @brief Retrieves supported platforms.
+	/// 
+	/// @return Supported platforms.
+	const Platforms &GetSupportedPlatforms() const {return m_aPlatforms;}
+
+	/// @brief Retrieves current project.
+	/// 
+	/// @return Current project.
+	CProject *GetCurrentProject() const {return m_pProject;}
+
+	//////////////////////////////////////////////////////////////////////////
+	//									RESOURCES							//
+	//////////////////////////////////////////////////////////////////////////
+	/// @brief Create a new package with a unique name.
+	/// 
+	/// @return created package.
+	CFolder *CreateNewPackage();
+
+	/// @brief Rename package. if the package already exist, it will be renamed automatically.
+	/// 
+	/// @param p_pPackage Package to rename.
+	/// @param p_sName New name.
+	void RenamePackage(CPackage *p_pPackage, const char *p_sName);
+
 private:
 	wxStandardPaths m_oStdPaths;
 	wxString m_sDataFolder; ///< Root of the data folder.
 
-	CProject *m_pProject; ///< Current project. 
+	CProject *m_pProject;	///< Current project.
+	Platforms m_aPlatforms; ///< Array of supported platforms.
 
 	/// @brief Close current project.
 	/// 
@@ -63,6 +100,9 @@ private:
 
 	/// @brief Called when user request to create a project.
 	void OnCreateProject(CCreateProjectEvent &p_oEvent);
+
+	/// @brief Called when the project is completed
+	void OnLoadingCompleted(CLoadingCompletedEvent &p_oEvent);
 };
 
 #endif // __SAMBOX_APP__

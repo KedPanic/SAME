@@ -18,4 +18,31 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include "SamExporterPCH.h"
+#ifndef __ICOMPONENT__
+#define __ICOMPONENT__
+
+namespace sam
+{
+	namespace entity
+	{
+		class SAM_ENTITYSYSTEM_API IComponent
+		{
+
+		};
+
+#define DECLARE_ENTITY_COMPONENT(ComponentClass)							\
+		private:															\
+			static sam::core::TObjectPool<ComponentClass> s_oObjectPool;	\
+		public:																\
+			static class *Create();
+
+#define IMPLEMENT_ENTITY_COMPONENT(ComponentClass)								\
+		sam::core::TObjectPool<ComponentClass> ComponentClass::s_oObjectPool;	\
+		ComponentClass *ComponentClass::Create()								\
+		{																		\
+			return s_oObjectPool.Alloc();										\
+		}
+	}
+}
+
+#endif // __ICOMPONENT__

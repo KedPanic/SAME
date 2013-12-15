@@ -39,6 +39,15 @@ namespace sam
 #ifdef SAM_DEBUG
 		/// @brief Allocate memory
 		/// 
+		/// @param p_nSize Memory size to allocate.
+		/// @param p_pAddr Pre-allocated emplacement.
+		void *operator new(size_t p_nSize, void *p_pAddr)
+		{
+			return p_pAddr;
+		}
+
+		/// @brief Allocate memory
+		/// 
 		/// @param _iSize Memory size to allocate.
 		/// @param _sFile Name of the file.
 		/// @param _iLine Line number in the file.
@@ -55,6 +64,14 @@ namespace sam
 		void* operator new[] (size_t _iSize, const char* _sFile = __FILE__, int _iLine = __LINE__)
 		{
 			return CAllocator::Alloc(_iSize, _sFile, _iLine);
+		}
+
+		/// @brief Deallocate memory
+		/// 
+		/// @param _pPtr Pointer to free.
+		void operator delete(void* _pPtr, void*)
+		{
+			CAllocator::Free(_pPtr);
 		}
 
 		/// @brief Deallocate memory
@@ -111,7 +128,7 @@ namespace sam
 #ifdef SAM_DEBUG
 // external type
 #	define SAM_ALLOC(T) new (sam::CAllocator::Alloc(sizeof(T), __FILE__, __LINE__))T
-#   define SAM_ALLOC_ARRAY(T, Nb) new (sam::CAllocator::Alloc(sizeof(T) * Nb, __FILE__, __LINE__))T
+#   define SAM_ALLOC_ARRAY(T, Nb) (T*)(sam::CAllocator::Alloc(sizeof(T) * Nb, __FILE__, __LINE__))
 #   define SAM_FREE(Ptr) sam::CAllocator::Free((void*)Ptr)
 #	define SAM_FREE_ARRAY(Ptr) sam::CAllocator::Free((void*)Ptr)
 // internal type

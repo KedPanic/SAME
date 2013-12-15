@@ -18,8 +18,8 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __MAIN_FRAME__
-#define __MAIN_FRAME__
+#ifndef __SAMBOX_MAIN_FRAME__
+#define __SAMBOX_MAIN_FRAME__
 
 class CMainFrame : public wxFrame, public sam::ISerializable
 {
@@ -62,10 +62,12 @@ private:
 	boxAuiNotebook *m_pMainNotebook; ///< Center notebook.
 	boxAuiNotebook *m_pRightNotebook;
 	boxAuiNotebook *m_pBottomNotebook;
+	boxAuiNotebook *m_pLeftNotebook;
 
 	static const long ID_MAIN_NOTEBOOK;
 	static const long ID_RIGHT_NOTEBOOK;
 	static const long ID_BOTTOM_NOTEBOOK;
+	static const long ID_LEFT_NOTEBOOK;
 
 	/// @brief Create dynamic events.
 	void CreateEventTable();
@@ -75,4 +77,4 @@ private:
 	void OnSaveProject(wxCommandEvent &p_oEvent);
 };
 
-#endif // __MAIN_FRAME__
+#endif // __SAMBOX_MAIN_FRAME__

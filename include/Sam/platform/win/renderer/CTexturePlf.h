@@ -24,7 +24,7 @@
 namespace sam
 {
     /// @brief Texture implementation.
-    class CTexture : public IAllocated
+    class SAM_RENDERER_API CTexture : public IAllocated
     {
     public:
         /// @brief Constructor.

@@ -45,6 +45,7 @@
 #include <common/math/Matrix.h>
 
 #include <common/template/TList.h>
+#include <common/template/TObjectPool.h>
 #include <common/template/TVector.h>
 
 #include <common/thread/CAtomic.h>
@@ -52,5 +53,6 @@
 #include <common/thread/CThread.h>
 #include <common/thread/CJobArray.h>
 #include <common/thread/CJobManager.h>
+#include <common/thread/CSignalManager.h>
 
 #endif

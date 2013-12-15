@@ -59,8 +59,6 @@ namespace sam
 
 	struct SSamplerStateParams;
 
-    typedef uint32 FontID;
-
     /// @brief Initialize renderer module.
     /// 
     /// @param _pEnv Global environment variable.

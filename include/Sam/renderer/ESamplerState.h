@@ -24,11 +24,11 @@
 namespace sam
 {
 	/// @enum Texture sampler wrapping modes.
-	enum ESamplerWrap
+	enum ETextureWrap
 	{
-		e_SamplerWrap_Mirror,
-		e_SamplerWrap_Repeat,
-		e_SamplerWrap_Clamp,
+		e_TextureWrap_Mirror,
+		e_TextureWrap_Repeat,
+		e_TextureWrap_Clamp,
 	};
 
 	/// @enum Texture sampler magnification filter.

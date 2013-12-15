@@ -30,9 +30,9 @@ namespace sam
 	{
 		ESamplerMagFilter m_eMagFilter;
 		ESamplerMinFilter m_eMinFilter;
-		ESamplerWrap m_eWrapU;
-		ESamplerWrap m_eWrapV;
-		ESamplerWrap m_eWrapW;
+		ETextureWrap m_eWrapU;
+		ETextureWrap m_eWrapV;
+		ETextureWrap m_eWrapW;
 		f32 m_fMipmapLodBias;
 		EComparisonFunc m_eComparisonFunc;
 		f32 m_fBorderColor[4];
@@ -42,9 +42,9 @@ namespace sam
 		SSamplerStateParams()
 			: m_eMagFilter(e_SamplerMagFilter_Linear), 
 			m_eMinFilter(e_SamplerMinFilter_Linear),
-			m_eWrapU(e_SamplerWrap_Clamp),
-			m_eWrapV(e_SamplerWrap_Clamp),
-			m_eWrapW(e_SamplerWrap_Clamp),
+			m_eWrapU(e_TextureWrap_Clamp),
+			m_eWrapV(e_TextureWrap_Clamp),
+			m_eWrapW(e_TextureWrap_Clamp),
 			m_fMipmapLodBias(0.0f),
 			m_eComparisonFunc(e_ComparisonFunc_Never),
 			m_nMinLOD(0),

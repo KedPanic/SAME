@@ -23,6 +23,7 @@
 
 #include <intrin.h>
 #include <Wbemidl.h>
+#include <time.h>
 
 #pragma comment (lib, "wbemuuid.lib")
 
@@ -156,6 +157,23 @@ namespace sam
 		SetCPUInfo(m_oCPU);
 
 		SetMemoryInfo(m_nSystemMemory, m_nVideoMemory);
+	}
+
+	// Convert a timestamp to string.
+	void TimeStampToStr(Time p_oTimestamp, char *p_sTimeString)
+	{
+		SAM_TRAP(p_sTimeString != NULL && strlen(p_sTimeString) >= 19);
+
+		tm *pTime = localtime(&p_oTimestamp);
+
+		int32 nHour = pTime->tm_hour;
+		if(nHour > 12)
+		{
+			nHour = nHour - 12;
+		}
+
+		// convert the time stamp to string.
+		sprintf(p_sTimeString, "%d-%02d-%02dT%02d:%02d:%02d", pTime->tm_year + 1900, pTime->tm_mon + 1, pTime->tm_mday, nHour, pTime->tm_min, pTime->tm_sec);
 	}
 }
 

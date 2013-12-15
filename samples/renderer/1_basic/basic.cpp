@@ -27,6 +27,7 @@ public:
 	CApplication()
 		: IApplication("Sample: basic")
 	{
+		
 	}
 		
 	virtual bool PostInit()

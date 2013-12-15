@@ -39,7 +39,12 @@
 			name = "SamFramework",
 			subfolder = "framework",
 			dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "render", "audio", "input" }
-		},		
+		},	
+		SamGUI = {
+			name = "SamGUI",
+			subfolder = "gui",
+			dependencies = { "SamCommon", "SamRenderer", "SamInput" }
+		},
 	}	
 	-- create dependencies informations.
 	for index, proj in pairs(SamProjects) do

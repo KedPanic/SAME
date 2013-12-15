@@ -24,8 +24,14 @@
 wxDEFINE_EVENT(boxEVT_INIT_COMPLETED, CInitCompletedEvent);
 wxIMPLEMENT_DYNAMIC_CLASS(CInitCompletedEvent, wxEvent);
 
+wxDEFINE_EVENT(boxEVT_LOADING_COMPLETED, CLoadingCompletedEvent);
+wxIMPLEMENT_DYNAMIC_CLASS(CLoadingCompletedEvent, wxEvent);
+
 wxDEFINE_EVENT(boxEVT_OPEN_PROJECT, COpenProjectEvent);
 wxIMPLEMENT_DYNAMIC_CLASS(COpenProjectEvent, wxEvent);
 
 wxDEFINE_EVENT(boxEVT_CREATE_PROJECT, CCreateProjectEvent);
 wxIMPLEMENT_DYNAMIC_CLASS(CCreateProjectEvent, wxEvent);
+
+wxDEFINE_EVENT(boxEVT_CREATE_PACKAGE, CCreatePackageEvent);
+wxIMPLEMENT_DYNAMIC_CLASS(CCreatePackageEvent, wxCommandEvent);

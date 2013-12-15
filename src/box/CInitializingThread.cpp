@@ -21,7 +21,12 @@
 #include "SamBoxPCH.h"
 #include "CInitializingThread.h"
 #include "CSamBox.h"
+#include "CPlatform.h"
 #include "widgets/CSplashScreen.h"
+
+#include "resources/CResourceManager.h"
+#include "exporter/CExporterManager.h"
+#include "exporter/CTextureExporterDXT.h"
 
 // Constructor.
 CInitializingThread::CInitializingThread(CSplashScreen *p_pSplashScreen)
@@ -35,7 +40,31 @@ wxThread::ExitCode CInitializingThread::Entry()
 	// Initialize Sam Engine.
 	SendEvent(wxT("Initialize sam engine..."));
 	sam::Env *pEnv = sam::InitCommon();
-	sam::ModuleInit(pEnv);	
+	sam::ModuleInit(pEnv);
+
+	pEnv->pLog->SetFilename("SamBox.log");
+
+	// Initialize the Sam Box.
+	new CResourceManager;
+	new CExporterManager;
+	g_pExporterManager->RegisterExporter(new CTextureExporterDXT);
+
+	// create the default platform.
+	CPlatform *pPlatform = SAM_NEW CPlatform;
+	const char *aExporter[ e_ResourceType_Nb ] = {		
+		"TrueType",
+		"DXT",
+	};
+	pPlatform->Initialize("PC", aExporter);
+	g_pSamBox->AddPlatform(pPlatform);
+
+	// load the platform configuration files.
+	wxString sPlatformFilename = wxFindFirstFile(g_pSamBox->GetDataPath() + "platforms/*.json");
+	while(!sPlatformFilename.empty())
+	{
+		g_pSamBox->AddPlatform(sPlatformFilename);
+		sPlatformFilename = wxFindNextFile();
+	}
 
 	wxInitAllImageHandlers();
 
@@ -44,6 +73,15 @@ wxThread::ExitCode CInitializingThread::Entry()
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CScenePanel.xrc"));
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CProjectWizard.xrc"));
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CMainFrame.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CConsolePanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CPackagesPanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CAssetBrowserPanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CAssetPanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CPropertiesPanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CTexturePropertiesPanel.xrc"));
+
+	// Load icons.
+	CreateImageListAndThumbnail();
 
 	// Send end of initializing event.
  	CInitCompletedEvent *pEvent = new CInitCompletedEvent();
