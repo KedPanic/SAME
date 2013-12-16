@@ -48,6 +48,7 @@ solution "SamEngine"
 		"external/wxWidgets/premake4.lua",
 		"external/nvtt/premake4.lua",
 		"external/freeimage/premake4.lua",
+		"external/assimp/premake4.lua",
 	}
 	
 	group "external"

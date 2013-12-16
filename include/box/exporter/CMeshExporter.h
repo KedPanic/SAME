@@ -60,11 +60,11 @@ public:
 
 	/// @brief Method called by the job to export the resource.
 	/// 
-	/// @param p_pImage Image to export.
+	/// @param p_pStream Mesh to export.
 	/// @param p_sDestination Absolute path to write the exported file.
 	/// @param p_oMetadata Metadata used for the exportation.
 	/// @param p_nPlatformId Used for platform specific options.
-	bool Export(const SImage &p_pImage, const String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId);
+	bool Export(const sam::IStream *p_pStream, const String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId);
 };
 
 #endif // __SAMBOX_MESH_EXPORTER__

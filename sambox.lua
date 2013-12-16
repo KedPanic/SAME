@@ -1,5 +1,5 @@
 SamBox = {
-	dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "SamExporter", "render", "audio", "input", "wxWidgets", "nvtt", "freeimage" }
+	dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "SamEntitySystem", "SamExporter", "render", "audio", "input", "wxWidgets", "nvtt", "freeimage", "assimp" }
 }
 		
 group("tool")		

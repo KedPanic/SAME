@@ -67,7 +67,6 @@ namespace sam
     CVertexBuffer::CVertexBuffer(void)
         : m_pBuffer(NULL), m_nNbVertices(0), m_nNbElements(0), m_nStride(0), m_pVertexDeclaration(NULL)
     {
-        m_Iterator.SetOwner(this);
     }
 
     /// @brief Destructor.
@@ -268,14 +267,5 @@ namespace sam
     void CVertexBuffer::Unmap(void)
     {
         g_Env->pRenderWindow->GetD3DContext()->Unmap(m_pBuffer, 0);
-    }
-
-    /// @brief Retrieves vertex element iterator.
-    /// 
-    /// @return Pointer to the vertex element iterator.
-    CVertexElementIterator *CVertexBuffer::GetIterator(void)
-    {
-        m_Iterator.Reset();
-        return &m_Iterator;
     }
 }

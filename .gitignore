@@ -94,3 +94,7 @@ samples/renderer/4_cube/4_cube.vcxproj
 samples/renderer/4_cube/4_cube.vcxproj.filters
 samples/network/2_chat/2_chat.vcxproj
 samples/network/2_chat/2_chat.vcxproj.filters
+external/assimp/AssimpOpenGLDemo/*
+external/freeimage/FreeImage3154.pdf
+external/nvtt/build/*
+external/freeimage/build/*

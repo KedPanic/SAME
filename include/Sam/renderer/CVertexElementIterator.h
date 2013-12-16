@@ -28,9 +28,9 @@ namespace sam
     /// CVertexElementIterator vertexEltIt = m_pVertexBuffer->GetIterator();
     /// for(int i = 0; i < vertexEltIt->End(); vertexEltIt++)
     /// {
-    ///     vertexEltIt<float3>[0] = pfPosition[i];
-    ///     vertexEltIt<float3>[1] = pfColor[i];
-    ///     vertexEltIt<float2>[2] = pfCoord[i];
+    ///     vertexEltIt<f32>[0] = pfPosition[i];
+    ///     vertexEltIt<f32>[1] = pfColor[i];
+    ///     vertexEltIt<f32>[2] = pfCoord[i];
     /// }
     /// vertexEltIt.Close();
     class CVertexElementIterator
@@ -39,7 +39,7 @@ namespace sam
 
     public:
         /// @brief Constructor.        
-        CVertexElementIterator();
+        CVertexElementIterator(CVertexBuffer *p_pVertexBuffer);
 
         /// @brief Reset.
         void Reset();
@@ -61,14 +61,22 @@ namespace sam
         /// @brief Release the vertex buffer.
         void Close(void);
 
+		/// @brief Retrieves pointer to the buffer for the specified element.
+		/// 
+		/// @param p_nIndice Vertex indice.
+		/// @param p_nIndex	Index in the buffer.
+		/// 
+		/// @return Pointer to the buffer.
         template<typename T>
-        T *operator[](uint32 _nIndex);
+        T &Get(uint32 p_nIndice, uint32 p_nIndex);
 
-    protected:
-        /// @brief Set owner.
-        ///
-        /// @param _pVertexBuffer Owner.
-        void SetOwner(CVertexBuffer *_pVertexBuffer);
+		/// @brief Goto the next vertex.
+		CVertexElementIterator& operator++();
+
+		/// @brief Retrieves the size of the vertex buffer.
+		/// 
+		/// @return Size of the vertex buffer.
+		uint32 End() const;
 
     private:
         CVertexBuffer *m_pVertexBuffer; ///< Owner.

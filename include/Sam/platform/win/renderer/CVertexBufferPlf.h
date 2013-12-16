@@ -21,8 +21,6 @@
 #ifndef __CVERTEX_BUFFER_PLF__
 #define __CVERTEX_BUFFER_PLF__
 
-#include "renderer/CVertexElementIterator.h"
-
 namespace sam
 {
     /// @brief DX11 vertex buffer.
@@ -114,11 +112,6 @@ namespace sam
         /// @brief Unlock vertex buffer.
         void Unmap(void);
 
-        /// @brief Retrieves vertex element iterator.
-        /// 
-        /// @return Pointer to the vertex element iterator.
-        CVertexElementIterator *GetIterator(void);
-
         /// @brief Retrieves the D3D11 Vertex buffer.
         /// 
         /// @return The D3D11 vertex buffer.
@@ -131,8 +124,6 @@ namespace sam
         uint32 m_nStride;           ///< Stride to one vertex buffer.
 
         SVertexDeclaration *m_pVertexDeclaration;
-
-        CVertexElementIterator m_Iterator;
     };
 }
 #endif // __CVERTEX_BUFFER_PLF__

@@ -40,6 +40,12 @@
 
 #include <FreeImage.h>
 
+#include <assimp/Importer.hpp>
+#include <assimp/material.h>
+#include <assimp/mesh.h>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
+
 #include <SamCommon.h>
 #include <SamRenderer.h>
 #include <SamInput.h>

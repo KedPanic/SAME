@@ -25,9 +25,10 @@
 namespace sam
 {    
     /// @brief Constructor.
-    CVertexElementIterator::CVertexElementIterator()
-        : m_pVertexBuffer(NULL), m_pBuffer(NULL), m_nCurrentIndex(0), m_nCurrentVertex(0)
+    CVertexElementIterator::CVertexElementIterator(CVertexBuffer *p_pVertexBuffer)
+        : m_pVertexBuffer(p_pVertexBuffer), m_pBuffer(NULL), m_nCurrentIndex(0), m_nCurrentVertex(0)
     {
+		
     }
 
     /// @brief Reset.
@@ -37,26 +38,20 @@ namespace sam
         m_nCurrentVertex = 0;
     }
 
-    /// @brief Goto the next vertex.
-    /// 
-    /// @return True if there is no more vertex
+    // Goto the next vertex.
     bool CVertexElementIterator::Next(void)
     {
         m_nCurrentVertex++;
         if(m_pVertexBuffer->GetNbVertices() <= m_nCurrentVertex)
-            return true;
+		{
+            return false;
+		}
 
         m_pBuffer += m_pVertexBuffer->GetStride();
-        return false;
+        return true;
     }
 
-    /// @brief Patch the vertex buffer with new data.
-    /// 
-    /// @param _pBuffer New data.
-    /// @param _nSize Size of the buffer.
-    /// 
-    /// @remarks
-    ///     Be careful, the size of the buffer have to be strictly lesser-equal to the destination.
+    // Patch the vertex buffer with new data.
     void CVertexElementIterator::Write(void *_pBuffer, uint32 _nSize)
     {
         SAM_ASSERT(m_pVertexBuffer->GetSize(m_nCurrentIndex) >= _nSize, "Bad size of the vertex element");
@@ -65,25 +60,31 @@ namespace sam
         Next();
     }
 
-    /// @brief Release the vertex buffer.
-    void CVertexElementIterator::Close(void)
+    // Release the vertex buffer.
+    void CVertexElementIterator::Close()
     {
         m_pVertexBuffer->Unmap();
     }
 
+	// Retrieves pointer to the buffer for the specified element.
     template<typename T>
-    T *CVertexElementIterator::operator[](uint32 _nIndex)
+    T &CVertexElementIterator::Get(uint32 p_nIndice, uint32 p_nIndex)
     {
-        SAM_ASSERT(_nIndex > m_pVertexBuffer->GetNbElements(), "Bad index to access to the specified vertex element");
+        SAM_ASSERT(p_nIndex > m_pVertexBuffer->GetNbElements(), "Bad index to access to the specified vertex element");
 
-        return (T*)(m_pBuffer + m_pVertexBuffer->GetOffset(_nIndex));
+        return ((T*)(m_pBuffer + m_pVertexBuffer->GetOffset(p_nIndex)))[p_nIndex];
     }
 
-    /// @brief Set owner.
-    ///
-    /// @param _pVertexBuffer Owner.
-    void CVertexElementIterator::SetOwner(CVertexBuffer *_pVertexBuffer)
-    {
-        m_pVertexBuffer = _pVertexBuffer;
-    }
+	CVertexElementIterator& CVertexElementIterator::operator++()
+	{
+		Next();
+
+		return *this;
+	}
+
+	// Retrieves the size of the vertex buffer. 
+	uint32 CVertexElementIterator::End() const
+	{
+		return m_pVertexBuffer->GetNbVertices();
+	}
 }
