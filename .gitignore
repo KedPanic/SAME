@@ -73,6 +73,7 @@ external/wxWidgets/build/os2/*
 *.rc
 *~
 *.dep
+*.depend
 *.workspace
 *.cbp
 *.layout
@@ -104,3 +105,4 @@ external/assimp/AssimpOpenGLDemo/*
 external/freeimage/FreeImage3154.pdf
 external/nvtt/build/*
 external/freeimage/build/*
+/premake4

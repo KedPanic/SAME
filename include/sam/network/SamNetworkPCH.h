@@ -31,7 +31,9 @@
 #endif
 
 // platform specific configuration
-#if defined(SAM_PLATFORM_WIN)
+#if defined( SAM_PLATFORM_LINUX )
+    typedef int Socket;
+#elif defined( SAM_PLATFORM_WIN )
 	typedef SOCKET Socket;
 #else
 #	error "Unsupported platform"
@@ -45,7 +47,7 @@ namespace sam
 	class CNetAddress;
 
 	/// @brief Retrieves last error as string.
-	/// 
+	///
 	/// @return Last error message.
 	char *GetNetworkError();
 

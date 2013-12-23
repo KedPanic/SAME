@@ -21,6 +21,10 @@
 #include "SamNetworkPCH.h"
 #include "network/CNetAddress.h"
 
+#if defined(SAM_PLATFORM_LINUX)
+#   include <arpa/inet.h>
+#endif
+
 namespace sam
 {
 	// Default constructor.

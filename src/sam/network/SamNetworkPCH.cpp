@@ -29,7 +29,7 @@ namespace sam
 {
 	// Platform specific initialization/shutdown.
 	namespace priv
-	{		
+	{
 		bool InitNetwork();
 		void ShutdownNetwork();
 	}
