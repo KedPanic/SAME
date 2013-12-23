@@ -1,0 +1,270 @@
+# depslib dependency file v1.0
+1387233252 source:/home/cedric/Workspace/SAME/samples/sampleapp/IApplication.cpp
+	"IApplication.h"
+	<common/SamModuleInit.h>
+
+1387233252 /home/cedric/Workspace/SAME/samples/sampleapp/IApplication.h
+	<SamCommon.h>
+	<SamRenderer.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/SamCommon.h
+	<common/SamCommonPCH.h>
+	<common/base/CAllocator.h>
+	<common/base/CFunctor.h>
+	<common/base/CLog.h>
+	<common/base/CTimer.h>
+	<common/base/ID.h>
+	<common/base/StringUtil.h>
+	<common/base/SParam.h>
+	<common/io/CResourceStorageManager.h>
+	<common/io/CFile.h>
+	<common/io/CMemoryStream.h>
+	<common/io/ISerializable.h>
+	<common/io/CBinarySerializer.h>
+	<common/io/CJSONSerializer.h>
+	<common/io/CXMLSerializer.h>
+	<common/io/CBitStream.h>
+	<common/math/Math.h>
+	<common/math/Vector.h>
+	<common/math/Matrix.h>
+	<common/template/TList.h>
+	<common/template/TObjectPool.h>
+	<common/template/TVector.h>
+	<common/thread/CAtomic.h>
+	<common/thread/CMutex.h>
+	<common/thread/CThread.h>
+	<common/thread/CJobArray.h>
+	<common/thread/CJobManager.h>
+	<common/thread/CSignalManager.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/SamCommonPCH.h
+	<common/SamConfig.h>
+	<common/io/CFile.h>
+	<common/base/CLog.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/SamConfig.h
+	"common/SamPlatform.h"
+	"common/system/System.h"
+	"common/SamTypes.h"
+	"common/io/EStream.h"
+	<common/base/IAllocated.h>
+
+1387728967 /home/cedric/Workspace/SAME/include/sam/common/SamPlatform.h
+	<common/Platform.h>
+	"SamProfiling.h"
+
+1387814534 /home/cedric/Workspace/SAME/include/sam/platform/linux/common/Platform.h
+	<set>
+	<map>
+	<list>
+	<vector>
+	<queue>
+	<string>
+	<cstdio>
+	<cstdarg>
+	<cstring>
+	<fstream>
+	<sstream>
+	<sys/stat.h>
+	<dirent.h>
+	<pwd.h>
+	<fcntl.h>
+	<math.h>
+	<float.h>
+	<xmmintrin.h>
+	<dlfcn.h>
+	<unistd.h>
+	<limits.h>
+	"FileUtil.h"
+
+1387753469 /home/cedric/Workspace/SAME/include/sam/platform/linux/common/FileUtil.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/SamProfiling.h
+	<profiling/SamProfilingPCH.h>
+	<profiling/CMemoryTracker.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/profiling/SamProfilingPCH.h
+	<common/SamPlatform.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/profiling/CMemoryTracker.h
+
+1387759915 /home/cedric/Workspace/SAME/include/sam/common/system/System.h
+	<common/system/CPU.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/system/CPU.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/SamTypes.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/EStream.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/IAllocated.h
+	<common/SamConfig.h>
+	<common/base/CAllocator.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/CAllocator.h
+	<common/SamConfig.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CFile.h
+	<common/io/IStream.h>
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/common/io/IStream.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/CLog.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/CFunctor.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/CTimer.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/ID.h
+
+1387754835 /home/cedric/Workspace/SAME/include/sam/common/base/StringUtil.h
+	<common/SamConfig.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/SParam.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CResourceStorageManager.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CMemoryStream.h
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/common/io/ISerializable.h
+	<common/base/GUIDUtil.h>
+	<common/SamConfig.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/base/GUIDUtil.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CBinarySerializer.h
+	<common/io/ISerializer.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/ISerializer.h
+	"common/base/GUIDUtil.h"
+	"common/math/Vector.h"
+
+1387754924 /home/cedric/Workspace/SAME/include/sam/common/math/Vector.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CJSONSerializer.h
+	<common/io/ISerializer.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CXMLSerializer.h
+	<common/io/ISerializer.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CBitStream.h
+	<common/io/CBitStream.inl>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/io/CBitStream.inl
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/common/math/Math.h
+	"common/SamConfig.h"
+	"common/math/MathPlf.h"
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/platform/linux/common/math/MathPlf.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/math/Matrix.h
+	"common/math/Vector.h"
+
+1387760435 /home/cedric/Workspace/SAME/include/sam/common/template/TList.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/template/TObjectPool.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/template/TVector.h
+
+1387756141 /home/cedric/Workspace/SAME/include/sam/common/thread/CAtomic.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/thread/CMutex.h
+	<common/thread/CMutexPlf.h>
+
+1387806254 /home/cedric/Workspace/SAME/include/sam/platform/linux/common/thread/CMutexPlf.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/thread/CThread.h
+	<common/thread/CThreadPlf.h>
+
+1387812311 /home/cedric/Workspace/SAME/include/sam/platform/linux/common/thread/CThreadPlf.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/thread/CJobArray.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/thread/CJobManager.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/thread/CSignalManager.h
+	<common/thread/CSignalManager.inl>
+
+1387755585 /home/cedric/Workspace/SAME/include/sam/common/thread/CSignalManager.inl
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/SamRenderer.h
+	<renderer/SamRendererPCH.h>
+	<renderer/CRenderWindow.h>
+	<renderer/CCamera.h>
+	<renderer/CMaterial.h>
+	<renderer/CMaterialManager.h>
+	<renderer/Color.h>
+	<renderer/CPixelShader.h>
+	<renderer/CVertexShader.h>
+	<renderer/CSamplerState.h>
+	<renderer/CTexture.h>
+	<renderer/CTextureManager.h>
+	<renderer/CVertexBuffer.h>
+	<renderer/CVertexElementIterator.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/SamRendererPCH.h
+	"SamCommon.h"
+	"renderer/EShaderState.h"
+	"renderer/ETexture.h"
+	"renderer/Color.h"
+	<D3D11.h>
+	<D3DX11.h>
+	<D3Dcompiler.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/EShaderState.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/ETexture.h
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/renderer/Color.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CRenderWindow.h
+	"renderer/CRenderWindowPlf.h"
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CCamera.h
+	"common/SamConfig.h"
+	"common/math/Math.h"
+	"common/math/Vector.h"
+	"common/math/Matrix.h"
+	"renderer/CCamera.inl"
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/renderer/CCamera.inl
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CMaterial.h
+	"renderer/CMaterial.inl"
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/renderer/CMaterial.inl
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/renderer/CMaterialManager.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CPixelShader.h
+	<renderer/CPixelShaderPlf.h>
+
+1387233118 /home/cedric/Workspace/SAME/include/sam/renderer/CVertexShader.h
+	<renderer/CVertexShaderPlf.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CSamplerState.h
+	<renderer/ESamplerState.h>
+	<renderer/EShaderState.h>
+	<renderer/CSamplerStatePlf.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/ESamplerState.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CTexture.h
+	<renderer/CTexturePlf.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CTextureManager.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CVertexBuffer.h
+	<renderer/CVertexBufferPlf.h>
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/renderer/CVertexElementIterator.h
+
+1387233252 /home/cedric/Workspace/SAME/include/sam/common/SamModuleInit.h
+	<common/SamConfig.h>
+	<common/io/ISerializable.h>
+	<common/io/ISerializer.h>
+
+1387233252 source:/home/cedric/Workspace/SAME/samples/common/thread/thread.cpp
+	"IApplication.h"
+

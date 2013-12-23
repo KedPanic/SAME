@@ -36,6 +36,7 @@ external/nvtt/project/vc10/nvthread/Debug/
 external/nvtt/project/vc10/nvtt/Debug/
 external/nvtt/project/vc10/squish/Debug/
 external/nvtt/project/vc10/nvcore/Debug/
+external/freeimage/Source/LibJPEG/jconfig.h
 tools/build/vc10/Debug/
 tools/SamBox/qt/GeneratedFiles/
 external/wxWidgets/demos/*
@@ -70,6 +71,11 @@ external/wxWidgets/build/os2/*
 *.manifest
 *.res
 *.rc
+*~
+*.dep
+*.workspace
+*.cbp
+*.layout
 external/tinyxml2/tinyxml2.vcxproj
 external/tinyxml2/tinyxml2.vcxproj.filters
 external/cJSON/cJSON.vcxproj

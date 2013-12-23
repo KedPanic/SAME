@@ -8,7 +8,7 @@
 		SamCommon = {
 			name = "SamCommon",
 			subfolder = "common",
-			dependencies = { "tinyxml2" }
+			dependencies = { "tinyxml2", "system" }
 		},
 		SamRenderer = {
 			name = "SamRenderer",
@@ -70,7 +70,11 @@
 			local platformRootFolder = "sam/platform/"
 			
 			-- precompiled header
-			pchheader("include/"..folder..proj.name.."PCH.h")
+            if os.is("linux") == true then
+    			pchheader("../../include/"..folder..proj.name.."PCH.h")
+            else
+                pchheader("include/"..folder..proj.name.."PCH.h")
+            end
 			pchsource("src/"..folder..proj.name.."PCH.cpp")
 			
 			-- set specific platform source folder.

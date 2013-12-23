@@ -3,7 +3,7 @@ table.remove(sample_project_files, 1)
 
 samples = {}
 for index, sampleProject in pairs(sample_project_files) do	
-	include(sampleProject)
+	dofile(sampleProject)
 end
 
 for index, sample in pairs(samples) do

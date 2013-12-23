@@ -74,12 +74,6 @@
 						
 				includedirs { proj.include }
 				
-				-- platform defines
-				local platformDefine = ""
-				if os.is("windows") then
-					platformDefine = { "WIN32", "_WINDOWS" }
-				end
-				
 				-- create virtual folder.
 				vpaths {
 					["**"] = { proj.files }
@@ -91,7 +85,7 @@
 				------------------------------------------------------------
 				--------------------------------------------  CONFIGURATIONS
 				configuration "Debug"
-					defines { "DEBUG", platformDefine, proj.defines }
+					defines { "DEBUG", PLATFORM_DEF, proj.defines }
 					flags { "Symbols" }
 					objdir("build/obj/debug/")
 					implibdir "../../lib/debug/"
@@ -101,7 +95,7 @@
 					end					
 							
 				configuration "Profile"
-					defines { "NDEBUG", platformDefine, proj.defines }
+					defines { "NDEBUG", PLATFORM_DEF, proj.defines }
 					flags { "Symbols" }
 					objdir("build/obj/profile/")
 					implibdir "../../lib/profile/"
@@ -111,7 +105,7 @@
 					end					
 					
 				configuration "Release"
-					defines { "NDEBUG", platformDefine, proj.defines }
+					defines { "NDEBUG", PLATFORM_DEF, proj.defines }
 					flags { "Optimize", "FatalWarnings" }
 					objdir("build/obj/release/")
 					implibdir "../../lib/release/"

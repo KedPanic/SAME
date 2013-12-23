@@ -21,6 +21,11 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.			
 ]]--
+if os.is("linux") == true then
+	function group(unused)
+	end
+end
+
 solution "SamEngine"
 	-- create required folder
 	os.mkdir("bin/debug/plugins")
@@ -36,19 +41,25 @@ solution "SamEngine"
 	configurations { "Debug", "Profile", "Release" }
 	
 	DEBUG_DEF = "DEBUG"
+    PLATFORM_DEF = "PLATFORM_UNDEF"
 	if os.is("windows") == true then
 		DEBUG_DEF = "_DEBUG"
+		PLATFORM_DEF = { "WIN32", "_WINDOWS" }
+    elseif os.is("linux") then
+        PLATFORM_DEF = { "__linux__" }
 	end
+
+                
 	
 	--------------------------------------------------------------------
 	---------------------------  CREATION EXTERNAL DEPENDENCIES PROJECTS
 	dependencies = {}
 	local dependencie_folder = {
-		"external/tinyxml2/premake4.lua",
-		"external/wxWidgets/premake4.lua",
-		"external/nvtt/premake4.lua",
-		"external/freeimage/premake4.lua",
-		"external/assimp/premake4.lua",
+		"external/tinyxml2/",
+		"external/wxWidgets/",
+		"external/nvtt/",
+		"external/freeimage/",
+		"external/assimp/",
 	}
 	
 	group "external"
@@ -82,6 +93,10 @@ solution "SamEngine"
 			include = "",
 			libdir = "",
 		}
+    elseif os.is("linux") == true then
+        dependencies["system"] = {
+            lib = { "dl", "pthread" },
+        }
 	end
 	
 	--------------------------------------------------------------------
@@ -90,7 +105,7 @@ solution "SamEngine"
 		dofile("samengine.lua")
 
 	group "tool"
-		include("tools/premake4.lua")
+		include("tools/")
 		dofile("sambox.lua")		
 		
-	include("samples/premake4.lua")
+	include("samples/")

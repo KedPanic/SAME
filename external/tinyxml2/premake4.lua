@@ -14,6 +14,10 @@
 		}
 							
 		files { "**.h", "**.cpp" }
+
+        if os.is("linux") == true then
+            buildoptions { "-fPIC" }
+        end
 		
 		------------------------------------------------------------
 		--------------------------------------------  CONFIGURATIONS
@@ -22,7 +26,7 @@
 			flags { "Symbols" }
 			objdir("obj/debug/")
 			implibdir "../../lib/debug/"
-			targetdir "../../lib/debug/"		
+			targetdir "../../lib/debug/"
 					
 		configuration "Profile"
 			defines { "NDEBUG" }

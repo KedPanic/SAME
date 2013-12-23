@@ -8,7 +8,7 @@ group("tool")
 		kind "WindowedApp"
 		language "C++"			
 				
-		local commonFlags = { "WinMain", "EnableSSE", "EnableSSE2", "unicode" }
+		local commonFlags = { "WinMain", "EnableSSE", "EnableSSE2", "Unicode" }
 				
 		-- precompiled header
 		pchheader("include/box/SamBoxPCH.h")
