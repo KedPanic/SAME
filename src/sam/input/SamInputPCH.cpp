@@ -19,7 +19,7 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
 #include "SamInputPCH.h"
-#include <input/CInputManagerPlf.h>
+#include <input/CInputManager.h>
 
 //===================================//
 // DLL Create/Destroy implementation //
@@ -45,7 +45,7 @@ namespace sam
 	void DestroyInputManager()
 	{
 		SAM_ASSERT(g_Env->pInputManager != NULL, "Input manager already freed");
-	    
+
         g_Env->pInputManager->Shutdown();
 		SAM_DELETE g_Env->pInputManager;
 		g_Env->pInputManager = NULL;

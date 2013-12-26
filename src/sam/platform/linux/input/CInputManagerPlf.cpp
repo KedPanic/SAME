@@ -18,55 +18,19 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CRENDER_WINDOW__
-#define __CRENDER_WINDOW__
+#include "SamInputPCH.h"
+#include <input/CInputManager.h>
 
 namespace sam
 {
-    /// @enum Type of renderer.
-    enum ERenderType
+    // Initialize.
+    bool CInputManager::InitializeInputDriver()
     {
-        e_RenderType_Undefined,
-        e_RenderType_DX11,
-        e_RenderType_OpenGL,
-    };
+        return true;
+    }
 
-    /// @enum Clear mask flags.
-    enum EClearType
+    // Shutdown.
+    void CInputManager::ShutdownInputDriver()
     {
-        e_ClearType_Color    = 1 << 0,   ///< Flag to clear the color buffer.
-        e_ClearType_Depth    = 1 << 1,   ///< Flag to clear the depth buffer.
-        e_ClearType_Stencil  = 1 << 2,   ///< Flag to clear the stencil buffer.
-        e_ClearType_Accum    = 1 << 3,   ///< Flag to clear the accumulation buffer.
-    };
-
-    /// @brief Supported display format.
-    struct SDisplayFormat
-    {
-
-    };
-
-	/// @brief Window event listener.
-	class IWindowEventListener
-	{
-	public:
-		/// @brief On size event.
-		///
-		/// @param p_nWidth Width of the window.
-		/// @param p_nHeight Height of the window.
-		virtual void OnSize(int p_nWidth, int p_nHeight) = 0;
-
-		/// @brief On close event.
-		virtual void OnClose() = 0;
-
-		/// @brief On gain focus.
-		virtual void OnGainFocus() = 0;
-
-		/// @brief On lose focus.
-		virtual void OnLoseFocus() = 0;
-	};
+    }
 }
-
-#include "renderer/CRenderWindowPlf.h"
-
-#endif // __CRENDER_WINDOW__

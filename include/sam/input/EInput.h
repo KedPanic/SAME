@@ -35,23 +35,23 @@ namespace sam
     /// @enum Define modifier mask
     enum EModifierMask
     {
-        e_MM_None       = 0,
-        e_MM_LShift     = 1 << 0,
-        e_MM_LCtrl      = 1 << 1,
-        e_MM_LAlt       = 1 << 2,
-        e_MM_LWin       = 1 << 3,
-        e_MM_RShift     = 1 << 4,
-        e_MM_RCtrl      = 1 << 5,
-        e_MM_RAlt       = 1 << 6,
-        e_MM_RWin       = 1 << 7,
-        e_MM_CapsLock   = 1 << 8,
-        e_MM_NumLock    = 1 << 9,
-        e_MM_ScrollLock = 1 << 10,
+        e_ModifierMask_None       = 0,
+        e_ModifierMask_LShift     = 1 << 0,
+        e_ModifierMask_LCtrl      = 1 << 1,
+        e_ModifierMask_LAlt       = 1 << 2,
+        e_ModifierMask_LWin       = 1 << 3,
+        e_ModifierMask_RShift     = 1 << 4,
+        e_ModifierMask_RCtrl      = 1 << 5,
+        e_ModifierMask_RAlt       = 1 << 6,
+        e_ModifierMask_RWin       = 1 << 7,
+        e_ModifierMask_CapsLock   = 1 << 8,
+        e_ModifierMask_NumLock    = 1 << 9,
+        e_ModifierMask_ScrollLock = 1 << 10,
 
-        e_MM_Shift      = e_MM_LShift | e_MM_RShift,
-        e_MM_Ctrl       = e_MM_LCtrl  | e_MM_RCtrl,
-        e_MM_Alt        = e_MM_LAlt   | e_MM_RAlt,
-        e_MM_Win        = e_MM_LWin   | e_MM_RWin,
+        e_ModifierMask_Shift      = e_ModifierMask_LShift | e_ModifierMask_RShift,
+        e_ModifierMask_Ctrl       = e_ModifierMask_LCtrl  | e_ModifierMask_RCtrl,
+        e_ModifierMask_Alt        = e_ModifierMask_LAlt   | e_ModifierMask_RAlt,
+        e_ModifierMask_Win        = e_ModifierMask_LWin   | e_ModifierMask_RWin,
     };
 
     /// @enum Type of event.
@@ -90,7 +90,7 @@ namespace sam
 		e_K_6,
 		e_K_7,
 		e_K_8,
-		e_K_9,		
+		e_K_9,
 		e_K_Minus,    // -
 		e_K_Equals,   // =
 		e_K_Backspace,
@@ -168,8 +168,8 @@ namespace sam
         e_K_NP_6,
 		e_K_NP_7,
 		e_K_NP_8,
-		e_K_NP_9,			
-		e_K_NP_Enter,		
+		e_K_NP_9,
+		e_K_NP_Enter,
 		e_K_NP_Delete,
 		e_K_Keyboard_End,
 
@@ -191,7 +191,7 @@ namespace sam
 		e_K_Joy_3,
 		e_K_Joy_4,
 		e_K_Joy_L1,
-		e_K_Joy_R1,		
+		e_K_Joy_R1,
 		e_K_Joy_L2,
 		e_K_Joy_R2,
 		e_K_Joy_L3,
@@ -203,7 +203,7 @@ namespace sam
 		e_K_Joy_PadDown,
 		e_K_Joy_PadRight,
 		e_K_Joy_LStickX,
-		e_K_Joy_LStickY,	
+		e_K_Joy_LStickY,
 		e_K_Joy_RStickX,
 		e_K_Joy_RStickY,
 		e_K_Joy_End,
@@ -216,7 +216,7 @@ namespace sam
         e_K_Unknown = 0xFFFFFFFFU,
 	};
 
-	
+
 	//============================================================//
 	//				  		  READABLE INPUT					  //
 	//============================================================//
@@ -246,7 +246,7 @@ namespace sam
 		"6",
 		"7",
 		"8",
-		"9",		
+		"9",
 		"minus",
 		"equals",
 		"backspace",
@@ -275,7 +275,7 @@ namespace sam
 		"k",
 		"l",
 		";",
-		"'", 
+		"'",
         "~",
 		"\"",
 		"lshift",
@@ -315,7 +315,7 @@ namespace sam
 		"np_multiply",
 		"np_substract",
 		"np_add",
-        "np_0",		
+        "np_0",
 		"np_1",
 		"np_2",
 		"np_3",
@@ -325,7 +325,7 @@ namespace sam
         "np_7",
         "np_8",
         "np_9",
-		"np_enter",		
+		"np_enter",
 		"np_delete",
 
 		// Mouse
@@ -404,14 +404,28 @@ namespace sam
         int         m_iInternalID;      ///< Internal device ID.
         EInputState m_eState;           ///< Type of input event.
         EKey        m_eKey;             ///< Key corresponding of the event.
-        int         m_iModifiers;       ///< Flag of key modifier.
+        int         m_nModifiers;       ///< Flag of key modifier.
         String      m_sKeyName;         ///< Name of the key in human readable.
         float       m_fValue;           ///< Value associated with the input event.
 
         /// @brief Default constructor.
         SInputEvent()
-            : m_eDevice(e_DT_Unknown), m_iInternalID(0), m_eState(e_IS_Unknown), m_eKey(e_K_Unknown), m_iModifiers(0), m_sKeyName(""), m_fValue(0.0f)
+            : m_eDevice(e_DT_Unknown), m_iInternalID(0), m_eState(e_IS_Unknown), m_eKey(e_K_Unknown), m_nModifiers(0), m_sKeyName(""), m_fValue(0.0f)
         {}
+
+        int16 GetMouseX()
+        {
+            SAM_ASSERT(m_eDevice == e_DT_Mouse, "Device is not a mouse");
+
+            return static_cast<int32>(m_fValue) >> 16;
+        }
+
+        int16 GetMouseY()
+        {
+            SAM_ASSERT(m_eDevice == e_DT_Mouse, "Device is not a mouse");
+
+            return static_cast<int32>(m_fValue) & 0x0000FFFF;
+        }
     };
 
     /// Helper MACRO
@@ -430,7 +444,7 @@ namespace sam
     {
     public:
         /// @brief Called every time when an input event occurred.
-        /// 
+        ///
         /// @param _Event Input event.
         /// @return true if other input listener should not received this event.
         virtual bool OnInputEvent(SInputEvent &_Event) = 0;

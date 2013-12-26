@@ -25,7 +25,9 @@
 #include <SamCommon.h>
 #include <input/EInput.h>
 
-#ifdef SAM_PLATFORM_WIN
+#if defined( SAM_PLATFORM_LINUX )
+#   include <X11/Xutil.h>
+#elif defined( SAM_PLATFORM_WIN )
 #	include <dinput.h>
 #	include <Xinput.h>
 #else
@@ -47,10 +49,10 @@ namespace sam
 	class CInputManager;
 
 	/// @brief Create input manager.
-	/// 
+	///
 	/// @param _pEnv Global environment variable.
 	/// @param _pWinHandle Window handler.
-	/// 
+	///
 	/// @return Created input manager.
 	extern SAM_INPUT_API CInputManager *CreateInputManager(Env *_pEnv, SAM_HWND _pWinHandle);
 

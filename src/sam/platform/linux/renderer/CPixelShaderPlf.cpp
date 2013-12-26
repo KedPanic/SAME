@@ -18,55 +18,47 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CRENDER_WINDOW__
-#define __CRENDER_WINDOW__
+#include "SamRendererPCH.h"
+#include "renderer/CPixelShader.h"
+#include "renderer/CVertexBuffer.h"
+#include "renderer/CRenderWindow.h"
+#include "renderer/ShaderUtilsPlf.h"
 
 namespace sam
-{
-    /// @enum Type of renderer.
-    enum ERenderType
+{       
+    // Constructor.
+    CPixelShader::CPixelShader(ID p_nID)
+        : m_nID(p_nID), m_pPixelShader(NULL), m_pNext(NULL)
     {
-        e_RenderType_Undefined,
-        e_RenderType_DX11,
-        e_RenderType_OpenGL,
-    };
+    }
 
-    /// @enum Clear mask flags.
-    enum EClearType
+    // Destructor.
+    CPixelShader::~CPixelShader()
     {
-        e_ClearType_Color    = 1 << 0,   ///< Flag to clear the color buffer.
-        e_ClearType_Depth    = 1 << 1,   ///< Flag to clear the depth buffer.
-        e_ClearType_Stencil  = 1 << 2,   ///< Flag to clear the stencil buffer.
-        e_ClearType_Accum    = 1 << 3,   ///< Flag to clear the accumulation buffer.
-    };
+    }
 
-    /// @brief Supported display format.
-    struct SDisplayFormat
+    // Create pixel shader.
+    bool CPixelShader::CreateShader(IStream *p_pStream, const char *p_sFuncName, const char *p_sProfile)
     {
+        ID3DBlob *pBlob = NULL;
+        // compile pixel shader.
+        if(CompileShader(p_pStream->Data(), p_pStream->Size(), p_sFuncName, p_sProfile, &pBlob))
+        {
+            // create pixel shader.
+            HRESULT hResult = g_Env->pRenderWindow->GetD3DDevice()->CreatePixelShader(
+                pBlob->GetBufferPointer(), 
+                pBlob->GetBufferSize(),
+                NULL,
+                &m_pPixelShader);
+            if(hResult != S_OK)
+            {
+                pBlob->Release();
+                return false;
+            }
 
-    };
+            return true;
+        }
 
-	/// @brief Window event listener.
-	class IWindowEventListener
-	{
-	public:
-		/// @brief On size event.
-		///
-		/// @param p_nWidth Width of the window.
-		/// @param p_nHeight Height of the window.
-		virtual void OnSize(int p_nWidth, int p_nHeight) = 0;
-
-		/// @brief On close event.
-		virtual void OnClose() = 0;
-
-		/// @brief On gain focus.
-		virtual void OnGainFocus() = 0;
-
-		/// @brief On lose focus.
-		virtual void OnLoseFocus() = 0;
-	};
+        return false;
+    }
 }
-
-#include "renderer/CRenderWindowPlf.h"
-
-#endif // __CRENDER_WINDOW__

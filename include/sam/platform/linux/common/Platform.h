@@ -56,13 +56,16 @@
 #endif
 
 // define inner type
-typedef std::string String;
-typedef std::wstring UString;
-typedef unsigned long SAM_HWND;
-typedef FILE File;
-typedef std::list<String> VString;
-typedef time_t Time;
-typedef volatile long atomic;
+namespace sam
+{
+    typedef std::string String;
+    typedef std::wstring UString;
+    typedef unsigned long SAM_HWND;
+    typedef FILE File;
+    typedef std::list<String> VString;
+    typedef time_t Time;
+    typedef volatile long atomic;
+}
 
 #ifdef SAM_32BITS
 	typedef char int8;

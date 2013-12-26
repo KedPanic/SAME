@@ -18,57 +18,40 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __SAM_RENDERER_PCH__
-#define __SAM_RENDERER_PCH__
+#ifndef __CSAMPLER_STATE_PLF__
+#define __CSAMPLER_STATE_PLF__
 
-/* sam engine */
-#include "SamCommon.h"
-#include "renderer/EShaderState.h"
-#include "renderer/ETexture.h"
-#include "renderer/Color.h"
-
-#if defined( SAM_PLATFORM_LINUX )
-#elif defined( SAM_PLATFORM_WIN )
-#   include <D3D11.h>
-#   include <D3DX11.h>
-#   include <D3Dcompiler.h>
-#else
-#   error "unsupported platform"
+#ifndef __CSAMPLER_STATE__
+#   error "Do not include it directly"
 #endif
-
-// sam engine renderer subsystem macro export
-#ifdef SAM_RENDERER_EXPORTS
-#   define SAM_RENDERER_API LIBRARY_EXPORT
-#else
-#   define SAM_RENDERER_API LIBRARY_IMPORT
-#endif
-
-//#define ENABLE_FLASH
 
 namespace sam
 {
-    class CFont;
-    class CMaterial;
-    class CMaterialManager;
-    class CPixelShader;
-    class CRenderWindow;
-	class CSamplerState;
-    class CTexture;
-	class CTextureManager;
-    class CVertexBuffer;
-    class CVertexShader;
+	/// @brief Implementation of dx11 sampler object.
+	///		   A sampler object is a sampling parameters for a texture by a pixel shader.
+	class SAM_RENDERER_API CSamplerState : public IAllocated
+	{
+	public:
+		CSamplerState();
+		~CSamplerState();
 
-	struct SSamplerStateParams;
+		/// @brief Create the sampler state.
+		/// 
+		/// @param p_oSamplerStateParams parameters to apply.
+		void Initialize(const SSamplerStateParams &p_oSamplerStateParams);
 
-    /// @brief Initialize renderer module.
-    ///
-    /// @param _pEnv Global environment variable.
-    ///
-    /// @return Created render window.
-    extern SAM_RENDERER_API CRenderWindow *CreateRenderManager(Env *_pEnv);
+		//================================================//
+		//                  INTERNAL USE                  //
+		//================================================//
 
-    /// @brief Close renderer module.
-    extern SAM_RENDERER_API void DestroyRenderManager();
+		/// @brief Retrieves the Dx11 sampler state context.
+		/// 
+		/// @return The dx11 sampler state context.
+		ID3D11SamplerState *GetSamplerState() const;
+
+	private:
+		ID3D11SamplerState *m_pSamplerState;
+	};
 }
 
-#endif // __SAM_RENDERER_PCH__
+#endif // __CSAMPLER_STATE_PLF__
