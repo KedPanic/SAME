@@ -112,3 +112,16 @@ docs/sources/
 *.vcxproj
 samples/entity_system/scene/scene.vcxproj.filters
 samples/project/pong/
+tools/qtfm-5.5/
+tools/SamBox2/qtfm-5.5/
+tools/build-qtfm-Desktop_Qt_5_2_0_MSVC2010_32bit-Debug/
+tools/SamBox2/build/
+tools/SamBox2/SamBox2/qrc/icons/16x16/
+tools/SamBox2/SamBox2/qrc/icons/22x22/
+tools/SamBox2/SamBox2/qrc/icons/24x24/
+tools/SamBox2/SamBox2/qrc/icons/256x256/
+tools/SamBox2/SamBox2/qrc/icons/32x32/
+tools/SamBox2/SamBox2/qrc/icons/48x48/
+tools/SamBox2/SamBox2/qrc/icons/64x64/
+tools/SamBox2/SamBox2/qrc/icons/96x96/
+tools/SamBox2/SamBox2/qrc/icons/Faba/
