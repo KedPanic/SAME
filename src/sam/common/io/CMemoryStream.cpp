@@ -29,7 +29,7 @@ namespace sam
 	/// @param _iSize Size of the buffer.
 	/// @param _bFreeOnClose true if we must to delete the memory when the stream is destroyed.
 	CMemoryStream::CMemoryStream(void *_pBuffer, uint32 _iSize, bool _bFreeOnClose /*= false*/)
-		: sam::IStream(_bFreeOnClose), m_pBuffer((uint8*)_pBuffer), m_iPosition(0), m_iLength(_iSize)
+		: sam::IStream(_bFreeOnClose), m_pBuffer((uint8*)_pBuffer), m_nPosition(0), m_iLength(_iSize)
 	{
 	}
 
@@ -50,20 +50,17 @@ namespace sam
 		}
 	}
 
-	/// @brief Read a block of bytes and store it in the buffer.
-	/// 
-	/// @param _pBuffer Pointer to an allocated block of memory.
-	/// @param _iSize Size of bytes to read.
-	/// @return the number of bytes read.
-	uint32 CMemoryStream::Read(void* _pBuffer, uint32 _iSize)
+	// Read a block of bytes and store it in the buffer.
+	uint32 CMemoryStream::Read(void *p_pBuffer, uint32 p_nSize)
 	{
-		SAM_ASSERT(_pBuffer != 0, "_pBuffer is null");
+		SAM_ASSERT(p_pBuffer != 0, "_pBuffer is null");
 		SAM_ASSERT(m_pBuffer != 0, "m_pBuffer is null");
 
-		int iSeek = _iSize <= m_iLength - m_iPosition?_iSize:m_iLength - m_iPosition;
-		memcpy(_pBuffer, &m_pBuffer[m_iPosition], iSeek);
+		uint32 nSeek = p_nSize <= m_iLength - m_nPosition?p_nSize:m_iLength - m_nPosition;
+		memcpy(p_pBuffer, &m_pBuffer[m_nPosition], nSeek);
 
-		return iSeek;
+		m_nPosition += nSeek;
+		return nSeek;
 	}
 
 	/// @brief Set the position in the stream.
@@ -81,22 +78,22 @@ namespace sam
 		case e_SD_Begin:
 			if(_iOffset < m_iLength)
 			{
-				m_iPosition = _iOffset;
+				m_nPosition = _iOffset;
 				iSeek = _iOffset;
 			}
 			else
 			{                
-				m_iPosition = m_iLength;
+				m_nPosition = m_iLength;
 				iSeek = m_iLength;
 			}
 			break;
 
 		case e_SD_Current:
-			m_iPosition += _iOffset;
-			if(m_iPosition >= m_iLength)
+			m_nPosition += _iOffset;
+			if(m_nPosition >= m_iLength)
 			{
-				iSeek = m_iLength - m_iPosition;
-				m_iPosition = m_iLength;                
+				iSeek = m_iLength - m_nPosition;
+				m_nPosition = m_iLength;                
 			}
 			else
 				iSeek = _iOffset;
@@ -105,12 +102,12 @@ namespace sam
 		case e_SD_End:
 			if(_iOffset < m_iLength)
 			{
-				m_iPosition = m_iLength - _iOffset;
+				m_nPosition = m_iLength - _iOffset;
 				iSeek = _iOffset;
 			}
 			else
 			{
-				m_iPosition = 0;
+				m_nPosition = 0;
 				iSeek = m_iLength;
 			}
 			break;
@@ -124,7 +121,7 @@ namespace sam
 	/// @return the current position in the stream.
 	uint32 CMemoryStream::Tell(void)
 	{
-		return m_iPosition;
+		return m_nPosition;
 	}
 
 	/// @brief Get the size of the stream.
@@ -140,7 +137,7 @@ namespace sam
 	/// @return true if the end of the stream is reached.
 	bool CMemoryStream::Eof(void) const
 	{
-		return (m_iPosition == m_iLength);
+		return (m_nPosition == m_iLength);
 	}
 
 	/// @brief Get the data of the stream.

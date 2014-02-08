@@ -18,7 +18,18 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CENTITY__
-#define __CENTITY__
+#ifndef __CRC32__
+#define __CRC32__
 
-#endif // __CENTITY__
+namespace sam
+{
+	/// @brief Compute a checksum in crc 32bits.
+	/// 
+	/// @param p_pBuffer Buffer to compute a checksum.
+	/// @param p_nSize Buffer size.
+	/// 
+	/// @return Computed checksum.
+	uint32 SAM_COMMON_API crc32(const char *p_pBuffer, uint32 p_nSize);
+}
+
+#endif // __CRC32__

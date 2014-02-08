@@ -60,7 +60,7 @@ public:
 	/// @param p_sDestination Absolute path to write the exported file.
 	/// @param p_oMetadata Metadata used for the exportation.
 	/// @param p_nPlatformId Used for platform specific options.
-	virtual bool Export(const SImage &p_pImage, const String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId);
+	virtual bool Export(const SImage &p_pImage, const sam::String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId);
 
 private:
 	enum ETextureFormat

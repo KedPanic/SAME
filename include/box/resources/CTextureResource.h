@@ -37,7 +37,7 @@ public:
 	/// 
 	/// @param p_sName Resource name.
 	/// @param p_sPath Absolute path.
-	CTextureResource(const String &p_sName, const String &p_sPath);
+	CTextureResource(const sam::String &p_sName, const sam::String &p_sPath);
 	~CTextureResource();
 	
 	/// @brief Load resource.

@@ -35,7 +35,7 @@ public:
 	/// 
 	/// @param p_sName Resource name.
 	/// @param p_sPath Absolute path.
-	IResource(const String &p_sName, const String &p_sPath);
+	IResource(const sam::String &p_sName, const sam::String &p_sPath);
 
 	/// @brief Destructor.
 	virtual ~IResource();
@@ -43,12 +43,12 @@ public:
 	/// @brief Retrieves resource name.
 	/// 
 	/// @return Resource name.
-	const String& GetName() const {return m_sName;}
+	const sam::String& GetName() const {return m_sName;}
 
 	/// @brief Retrieves absolute path.
 	/// 
 	/// @return Absolute path.
-	const String& GetPath() const {return m_sPath;}
+	const sam::String& GetPath() const {return m_sPath;}
 
 	/// @brief Retrieves the unique ID.
 	/// 
@@ -89,8 +89,8 @@ protected:
 	uint8 m_nVersion;	///< File format version. Used to detect if the version of the data is supported by the used editor.
 	sam::ID m_nID;		///< Unique ID of the resource.
 
-	String m_sName;         ///< Resource name.
-	String m_sPath;         ///< Absolute path.
+	sam::String m_sName;     ///< Resource name.
+	sam::String m_sPath;     ///< Absolute path.
 
 	wxBitmap *m_pThumbnail;	///< Used by the view.
 };

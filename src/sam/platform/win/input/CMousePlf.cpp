@@ -20,7 +20,7 @@
 //===========================================
 #include "SamInputPCH.h"
 #include <input/CMousePlf.h>
-#include <input/CInputManagerPlf.h>
+#include <input/CInputManager.h>
 
 #define MOUSE_BUFFERSIZE 64
 
@@ -50,7 +50,7 @@ namespace sam
 		SAM_ASSERT(m_pMouse == NULL, "Mouse is already initialized");
 
 		// create device
-		HRESULT hResult = g_Env->pInputManager->GetInputSystem()->CreateDevice(GUID_SysMouse, &m_pMouse, NULL);
+		HRESULT hResult = g_Env->pInputManager->GetInputDriver()->m_pDirectInput->CreateDevice(GUID_SysMouse, &m_pMouse, NULL);
 		if(FAILED(hResult))
 		{
 			SamLogWarning("Unable to create keyboard device, error code: %d\n", hResult);
@@ -165,7 +165,7 @@ namespace sam
 			}			
 			
 			oEvent.m_iInternalID = 0;
-			oEvent.m_iModifiers = 0;			
+			oEvent.m_nModifiers = 0;			
 			oEvent.m_sKeyName = g_aKeyName[oEvent.m_eKey];
 
 			// send input event.

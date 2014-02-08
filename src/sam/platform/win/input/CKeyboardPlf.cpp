@@ -20,7 +20,7 @@
 //===========================================
 #include "SamInputPCH.h"
 #include <input/CKeyboardPlf.h>
-#include <input/CInputManagerPlf.h>
+#include <input/CInputManager.h>
 
 #define KEY_BUFFERSIZE 16
 #define ENABLE_BUFFER_MODE
@@ -201,7 +201,7 @@ namespace sam
 		SAM_ASSERT(m_pKeyboard == NULL, "Keyboard is already initialized");
 
 		// create device
-		HRESULT hResult = g_Env->pInputManager->GetInputSystem()->CreateDevice(GUID_SysKeyboard, &m_pKeyboard, NULL);
+		HRESULT hResult = g_Env->pInputManager->GetInputDriver()->m_pDirectInput->CreateDevice(GUID_SysKeyboard, &m_pKeyboard, NULL);
 		if(FAILED(hResult))
 		{
 			SamLogWarning("Unable to create keyboard device, error code: %d\n", hResult);
@@ -271,7 +271,7 @@ namespace sam
 			oEvent.m_eKey    = g_aDXToSamKey[nKey];
 			oEvent.m_eState  = oBuffer[nNbItems].dwData & 0x80?e_IS_Pressed:e_IS_Released;
 			oEvent.m_iInternalID = 0;
-			oEvent.m_iModifiers = 0;
+			oEvent.m_nModifiers = 0;
 			oEvent.m_sKeyName = g_aKeyName[oEvent.m_eKey];
 
 			// update modifiers.

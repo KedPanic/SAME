@@ -33,7 +33,7 @@
 		SamEntitySystem = {
 			name = "SamEntitySystem",
 			subfolder = "entitysystem",
-			dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput" }
+			dependencies = { "SamCommon", "SamRenderer", "SamSound", "SamInput", "render" }
 		}, 
 		SamFramework = {
 			name = "SamFramework",

@@ -180,6 +180,13 @@ namespace sam
         /// @param _nStartVertexLocation.
         void Draw(uint32 _nNbIndex, uint32 _nStartVertexLocation = 0);
 
+		/// @brief Draw current vertex buffer.
+		/// 
+		/// @param p_nNbIndex Number of indices to draw.
+		/// @param p_nStartIndexLocation The location of the first index read by the GPU from the index buffer.
+		/// @param p_nBaseVertexLocation A value added to each index before reading a vertex from the vertex buffer.
+		void DrawIndexed(uint32 p_nNbIndex, uint32 p_nStartIndexLocation = 0, int32 p_nBaseVertexLocation = 0);
+
         //================================================//
         //                  RENDER STATE                  //
         //================================================//
@@ -217,9 +224,19 @@ namespace sam
 
         /// @brief Set current vertex buffer.
         /// 
-        /// @param _nSlot Input slot.
-        /// @param _pVertexBuffer Vertex buffer.
-        void SetVertexBuffer(uint32 _nSlot, CVertexBuffer *_pVertexBuffer);   
+        /// @param p_nSlot Input slot.
+        /// @param p_pVertexBuffer Vertex buffer.
+        void SetVertexBuffer(uint32 p_nSlot, CVertexBuffer *p_pVertexBuffer);
+
+		/// @brief Set current index buffer.
+		/// 
+		/// @param p_pIndexBuffer Vertex buffer.
+		void SetIndexBuffer(CIndexBuffer *p_pIndexBuffer);
+
+		/// @brief Set current constant buffer.
+		/// 
+		/// @param p_pConstantBuffer Constant buffer.
+		void SetConstantBuffer(CConstantBuffer *p_pConstantBuffer);
 
         /// @brief Create vertex shader.
         /// 
@@ -318,7 +335,7 @@ namespace sam
         float m_fClearDepth;        ///< Clear depth value.
         uint8 m_nClearStencil;      ///< Clear stencil value.
 
-        SRenderStateDX11 m_DefaultRenderState;
+        SRenderState m_DefaultRenderState;
 
         CVertexShader *m_pFirstVertexShader;
         CVertexShader *m_pLastVertexShader;

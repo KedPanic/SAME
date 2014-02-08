@@ -26,7 +26,7 @@
 #include "CPlatform.h"
 
 // Constructor.
-CTextureResource::CTextureResource(const String &p_sName, const String &p_sPath)
+CTextureResource::CTextureResource(const sam::String &p_sName, const sam::String &p_sPath)
 	: IResource(p_sName, p_sPath), m_pEngineTexture(NULL)
 {
 	// set to default the metadata.

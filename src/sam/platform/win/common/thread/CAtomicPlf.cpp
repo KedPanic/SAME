@@ -22,6 +22,7 @@
 #include "thread/CAtomic.h"
 #include <Windows.h>
 #include <Winnt.h>
+
 namespace sam
 {
 	CAtomicInteger::CAtomicInteger()

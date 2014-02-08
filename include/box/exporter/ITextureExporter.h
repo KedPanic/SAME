@@ -66,7 +66,7 @@ public:
 	/// @param p_nPlatformId Used for platform specific options.
 	/// 
 	/// @return The created job.
-	virtual sam::SJob CreateJob(IResource *p_pResource, const String &p_sDestination, sam::ID p_nPlatformId);
+	virtual sam::SJob CreateJob(IResource *p_pResource, const sam::String &p_sDestination, sam::ID p_nPlatformId);
 
 	/// @brief Method called by the job to export the resource.
 	/// 
@@ -74,7 +74,7 @@ public:
 	/// @param p_sDestination Absolute path to write the exported file.
 	/// @param p_oMetadata Metadata used for the exportation.
 	/// @param p_nPlatformId Used for platform specific options.
-	virtual bool Export(const SImage &p_pImage, const String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId) = 0;
+	virtual bool Export(const SImage &p_pImage, const sam::String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId) = 0;
 };
 
 #endif // __SAMBOX_TEXTURE_EXPORTER__

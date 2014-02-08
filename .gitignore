@@ -106,3 +106,9 @@ external/freeimage/FreeImage3154.pdf
 external/nvtt/build/*
 external/freeimage/build/*
 /premake4
+docs/references/
+docs/sources/
+*.ipch
+*.vcxproj
+samples/entity_system/scene/scene.vcxproj.filters
+samples/project/pong/

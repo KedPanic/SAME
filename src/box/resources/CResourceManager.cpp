@@ -24,6 +24,7 @@
 #include "resources/IResource.h"
 #include "resources/IResourceFactory.h"
 #include "resources/CTextureResource.h"
+#include "resources/CMeshResource.h"
 #include "resources/CFileResource.h"
 
 CResourceManager *g_pResourceManager = NULL;
@@ -49,7 +50,7 @@ void CResourceManager::AddResourceFactory(IResourceFactory *p_pResourceFactory)
 }
 
 // Create the resource.
-IResource *CResourceManager::Create(const String &p_sName, const String &p_sPath, EResourceType p_eResourceType /*= e_ResourceType_Unknown*/)
+IResource *CResourceManager::Create(const sam::String &p_sName, const sam::String &p_sPath, EResourceType p_eResourceType /*= e_ResourceType_Unknown*/)
 {
 	// if the resource type is unknown try to find it from the name.
 	if(p_eResourceType == e_ResourceType_Unknown)
@@ -65,13 +66,17 @@ IResource *CResourceManager::Create(const String &p_sName, const String &p_sPath
 		pResource = SAM_NEW CTextureResource(p_sName, p_sPath);
 		break;
 
+	case e_ResourceType_Mesh:
+		pResource = SAM_NEW CMeshResource(p_sName, p_sPath);
+		break;
+
 	default:
 		// special resource, can't be exported.
 		return SAM_NEW CFileResource(p_sName, p_sPath);
 	}
 
 	// check if there is the metadata.
-	String sMetadataPath = p_sPath + ".metadata";
+	sam::String sMetadataPath = p_sPath + ".metadata";
 	if(sam::IsFile(sMetadataPath.c_str()))
 	{
 		sam::CJSONSerializer oSerializer(sMetadataPath.c_str());
@@ -92,7 +97,7 @@ IResource *CResourceManager::Create(const String &p_sName, const String &p_sPath
 }
 
 // Retrieve the type of the resource from the name.
-EResourceType CResourceManager::FindResourceType(const String &p_sName)
+EResourceType CResourceManager::FindResourceType(const sam::String &p_sName)
 {
 	uint32 nPosition = p_sName.find_last_of(".");
 	
@@ -102,7 +107,7 @@ EResourceType CResourceManager::FindResourceType(const String &p_sName)
 		return e_ResourceType_Unknown;
 	}
 
-	String sExtension = p_sName.substr(nPosition, p_sName.size());	
+	sam::String sExtension = p_sName.substr(nPosition, p_sName.size());	
 
 	// check if it is an image.
 	FREE_IMAGE_FORMAT eImageFormat = FreeImage_GetFIFFromFilename(sExtension.c_str());
@@ -110,6 +115,15 @@ EResourceType CResourceManager::FindResourceType(const String &p_sName)
 	{
 		return e_ResourceType_Texture;
 	}
+
+	// check if it is a mesh.
+	{
+		Assimp::Importer oImporter;
+		if(oImporter.IsExtensionSupported(sExtension.c_str()))
+		{
+			return e_ResourceType_Mesh;
+		}
+	}	
 
 	return e_ResourceType_Unknown;
 }

@@ -39,8 +39,7 @@ namespace sam
         }
     };
 	
-	class CInputManager;
-	class CEntitySystem;
+	class CInputManager;	
 	class CJobArray;
 	class CJobManager;
 	class CLog;
@@ -56,6 +55,11 @@ namespace sam
     class IGame;
     class ISerializer;
     class ISerializable;
+
+	namespace scene
+	{
+		class CComponentManager;
+	}
     
     /// @brief Global environment variables.
     /// @remarks Will be created by CommonInit()
@@ -69,7 +73,7 @@ namespace sam
         IFramework *pFramework;
         CMaterialManager *pMaterialManager;
         CTextureManager *pTextureManager;
-		CEntitySystem *m_pEntitySystem;
+		scene::CComponentManager *m_pComponentManager;
 		CJobManager *pJobManager;
 		CSignalManager *pSignalManager;
 /*

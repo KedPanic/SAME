@@ -78,7 +78,7 @@ namespace sam
 
 	private:
 		uint8 *m_pBuffer;   ///< Block of memory.
-		uint32 m_iPosition; ///< Current position.
+		uint32 m_nPosition; ///< Current position.
 		uint32 m_iLength;   ///< Size of the memory block.
 	};
 }

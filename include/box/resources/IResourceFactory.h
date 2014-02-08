@@ -38,7 +38,7 @@ public:
 	/// @param p_sSourcePath Absolute path of the resource.
 	/// 
 	/// @return Created resource or NULL.
-	virtual IResource *Create(const String &p_sName, const String &p_sPath) = 0;
+	virtual IResource *Create(const sam::String &p_sName, const sam::String &p_sPath) = 0;
 
 	/// @brief Initialize the factory
 	/// 
@@ -53,7 +53,7 @@ public:
 	/// @param p_sExtension File extension.
 	/// 
 	/// @return True if it is supported.
-	virtual bool IsSupported(const String &p_sExtension) const = 0;
+	virtual bool IsSupported(const sam::String &p_sExtension) const = 0;
 };
 
 #endif // __SAMBOX_IRESOURCE_FACTORY__

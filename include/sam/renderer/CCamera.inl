@@ -1,4 +1,4 @@
-//==========================================//
+﻿//==========================================//
 //                   Eye                    //
 //==========================================//
 
@@ -7,7 +7,7 @@
 /// @param _vPoint Point to look.
 INLINE void CCamera::LookAt(const Vector3 &_vPoint)
 {
-    m_vAt = _vPoint - m_vOrigin;
+    m_vAt = m_vPosition - _vPoint;
     m_vAt.Normalize();
 
     m_vRight = cross(Vector3(0.0f, 1.0f, 0.0f), m_vAt);  
@@ -24,24 +24,22 @@ INLINE void CCamera::LookAt(const Vector3 &_vPoint)
 /// @param _vUp Up vector.
 INLINE void CCamera::LookAt(const Vector3 &_vEye, const Vector3 &_vAt, const Vector3 &_vUp)
 {
-    m_vAt = _vAt - _vEye;           m_vAt.Normalize();
+	m_vAt = _vEye - _vAt;           m_vAt.Normalize();
     m_vRight = cross(_vUp, m_vAt);  m_vRight.Normalize();
     m_vUp = cross(m_vAt, m_vRight); m_vUp.Normalize();
 
-    m_vOrigin = _vEye;
+    m_vPosition = _vEye;
 }
 
 /// @brief Retrieves projection matrix.
 /// 
 /// @param _mMatrix Matrix to set.
-INLINE void CCamera::GetModelViewMatrix(Matrix44 &_mMatrix) const
+INLINE void CCamera::GetViewMatrix(Matrix44 &_mMatrix) const
 {
-    Vector3 vNegPos(-m_vOrigin.x, -m_vOrigin.y, -m_vOrigin.z);
-
-    _mMatrix.m00 = m_vRight.x, _mMatrix.m01 = m_vRight.y, _mMatrix.m02 = m_vRight.z, _mMatrix.m03 = dot<f32, f32>(vNegPos, m_vRight);
-    _mMatrix.m10 = m_vUp.x,    _mMatrix.m11 = m_vUp.y,    _mMatrix.m12 = m_vUp.z,    _mMatrix.m13 = dot<f32, f32>(vNegPos, m_vUp);
-    _mMatrix.m20 = m_vAt.x,    _mMatrix.m21 = m_vAt.y,    _mMatrix.m22 = m_vAt.z,    _mMatrix.m23 = dot<f32, f32>(vNegPos, m_vAt);
-    _mMatrix.m30 = 0.0f,       _mMatrix.m31 = 0.0f,       _mMatrix.m32 = 0.0f,       _mMatrix.m33 = 1.0f;
+	_mMatrix.m00 = m_vRight.x, _mMatrix.m01 = m_vRight.y, _mMatrix.m02 = m_vRight.z, _mMatrix.m03 = -dot<f32, f32>(m_vRight, m_vPosition);
+	_mMatrix.m10 = m_vUp.x,    _mMatrix.m11 = m_vUp.y,    _mMatrix.m12 = m_vUp.z,    _mMatrix.m13 = -dot<f32, f32>(m_vUp, m_vPosition);
+	_mMatrix.m20 = m_vAt.x,    _mMatrix.m21 = m_vAt.y,    _mMatrix.m22 = m_vAt.z,    _mMatrix.m23 = -dot<f32, f32>(m_vAt, m_vPosition);
+	_mMatrix.m30 = 0.0f,       _mMatrix.m31 = 0.0f,       _mMatrix.m32 = 0.0f,       _mMatrix.m33 = 1.0f;
 }
 
 
@@ -141,29 +139,29 @@ INLINE void CCamera::UpdateOrthographic(void)
 /// @brief Update frustum.
 INLINE void CCamera::UpdatePerspective(void)
 {
-    m_fTop = m_fNear * tan(m_fFov * 0.5f);
-    m_fBottom = -m_fTop;
-    m_fRight = m_fTop * m_fProjectionRatio;
-    m_fLeft = -m_fRight;
+	m_fTop = m_fNear * tan(m_fFov * 0.5f);
+	m_fBottom = -m_fTop;
+	m_fRight = m_fTop * m_fProjectionRatio;
+	m_fLeft = -m_fRight;
 
-    // Compute projection matrix.
-    m_mProjectionMatrix.m00 = (2.0f * m_fNear) / (m_fRight - m_fLeft);
-    m_mProjectionMatrix.m01 = 0.0f;
-    m_mProjectionMatrix.m02 = (m_fRight + m_fLeft) / (m_fRight - m_fLeft);
-    m_mProjectionMatrix.m03 = 0.0f;
+	// Compute projection matrix.
+	m_mProjectionMatrix.m00 = (2.0f * m_fNear) / (m_fRight - m_fLeft);
+	m_mProjectionMatrix.m01 = 0.0f;
+	m_mProjectionMatrix.m02 = (m_fRight + m_fLeft) / (m_fRight - m_fLeft);
+	m_mProjectionMatrix.m03 = 0.0f;
 
-    m_mProjectionMatrix.m10 = 0.0f;
-    m_mProjectionMatrix.m11 = (2.0f * m_fNear) / (m_fTop - m_fBottom);
-    m_mProjectionMatrix.m12 = (m_fTop + m_fBottom) / (m_fTop - m_fBottom);
-    m_mProjectionMatrix.m13 = 0.0f;
+	m_mProjectionMatrix.m10 = 0.0f;
+	m_mProjectionMatrix.m11 = (2.0f * m_fNear) / (m_fTop - m_fBottom);
+	m_mProjectionMatrix.m12 = (m_fTop + m_fBottom) / (m_fTop - m_fBottom);
+	m_mProjectionMatrix.m13 = 0.0f;
 
-    m_mProjectionMatrix.m20 = 0.0f;
-    m_mProjectionMatrix.m21 = 0.0f;
-    m_mProjectionMatrix.m22 = (m_fFar + m_fNear) / (m_fFar - m_fNear);
-    m_mProjectionMatrix.m23 = (-2.0f * m_fNear + m_fFar) / (m_fFar - m_fNear);
+	m_mProjectionMatrix.m20 = 0.0f;
+	m_mProjectionMatrix.m21 = 0.0f;
+	m_mProjectionMatrix.m22 = -(m_fFar + m_fNear) / (m_fFar - m_fNear);
+	m_mProjectionMatrix.m23 = -2.0f * (m_fFar * m_fNear) / (m_fFar - m_fNear);
 
-    m_mProjectionMatrix.m30 = 0.0f;
-    m_mProjectionMatrix.m31 = 0.0f;
-    m_mProjectionMatrix.m32 = -1.0f;
-    m_mProjectionMatrix.m33 = 0.0f;
+	m_mProjectionMatrix.m30 = 0.0f;
+	m_mProjectionMatrix.m31 = 0.0f;
+	m_mProjectionMatrix.m32 = -1.0f;
+	m_mProjectionMatrix.m33 = 0.0f;
 }

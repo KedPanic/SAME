@@ -31,6 +31,7 @@ const wxString COMMON_NEW_FOLDER = "New Folder";
 //////////////////////////////////////////////////////////////////////////
 //							 NOTEBOOK									//
 //////////////////////////////////////////////////////////////////////////
+const wxString NOTEBOOK_MAIN_SCENE = "Scene";
 const wxString NOTEBOOK_TOOLS_CONSOLE = "Console";
 const wxString NOTEBOOK_TOOLS_PROJECT = "Project";
 

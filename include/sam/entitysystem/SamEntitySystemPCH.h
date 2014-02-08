@@ -22,6 +22,7 @@
 #define __SAM_ENTITY_SYSTEM_PCH__
 
 #include <SamCommon.h>
+#include <SamRenderer.h>
 
 // sam engine entity subsystem macro export
 #ifdef SAM_ENTITYSYSTEM_EXPORTS
@@ -32,15 +33,30 @@
 
 namespace sam
 {
-	/// @brief Create entity system.
-	/// 
-	/// @param p_pEnv Global environment variable.
-	/// 
-	/// @return Created entity system.
-	extern SAM_ENTITYSYSTEM_API CEntitySystem *CreateEntitySystem(Env *p_pEnv);
+	namespace scene
+	{
+		struct IComponent;
+		struct SComponentRegistry;		
+		
+		class CCamera;
+		class CComponentManager;
+		class CGameObject;
+		class CScene;
+		class CSceneManager;
+		class CTransform;
 
-	/// @brief Destroy entity system.
-	extern SAM_ENTITYSYSTEM_API void DestroyEntitySystem();
+		extern SAM_ENTITYSYSTEM_API CComponentManager *g_pComponentManager;
+
+		/// @brief Create entity system.
+		/// 
+		/// @param p_pEnv Global environment variable.
+		/// 
+		/// @return Created entity system.
+		extern SAM_ENTITYSYSTEM_API CComponentManager *CreateEntitySystem(Env *p_pEnv);
+
+		/// @brief Destroy entity system.
+		extern SAM_ENTITYSYSTEM_API void DestroyEntitySystem();
+	}	
 }
 
 #endif //__SAM_ENTITY_SYSTEM_PCH__

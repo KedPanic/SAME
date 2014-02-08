@@ -34,10 +34,22 @@ namespace sam
         T m20, m21, m22;
 
         /// @brief Default constructor.
-        Matrix33_T(void) 
+        Matrix33_T() 
         {
             SetIdentity();
         }
+
+		Matrix33_T(
+			T m00, T m01, T m02,
+			T m10, T m11, T m12,
+			T m20, T m21, T m22
+			)
+			: m00(m00), m01(m01), m02(m02),
+		   	  m10(m10), m11(m11), m12(m12),
+			  m20(m20), m21(m21), m22(m22)
+		{
+
+		}
 
         /// @brief Identity.
         INLINE void SetIdentity(void)
@@ -118,6 +130,17 @@ namespace sam
             SetIdentity();
         }
 
+		Matrix44_T(
+			T m00, T m01, T m02, T m03,
+			T m10, T m11, T m12, T m13,
+			T m20, T m21, T m22, T m23,
+			T m30, T m31, T m32, T m33
+			)
+			: m00(m00), m01(m01), m02(m02), m03(m03), m10(m10), m11(m11), m12(m12), m13(m13), m20(m20), m21(m21), m22(m22), m23(m23), m30(m30), m31(m31), m32(m32), m33(m33)
+		{
+
+		}
+
         /// @brief Identity.
         INLINE void SetIdentity(void)
         {
@@ -125,7 +148,18 @@ namespace sam
             m10 = 0.0f; m11 = 1.0f; m12 = 0.0f; m13 = 0.0f;
             m20 = 0.0f; m21 = 0.0f; m22 = 1.0f; m23 = 0.0f;
             m30 = 0.0f; m31 = 0.0f; m32 = 0.0f; m33 = 1.0f;
-        }    
+        }
+
+		/// @brief Transpose.
+		INLINE Matrix44_T<T> Transpose() const
+		{
+			return Matrix44_T<T>(
+				m00, m10, m20, m30,
+				m01, m11, m21, m31,
+				m02, m12, m22, m32,
+				m03, m13, m23, m33
+				);
+		}
     };
 
     //==================================//

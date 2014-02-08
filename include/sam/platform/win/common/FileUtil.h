@@ -25,6 +25,10 @@
 #	define MAX_PATH 256
 #endif
 
+#if defined(CreateDirectory)
+# undef CreateDirectory
+#endif
+
 namespace sam
 {
 	/// @brief Retrieves home path.

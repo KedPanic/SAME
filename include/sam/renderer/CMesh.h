@@ -18,7 +18,45 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#ifndef __CENTITY_MANAGER__
-#define __CENTITY_MANAGER__
+#ifndef __CMESH__
+#define __CMESH__
 
-#endif // __CENTITY_MANAGER__
+namespace sam
+{
+	/// @enum Mesh version
+	enum EMeshVersion
+	{
+		e_MeshVersion_0 = 0,
+	};
+
+	class SAM_RENDERER_API CMesh : public IAllocated
+	{
+	public:
+		CMesh();
+		~CMesh();
+
+		/// @brief Create mesh from memory buffer.
+		/// 
+		/// @param p_pBuffer Memory buffer.
+		/// @param p_nSize Buffer size.
+		/// 
+		/// @return true if no error occurred.
+		bool CreateMesh(uint8 *p_pBuffer, uint32 p_nSize);
+
+		/// @brief Retrieves the vertex buffer.
+		/// 
+		/// @return the vertex buffer.
+		CVertexBuffer *GetVertexBuffer() const {return m_pVertexBuffer;}
+
+		/// @brief Retrieves the index buffer.
+		/// 
+		/// @return the index buffer.
+		CIndexBuffer *GetIndexBuffer() const {return m_pIndexBuffer;}
+
+	private:
+		CVertexBuffer *m_pVertexBuffer; ///< Vertices.
+		CIndexBuffer *m_pIndexBuffer;	///< Indices.
+	};
+}
+
+#endif // __CMESH__

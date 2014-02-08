@@ -56,6 +56,11 @@ namespace sam
         /// @brief Close the stream.
         void Close(void);
 
+        /// @brief Retrieves if the file is open.
+        ///
+        /// @return True if the file is open.
+        bool IsOpen() const {return m_pFile != NULL;}
+
         /// @brief Reads a block of bytes and store it in the buffer.
         /// 
         /// @param p_pBuffer Pointer to an allocated block of memory.

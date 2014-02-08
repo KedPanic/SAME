@@ -55,16 +55,17 @@ solution "SamEngine"
 	---------------------------  CREATION EXTERNAL DEPENDENCIES PROJECTS
 	dependencies = {}
 	local dependencie_folder = {
-		"external/tinyxml2/",
-		"external/wxWidgets/",
-		"external/nvtt/",
-		"external/freeimage/",
-		"external/assimp/",
+		"external/tinyxml2/premake4.lua",
+		"external/wxWidgets/premake4.lua",
+		"external/nvtt/premake4.lua",
+		"external/freeimage/premake4.lua",
+		"external/assimp/premake4.lua",
 	}
 	
+	print("*** EXTERNAL DEPENDENCIES ***")
 	group "external"
 		for index, file in pairs(dependencie_folder) do
-			include(file)
+			dofile(file)
 		end
 	
 	--------------------------------------------------------------------
@@ -101,11 +102,16 @@ solution "SamEngine"
 	
 	--------------------------------------------------------------------
 	------------------------------------------  CREATION OF SAM PROJECTS
+	print("***  SAM ENGINE & TOOLS   ***")
 	group "engine"
 		dofile("samengine.lua")
+		
+	group "scene manager"
+		dofile("samscenemanager.lua")
 
 	group "tool"
-		include("tools/")
+		dofile("tools/premake4.lua")
 		dofile("sambox.lua")		
 		
-	include("samples/")
+	print("***        SAMPLES        ***")
+	dofile("samples/premake4.lua")

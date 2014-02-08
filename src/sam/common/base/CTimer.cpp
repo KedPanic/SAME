@@ -40,7 +40,7 @@ namespace sam
     void CTimer::OnFrameStart()
     {
         // memorize current time.
-        float fCurrentTime = GetAsyncCurrTime();
+        f32 fCurrentTime = GetAsyncCurrTime();
 
         // compute frame time.
         m_fFrameTime = fCurrentTime - m_fCurrTime;

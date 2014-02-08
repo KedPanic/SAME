@@ -29,6 +29,7 @@ enum EIcons
 	e_Icon_Texture,
 	e_Icon_Font,
 	e_Icon_File,
+	e_Icon_Mesh,
 
 	e_Icon_Nb,
 };

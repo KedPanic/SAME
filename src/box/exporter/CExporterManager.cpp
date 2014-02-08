@@ -182,7 +182,7 @@ CExporterManager::~CExporterManager()
 }
 
 // Request a new export.
-void CExporterManager::RequestExport(IResource *p_pResource, const String &p_sDestination, uint32 p_nOutputFormat, sam::ID p_nPlatformId)
+void CExporterManager::RequestExport(IResource *p_pResource, const sam::String &p_sDestination, uint32 p_nOutputFormat, sam::ID p_nPlatformId)
 {
 	Exporters::iterator it = m_aExporters[p_pResource->GetResourceType()].begin(), it_end = m_aExporters[p_pResource->GetResourceType()].end();
 	while(it != it_end)

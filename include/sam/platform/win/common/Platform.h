@@ -55,6 +55,10 @@
 #	undef Yield
 #endif
 
+#ifdef GetObject
+#	undef GetObject
+#endif
+
 #define INLINE __forceinline
 
 #pragma warning(disable: 4251)
@@ -70,12 +74,16 @@
 #endif
 
 // define inner type
-typedef std::string String;
-typedef std::wstring UString;
-typedef HWND SAM_HWND;
-typedef FILE File;
-typedef std::list<String> VString;
-typedef time_t Time;
+namespace sam
+{
+	typedef std::string String;
+	typedef std::wstring UString;
+	typedef HWND SAM_HWND;
+	typedef FILE File;
+	typedef std::list<String> VString;
+	typedef time_t Time;
+	typedef volatile long atomic;
+}
 
 #ifdef SAM_32BITS
 	typedef char int8;
@@ -158,11 +166,7 @@ void SamLogErrorNoAssert(const char *_sFormat, ...);
 typedef HMODULE Library;
 typedef FARPROC Symbol;
 
-#if defined SAM_DEBUG
-#	define SHARED_LIBRARY_EXT "_D.dll"
-#else
-#	define SHARED_LIBRARY_EXT ".dll"
-#endif
+#define SHARED_LIBRARY_EXT ".dll"
 
 static void GetLastError(char **_pMsg)
 {

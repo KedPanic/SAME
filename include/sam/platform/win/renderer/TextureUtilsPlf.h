@@ -38,12 +38,12 @@ namespace sam
     /// @return Sam Engine texture format.
     SAM_RENDERER_API inline ETextureFormat GetFormat(DXGI_FORMAT p_eDGIFormat);
 
-    /// @brief Retrieves bits per pixel from DirectX texture format.
+    /// @brief Retrieves bytes per pixel from DirectX texture format.
     /// 
     /// @param p_eDGIFormat DirectX texture format.
 	///
     /// @return BPP.
-    SAM_RENDERER_API inline uint32 GetBitsPerPixel(DXGI_FORMAT p_eDGIFormat);
+    SAM_RENDERER_API inline uint32 GetBytesPerPixel(DXGI_FORMAT p_eDGIFormat);
 }
 
 #endif // __TEXTURE_LOADER__

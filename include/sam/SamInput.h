@@ -24,7 +24,7 @@
 #include <input/SamInputPCH.h>
 
 #include <input/SVibrationEffect.h>
-#include <input/CInputManagerPlf.h>
+#include <input/CInputManager.h>
 #include <input/CKeyboardPlf.h>
 #include <input/CMousePlf.h>
 #include <input/CJoystickPlf.h>

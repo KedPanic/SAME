@@ -34,6 +34,6 @@ namespace sam
         QueryPerformanceFrequency(&nFrequency);
         QueryPerformanceCounter(&nCurrentTime);
 
-        return ((float)nCurrentTime.QuadPart / nFrequency.QuadPart);
+        return ((f32)nCurrentTime.QuadPart / nFrequency.QuadPart);
     }
 }

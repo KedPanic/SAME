@@ -25,19 +25,28 @@ class CApplication : public IApplication
 {
 public:
 	CApplication()
-		: IApplication("Sample: Triangle"), m_pVertexBuffer(NULL), m_pVertexShader(NULL), m_pPixelShader(NULL)
+		: IApplication("Sample: Triangle"), m_pConstantBuffer(NULL), m_pVertexBuffer(NULL), m_pVertexShader(NULL), m_pPixelShader(NULL)
 	{
 
 	}
 
 	~CApplication()
 	{
+		SAM_DELETE m_pConstantBuffer;
 		SAM_DELETE m_pVertexBuffer;
 	}
 
 	virtual bool PostInit()
-	{
+	{		
 		sam::CRenderWindow *pRenderer = sam::g_Env->pRenderWindow;
+
+		// set perspective view.		
+		m_oCamera.LookAt(sam::Vector3(0.0f, 0.0f, 10.0f), sam::Vector3(0.0f, 0.0f, 0.0f), sam::Vector3(0.0f, 1.0f, 0.0f));
+		m_oCamera.SetPerspective(pRenderer->GetWidth(), pRenderer->GetHeight(), 45.0f, 0.1f, 1000.0f);
+
+		// Create constant buffer.
+		m_pConstantBuffer = SAM_NEW sam::CConstantBuffer;
+		m_pConstantBuffer->Initialize(sizeof(SConstantBuffer));
 
 		// Create triangle.
 		m_pVertexBuffer = pRenderer->CreateVertexBuffer();
@@ -50,10 +59,10 @@ public:
 
 		pRenderer->SetVertexBuffer(0, m_pVertexBuffer);
 
-		f32 fVector[9] = {
-			0.0f, 0.5f, 0.5f,
-			0.5f, -0.5f, 0.5f,
-			-0.5f, -0.5f, 0.5f
+		f32 fVector[] = {
+			0.0f, 1.0f, 0.f,
+			-1.0f, -1.0f, 0.f,			
+			1.0f, -1.0f, 0.f,
 		};
 		m_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
 
@@ -68,17 +77,37 @@ public:
 	}
 
 	virtual void Render()
-	{	
+	{
+		// write constant buffer.
+		sam::Matrix44 mView;
+		m_oCamera.GetViewMatrix(mView);
+
+		SConstantBuffer oConstantBuffer;
+		oConstantBuffer.m_mWorld = m_mWorld;	
+		oConstantBuffer.m_mView = mView;
+		oConstantBuffer.m_mProjection = m_oCamera.GetProjectionMatrix();
+		m_pConstantBuffer->MapWrite(&oConstantBuffer, sizeof(SConstantBuffer));
+
+		// draw triangle.
 		sam::g_Env->pRenderWindow->SetVertexShader(m_pVertexShader);
+		sam::g_Env->pRenderWindow->SetConstantBuffer(m_pConstantBuffer);
 		sam::g_Env->pRenderWindow->SetPixelShader(m_pPixelShader);
 
 		sam::g_Env->pRenderWindow->Draw(3, 0);
 	}	
 
 private:
+	sam::CConstantBuffer *m_pConstantBuffer;
 	sam::CVertexBuffer *m_pVertexBuffer;
 	sam::CVertexShader *m_pVertexShader;
 	sam::CPixelShader *m_pPixelShader;
+
+	struct SConstantBuffer
+	{
+		sam::Matrix44 m_mWorld;
+		sam::Matrix44 m_mView;
+		sam::Matrix44 m_mProjection;
+	};	
 };
 
 IApplication* CreateApplication()

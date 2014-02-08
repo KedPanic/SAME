@@ -27,6 +27,8 @@ public:
 	CScenePanel(wxWindow *p_pParent);
 
 private:
+	void Initialize();
+	void OnPaint(wxPaintEvent &p_oEvent);
 };
 
 #endif // __SAMBOX_SCENE_PANEL__

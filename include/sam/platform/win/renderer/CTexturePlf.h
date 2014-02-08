@@ -122,17 +122,17 @@ namespace sam
         int m_iID;               ///< Unique ID of the texture.
         int m_iWidth, m_iHeight; ///< Size of the texture.
         ETextureType m_eType;    ///< Texture type.
+		ETextureUsage m_eUsage;  ///< Texture usage.
 
         /// @brief Create 1D texture.
 
         /// @brief Create 2D texture.
-        /// 
-        /// @param _pBuffer Memory buffer.
+        ///         
         /// @param _eUsage Usage.
         /// @param _eFormat Texture format.
         ///
         /// @return True if no error occurred.
-        bool CreateTexture2D(void *_pBuffer, ETextureUsage _eUsage, DXGI_FORMAT _eFormat);
+        bool CreateTexture2D(ETextureUsage _eUsage, DXGI_FORMAT _eFormat);
 
         /// @brief Create 3D texture.
         /// @brief Create render target.

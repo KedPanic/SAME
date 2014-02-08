@@ -29,8 +29,13 @@ struct SMeshJobData
 {
 	CMeshExporter *m_pExporter;
 	CMeshResource *m_pMesh;
-	String m_sDestination;
+	sam::String m_sDestination;
 	sam::ID m_nPlatformId;
+};
+
+struct SMeshHeader
+{
+	uint32 m_nVersion;
 };
 
 void MeshExportCallback(void *p_pData)
@@ -43,96 +48,181 @@ void MeshExportCallback(void *p_pData)
 	const aiScene *pScene = oImporter.ReadFile(sMeshFilename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 	if(pScene)
 	{
+		/*
+		MESH FILE FORMAT:
+
+		[HEADER]
+		int32 version
+		[VERTEX DECLARATION]
+		int32 nb_declerations
+		SVertexDeclaration vertex_declaration_1
+		...
+		SVertexDeclaration vertex_declaration_n
+		[VERTEX BUFFER]
+		int32	nb_vertices
+		int32	size
+		int8	data
+		[INDEX BUFFER]
+		int32	size
+		int32	index_0
+		...
+		int32	index_n
+		[MATERIAL]
+		*/		
+		sam::CFile oFile;
+		oFile.Open((pMeshJobData->m_sDestination + pMeshJobData->m_pMesh->GetName()).c_str(),  sam::e_OM_Write | sam::e_OM_Binary);
+
+		/* writing header */
+		{
+			SMeshHeader oHeader;
+			oHeader.m_nVersion = CMeshExporter::m_nVersion;
+
+			oFile.Write(&oHeader, sizeof(SMeshHeader));
+		}		
+
 		for(uint32 nIndex = 0; nIndex < pScene->mNumMeshes; ++nIndex)
 		{
 			const aiMesh *pMesh = pScene->mMeshes[nIndex];
 
-			// create vertex declaration.
-			sam::SVertexDeclaration aVertexDeclaration[sam::e_VertexSemantic_Nb];
-
-			uint32 nDeclarationSize = 0;
-			uint32 nOffset = 0;
-			if(pMesh->HasPositions())
+			/* writing vertex declaration. */
+			uint32 nStride = 0;
 			{
-				aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Position;
-				aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
-				aVertexDeclaration[nDeclarationSize].m_nNbComponents = 3;
-				aVertexDeclaration[nDeclarationSize].m_nOffset = nOffset;
+				sam::SVertexDeclaration aVertexDeclaration[sam::e_VertexSemantic_Nb];
 
-				nDeclarationSize++;
-				nOffset += sizeof(f32) * 3;
-			}
-
-			if(pMesh->HasNormals())
-			{
-				aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Normal;
-				aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
-				aVertexDeclaration[nDeclarationSize].m_nNbComponents = 3;
-				aVertexDeclaration[nDeclarationSize].m_nOffset = nOffset;
-
-				nDeclarationSize++;
-				nOffset += sizeof(f32) * 3;
-			}			
-
-			if(pMesh->HasTextureCoords(0))
-			{
-				aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Texture_Coord0;
-				aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
-				aVertexDeclaration[nDeclarationSize].m_nNbComponents = 2;
-				aVertexDeclaration[nDeclarationSize].m_nOffset = nOffset;
-
-				nDeclarationSize++;
-				nOffset += sizeof(f32) * 2;
-			}
-
-			if(pMesh->HasTangentsAndBitangents())
-			{
-				SAM_ASSERT(false, "have to be implemented");
-			}			
-
-			// create vertex buffer.
-			sam::CVertexBuffer *pVertexBuffer = sam::g_Env->pRenderWindow->CreateVertexBuffer();
-			pVertexBuffer->Initialize(aVertexDeclaration, nDeclarationSize, pMesh->mNumVertices);
-			
-			uint32 nElementIndex = 0;
-			sam::CVertexElementIterator oIterator(pVertexBuffer);
-			for(uint32 nVertexIndex = 0; nVertexIndex < oIterator.End(); ++oIterator)
-			{
+				uint32 nDeclarationSize = 0;				
 				if(pMesh->HasPositions())
-				{
-					aiVector3D oPosition = pMesh->mVertices[nVertexIndex]; 
+				{				
+					aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Position;
+					aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
+					aVertexDeclaration[nDeclarationSize].m_nNbComponents = 3;
+					aVertexDeclaration[nDeclarationSize].m_nOffset = nStride;
 
- 					oIterator.Get<f32>(nElementIndex, 0) = oPosition.x;
- 					oIterator.Get<f32>(nElementIndex, 1) = oPosition.y;
-					oIterator.Get<f32>(nElementIndex, 2) = oPosition.z;
-
-					nElementIndex++;
+					nDeclarationSize++;
+					nStride += sizeof(f32) * 3;
 				}
 
 				if(pMesh->HasNormals())
 				{
-					aiVector3D oNormal = pMesh->mNormals[nVertexIndex]; 
+					aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Normal;
+					aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
+					aVertexDeclaration[nDeclarationSize].m_nNbComponents = 3;
+					aVertexDeclaration[nDeclarationSize].m_nOffset = nStride;
 
-					oIterator.Get<f32>(nElementIndex, 0) = oNormal.x;
-					oIterator.Get<f32>(nElementIndex, 1) = oNormal.y;
-					oIterator.Get<f32>(nElementIndex, 2) = oNormal.z;
-
-					nElementIndex++;
-				}
+					nDeclarationSize++;
+					nStride += sizeof(f32) * 3;
+				}			
 
 				if(pMesh->HasTextureCoords(0))
 				{
-					aiVector3D oTextureCoords = pMesh->mTextureCoords[0][nVertexIndex]; 
+					aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Texture_Coord0;
+					aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
+					aVertexDeclaration[nDeclarationSize].m_nNbComponents = 2;
+					aVertexDeclaration[nDeclarationSize].m_nOffset = nStride;
 
-					oIterator.Get<f32>(nElementIndex, 0) = oTextureCoords.x;
-					oIterator.Get<f32>(nElementIndex, 1) = oTextureCoords.y;
-
-					nElementIndex++;
+					nDeclarationSize++;
+					nStride += sizeof(f32) * 2;
 				}
+
+				if(pMesh->HasVertexColors(0))
+				{
+					aVertexDeclaration[nDeclarationSize].m_eSemantic = sam::e_VertexSemantic_Color0;
+					aVertexDeclaration[nDeclarationSize].m_eType = sam::e_Type_Float;
+					aVertexDeclaration[nDeclarationSize].m_nNbComponents = 4;
+					aVertexDeclaration[nDeclarationSize].m_nOffset = nStride;
+
+					nDeclarationSize++;
+					nStride += sizeof(f32) * 4;
+				}
+
+				if(pMesh->HasTangentsAndBitangents())
+				{
+					SAM_ASSERT(false, "have to be implemented");
+				}
+
+				oFile.Write(&nDeclarationSize, sizeof(nDeclarationSize));
+				for(uint32 nDecleration = 0; nDecleration < nDeclarationSize; ++nDecleration)
+				{
+					oFile.Write(&aVertexDeclaration[nDecleration], sizeof(sam::SVertexDeclaration));
+				}
+			}			
+
+			/* writing vertex buffer */
+			{
+				uint32 nBufferSize = pMesh->mNumVertices * nStride;
+				oFile.Write(&pMesh->mNumVertices, sizeof(uint32));
+				oFile.Write(&nBufferSize, sizeof(uint32));
+
+				uint32 nElementIndex = 0;
+				float *afVertexBuffer = new float[nStride / sizeof(float)];
+				for(uint32 nVertexIndex = 0; nVertexIndex < pMesh->mNumVertices; ++nVertexIndex)
+				{
+					uint32 nOffset = 0;
+					if(pMesh->HasPositions())
+					{
+						afVertexBuffer[nOffset + 0] = pMesh->mVertices[nVertexIndex].x;
+						afVertexBuffer[nOffset + 1] = pMesh->mVertices[nVertexIndex].y;
+						afVertexBuffer[nOffset + 2] = pMesh->mVertices[nVertexIndex].z;
+
+						nOffset += 3;
+					}
+
+					if(pMesh->HasNormals())
+					{
+						afVertexBuffer[nOffset + 0] = pMesh->mNormals[nVertexIndex].x;
+						afVertexBuffer[nOffset + 1] = pMesh->mNormals[nVertexIndex].y;
+						afVertexBuffer[nOffset + 2] = pMesh->mNormals[nVertexIndex].z;
+
+						nOffset += 3;
+					}
+
+					if(pMesh->HasTextureCoords(0))
+					{
+						aiVector3D oTextureCoords = pMesh->mTextureCoords[0][nVertexIndex]; 
+
+						afVertexBuffer[nOffset + 0] = pMesh->mTextureCoords[0][nVertexIndex].x;
+						afVertexBuffer[nOffset + 1] = pMesh->mTextureCoords[0][nVertexIndex].y;
+
+						nOffset += 2;
+					}
+
+					if(pMesh->HasVertexColors(0))
+					{
+						afVertexBuffer[nOffset + 0] = pMesh->mColors[0][nVertexIndex].r;
+						afVertexBuffer[nOffset + 1] = pMesh->mColors[0][nVertexIndex].g;
+						afVertexBuffer[nOffset + 2] = pMesh->mColors[0][nVertexIndex].b;
+						afVertexBuffer[nOffset + 3] = pMesh->mColors[0][nVertexIndex].a;
+
+						nOffset += 4;
+					}
+
+					oFile.Write(afVertexBuffer, nStride);
+				}
+
+				delete[] afVertexBuffer;				
 			}
 
-			// Create mesh resource.
+			/* writing index buffer */
+			{
+				uint32 nNbIndices = pMesh->mNumFaces * 3; // only triangle are supported.
+				oFile.Write(&nNbIndices, sizeof(uint32));
+
+				uint16 *anIndices = new uint16[nNbIndices];
+				for(uint32 nIndex = 0; nIndex < pMesh->mNumFaces; ++nIndex)
+				{
+					SAM_ASSERT(pMesh->mFaces[nIndex].mNumIndices == 3, "Only triangle are supported");
+
+					anIndices[nIndex * 3 + 0] = pMesh->mFaces[nIndex].mIndices[0];
+					anIndices[nIndex * 3 + 1] = pMesh->mFaces[nIndex].mIndices[1];
+					anIndices[nIndex * 3 + 2] = pMesh->mFaces[nIndex].mIndices[2];
+				}
+
+				oFile.Write(anIndices, sizeof(uint16) * nNbIndices);
+				delete[] anIndices;
+			}
 		}
+
+		// write file.
+		oFile.Close();
 	}	
 
 	SAM_FREE(pMeshJobData);
@@ -153,7 +243,7 @@ const IExporter::SFormat *CMeshExporter::GetFormat() const
 }
 
 // Request an export.
-sam::SJob CMeshExporter::CreateJob(IResource *p_pResource, const String &p_sDestination, sam::ID p_nPlatformId)
+sam::SJob CMeshExporter::CreateJob(IResource *p_pResource, const sam::String &p_sDestination, sam::ID p_nPlatformId)
 {
 	SAM_ASSERT(p_pResource != NULL, "Resource can't be null.");
 
@@ -167,12 +257,12 @@ sam::SJob CMeshExporter::CreateJob(IResource *p_pResource, const String &p_sDest
 	pMeshJobData->m_nPlatformId = p_nPlatformId;
 
 	// Create the job.
-	sam::SJob oJob =  {&MeshExportCallback, pMeshResource};
+	sam::SJob oJob =  {&MeshExportCallback, pMeshJobData};
 	return oJob;
 }
 
 // Method called by the job to export the resource.
-bool CMeshExporter::Export(const sam::IStream *p_pStream, const String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId)
+bool CMeshExporter::Export(const sam::IStream *p_pStream, const sam::String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId)
 {
 	return true;
 }

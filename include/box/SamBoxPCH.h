@@ -58,6 +58,7 @@ class CSamBox;
 class CSplashScreen;
 class CPlatform;
 class CTexturePropertiesPanel;
+class CMeshPropertiesPanel;
 
 /// @enum Window identifiers
 enum EWindowID

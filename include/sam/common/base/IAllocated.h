@@ -41,7 +41,7 @@ namespace sam
 		/// 
 		/// @param p_nSize Memory size to allocate.
 		/// @param p_pAddr Pre-allocated emplacement.
-		void *operator new(size_t p_nSize, void *p_pAddr)
+        void *operator new(size_t /*p_nSize*/, void *p_pAddr)
 		{
 			return p_pAddr;
 		}

@@ -35,7 +35,7 @@ public:
 	/// 
 	/// @param p_sName Project name.
 	/// @param p_sPath Absolute path.
-	CProject(const String &p_sName, const String &p_sPath);
+	CProject(const sam::String &p_sName, const sam::String &p_sPath);
 
 	/// @brief Destructor.
 	~CProject();
@@ -48,12 +48,12 @@ public:
 	/// @brief Retrieves project name.
 	/// 
 	/// @return Project name.
-	const String &GetProjectName() const {return m_sName;}
+	const sam::String &GetProjectName() const {return m_sName;}
 
 	/// @brief Retrieves project path.
 	/// 
 	/// @return Project path.
-	const String &GetProjectPath() const {return m_sPath;}
+	const sam::String &GetProjectPath() const {return m_sPath;}
 
 	/// @brief Retrieve if the project have changed since the last save.
 	/// 
@@ -83,7 +83,7 @@ public:
 	/// @param p_sName Name of the package.
 	///
 	/// @return Created package.
-	CFolder *CreatePackage(const String &p_sName);
+	CFolder *CreatePackage(const sam::String &p_sName);
 
 	/// @brief Retrieves the configuration.
 	/// 
@@ -91,8 +91,8 @@ public:
 	const SConfiguration &GetConfiguration() const {return m_oConfiguration;}
 
 private:
-	String m_sName; ///< Project name.
-	String m_sPath; ///< Absolute path.
+	sam::String m_sName; ///< Project name.
+	sam::String m_sPath; ///< Absolute path.
 	SConfiguration m_oConfiguration;
 	bool m_bIsDirty;
 

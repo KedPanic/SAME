@@ -45,7 +45,7 @@ struct STextureJobData
 {
 	ITextureExporter *m_pExporter;
 	CTextureResource *m_pTexture;
-	String m_sDestination;
+	sam::String m_sDestination;
 	sam::ID m_nPlatformId;
 };
 
@@ -94,7 +94,7 @@ void TextureExportCallback(void *p_pData)
 //								TEXTURE EXPORTER						//
 //////////////////////////////////////////////////////////////////////////
 // Request an export.
-sam::SJob ITextureExporter::CreateJob(IResource *p_pResource, const String &p_sDestination, sam::ID p_nPlatformId)
+sam::SJob ITextureExporter::CreateJob(IResource *p_pResource, const sam::String &p_sDestination, sam::ID p_nPlatformId)
 {
 	SAM_ASSERT(p_pResource != NULL, "Resource can't be null.");
 

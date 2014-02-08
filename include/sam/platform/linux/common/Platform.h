@@ -64,7 +64,7 @@ namespace sam
     typedef FILE File;
     typedef std::list<String> VString;
     typedef time_t Time;
-    typedef volatile long atomic;
+    typedef LONG atomic;
 }
 
 #ifdef SAM_32BITS

@@ -40,12 +40,35 @@ namespace sam
 		class TObjectPool
 		{
 		public:
-			/// @brief Default constructor.
+			/// @brief constructor.
+			TObjectPool()
+				: m_apInstancePool(NULL), m_nPoolSize(0), m_anRoster(NULL), m_nCurrentPos(0), m_anPartition(NULL)
+			{
+
+			}
+
+			/// @brief constructor.
 			/// 
 			/// @param p_nSize Number of allocable objects.
 			TObjectPool(uint32 p_nSize)
 				: m_apInstancePool(NULL), m_nPoolSize(p_nSize), m_anRoster(NULL), m_nCurrentPos(0), m_anPartition(NULL)
 			{
+				Init(p_nSize);
+			}
+
+			/// @brief Destructor.
+			~TObjectPool()
+			{
+				FreeAll();
+			}
+
+			/// @brief Initialize the object pool.
+			/// 
+			/// @param p_nSize Number of allocable objects.
+			void Init(uint32 p_nSize)
+			{
+				m_nPoolSize = p_nSize;
+
 				m_apInstancePool = SAM_ALLOC_ARRAY(T, m_nPoolSize);				
 				m_anRoster = SAM_ALLOC_ARRAY(uint32, m_nPoolSize);
 				m_anPartition = SAM_ALLOC_ARRAY(uint32, m_nPoolSize);
@@ -55,12 +78,6 @@ namespace sam
 					m_anRoster[index]	  = index;
 					m_anPartition[index]  = ~0;
 				}
-			}
-
-			/// @brief Destructor.
-			~TObjectPool()
-			{
-				FreeAll();
 			}
 
 			/// @brief Allocate a new instance.
@@ -135,6 +152,50 @@ namespace sam
 
 				m_nCurrentPos = 0;
 			}
+
+			/// @brief Retrieves allocated object from its partition index.
+			/// 
+			/// @param p_nPartitionIndex the partition index.
+			/// 
+			/// @return pointer to the allocated object or null if it is not allocated.
+			INLINE T *GetObject(uint32 p_nPartitionIndex)
+			{
+				SAM_ASSERT(p_nPartitionIndex < m_nPoolSize, "Bad partition index value %d", p_nPartitionIndex);
+
+				// retrieves roster index.
+				uint32 nRosterIndex = m_anPartition[p_nPartitionIndex];
+
+				SAM_ASSERT(nRosterIndex < m_nCurrentPos, "bad partition index, no object allocated in this place %d", p_nPartitionIndex);
+				if(nRosterIndex < m_nCurrentPos)
+				{
+					return &m_apInstancePool[nRosterIndex];
+				}
+
+				return NULL;
+			}
+
+			/// @see GetObject
+			T *operator[](uint32 p_nPartitionIndex)
+			{
+				return GetObject(p_nPartitionIndex);
+			}
+
+			/// @brief Retrieves partition index from pointer.
+			/// 
+			/// @param p_pObject Pointer of the allocated object.
+			///
+			/// @return Partition index.
+			uint32 GetPartitionIndex(T *p_pObject)
+			{
+				SAM_ASSERT(IsFrom(p_pObject) == true, "Passed pointer has not been allocated by this object pool");
+
+				return p_pObject - m_apInstancePool;
+			}
+
+			/// @brief Retrieves current position in the table.
+			///
+			/// @return Number of allocated object.
+			uint32 GetCount() const {return m_nCurrentPos;}			
 
 		private:
 			T *m_apInstancePool;	///< Array of allocated memory.

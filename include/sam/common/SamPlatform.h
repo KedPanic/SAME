@@ -27,6 +27,7 @@
 #define ALIGN(addr, size) ALIGN_UP(addr, size)
 
 #include <common/Platform.h>
+#define SAM_UNIMPLEMENTED SAM_ASSERT(false, "Unimplemented function")
 
 // Profiling.
 #if defined SAM_DEBUG && !defined SAM_PROFILING_EXPORTS

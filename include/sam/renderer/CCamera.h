@@ -78,7 +78,7 @@ namespace sam
 		/// @param _vPosition New position.
 		INLINE void SetPosition(const Vector3 &_vPosition)
         {
-            m_vOrigin = _vPosition;
+            m_vPosition = _vPosition;
         }
 
 		/// @brief Retrieves current position.
@@ -86,7 +86,7 @@ namespace sam
 		/// @return Current position.
 		INLINE Vector3 GetPosition(void) const
         {
-            return m_vOrigin;
+            return m_vPosition;
         }
 
         /// @brief Look at.
@@ -101,10 +101,10 @@ namespace sam
         /// @param _vUp Up vector.
         INLINE void LookAt(const Vector3 &_vEye, const Vector3 &_vAt, const Vector3 &_vUp);
 
-        /// @brief Retrieves projection matrix.
+        /// @brief Retrieves view matrix.
         /// 
         /// @param _mMatrix Matrix to set.
-        INLINE void GetModelViewMatrix(Matrix44 &_mMatrix) const;
+        INLINE void GetViewMatrix(Matrix44 &_mMatrix) const;
 
         //==========================================//
         //                  FRUSTUM                 //
@@ -137,7 +137,7 @@ namespace sam
 
         // Model View.
         Vector3 m_vRight, m_vUp, m_vAt;
-        Vector3 m_vOrigin;
+        Vector3 m_vPosition;
 
         //==========================================//
         //                  FRUSTUM                 //

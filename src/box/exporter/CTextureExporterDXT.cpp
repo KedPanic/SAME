@@ -34,7 +34,7 @@ CTextureExporterDXT::CTextureExporterDXT()
 }
 
 // Method called by the job to export the resource.
-bool CTextureExporterDXT::Export(const SImage &p_oImage, const String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId)
+bool CTextureExporterDXT::Export(const SImage &p_oImage, const sam::String &p_sDestination, const STextureMetadata &p_oMetadata, sam::ID p_nPlatformId)
 {
 	nvtt::InputFormat eInputFormat = nvtt::InputFormat_BGRA_8UB;
 

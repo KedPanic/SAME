@@ -23,7 +23,7 @@
 #include "resources/IResource.h"
 
 // Default constructor.
-CFolder::CFolder(const String &p_sName, const String &p_sPath, CFolder *p_pParent /*= NULL*/)
+CFolder::CFolder(const sam::String &p_sName, const sam::String &p_sPath, CFolder *p_pParent /*= NULL*/)
 	: IResource(p_sName, p_sPath), m_pParent(p_pParent)
 {
 	m_nID = sam::CreateID(p_sPath.c_str(), p_sPath.size());

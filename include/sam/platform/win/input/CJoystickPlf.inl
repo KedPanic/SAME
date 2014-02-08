@@ -49,7 +49,7 @@ INLINE bool CJoystick::PrepareStickEvent(float _fThumbX, float _fThumbY, float &
 INLINE void CJoystick::SendEvent(SInputEvent &_oEvent)
 {
 	// send button event.
-	_oEvent.m_iModifiers = 0;			
+	_oEvent.m_nModifiers = 0;			
 	_oEvent.m_sKeyName = g_aKeyName[_oEvent.m_eKey];
 
 	// send input event.

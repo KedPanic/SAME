@@ -22,5 +22,13 @@
 #define __SAM_ENTITY_SYSTEM__
 
 #include <entitysystem/SamEntitySystemPCH.h>
+#include <entitysystem/CComponentManager.h>
+#include <entitysystem/CGameObject.h>
+#include <entitysystem/CScene.h>
+#include <entitysystem/IComponent.h>
+
+#include <entitysystem/components/CCamera.h>
+#include <entitysystem/components/CMesh.h>
+#include <entitysystem/components/CTransform.h>
 
 #endif // __SAM_ENTITY_SYSTEM__

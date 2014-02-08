@@ -141,7 +141,7 @@ CFolder *CSamBox::CreateNewPackage()
 	}
 
 	// create package.
-	String sFinalFolderName = sFolderName;
+	sam::String sFinalFolderName = sFolderName;
 	return m_pProject->CreatePackage(sFinalFolderName);
 }
 
@@ -186,7 +186,7 @@ bool CSamBox::CloseCurrentProject()
 void CSamBox::OnInitCompleted( CInitCompletedEvent &p_oEvent)
 {
 	CPlatform plf;
-	String sPlatformFilename = m_sDataFolder + "platforms/generic.json";
+	sam::String sPlatformFilename = m_sDataFolder + "platforms/generic.json";
 	plf.Initialize(sPlatformFilename.c_str());
 
 	// Create the main window.
@@ -222,7 +222,7 @@ void CSamBox::OnOpenProject(COpenProjectEvent &p_oEvent)
 	{
 		CProjectWizardDialog *pProjectWizard = (CProjectWizardDialog*)p_oEvent.GetEventObject();
 
-		String sProjectName = wxFileName::FileName(p_oEvent.GetProjectPath()).GetName().ToStdString();
+		sam::String sProjectName = wxFileName::FileName(p_oEvent.GetProjectPath()).GetName().ToStdString();
 		m_pProject = SAM_NEW CProject(sProjectName, p_oEvent.GetProjectPath().ToStdString());
 
 		// Create loading thread.
@@ -245,7 +245,7 @@ void CSamBox::OnCreateProject(CCreateProjectEvent &p_oEvent)
 	{
  		CProject::SConfiguration *pConfiguration = (CProject::SConfiguration*)p_oEvent.GetEventObject();
  
-		String sProjectName = wxFileName::FileName(p_oEvent.GetProjectPath()).GetName().ToStdString();
+		sam::String sProjectName = wxFileName::FileName(p_oEvent.GetProjectPath()).GetName().ToStdString();
 		m_pProject = SAM_NEW CProject(sProjectName, p_oEvent.GetProjectPath().ToStdString());
 		m_pProject->Initialize(pConfiguration);
 	}

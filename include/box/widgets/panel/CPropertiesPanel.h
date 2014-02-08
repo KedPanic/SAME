@@ -35,6 +35,7 @@ private:
 	wxScrolledWindow *m_pPropertiesPanel;
 
 	CTexturePropertiesPanel *m_pTexturePropertiesPanel;
+	CMeshPropertiesPanel *m_pMeshPropertiesPanel;
 
 	wxPanel *m_pCurrentPanel; ///< Current displayed panel.
 };

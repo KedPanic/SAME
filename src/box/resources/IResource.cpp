@@ -22,7 +22,7 @@
 #include "resources/IResource.h"
 
 // Constructor.
-IResource::IResource(const String &p_sName, const String &p_sPath)
+IResource::IResource(const sam::String &p_sName, const sam::String &p_sPath)
 	: m_sName(p_sName), m_sPath(p_sPath)
 {
 	m_nID = sam::CreateID(m_sPath.c_str(), m_sPath.length());

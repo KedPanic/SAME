@@ -20,7 +20,7 @@
 //===========================================
 #include "SamInputPCH.h"
 #include <input/SVibrationEffect.h>
-#include <input/CInputManagerPlf.h>
+#include <input/CInputManager.h>
 #include <input/CJoystickPlf.h>
 
 namespace sam
@@ -86,7 +86,7 @@ namespace sam
 		SInputEvent oEvent;
 		oEvent.m_eDevice = e_DT_Joystick;
 		oEvent.m_iInternalID = m_nIndex;
-		oEvent.m_iModifiers = 0;
+		oEvent.m_nModifiers = 0;
 
 		// retreive input state.
 		XINPUT_STATE oState;

@@ -37,7 +37,7 @@ wxThread::ExitCode CGaugeThread::Entry()
 	m_pProgressDialog = new wxProgressDialog(LOADING_TITLE + ":" + m_pProject->GetProjectName(), LOADING_PARSING_FOLDER);
 
 	// read the project configuration.
-	String sFilename = m_pProject->GetProjectPath() + "/project.cfg";
+	sam::String sFilename = m_pProject->GetProjectPath() + "/project.cfg";
 	sam::CJSONSerializer oSerializer(sFilename.c_str());
 	oSerializer.BeginSerialization(true, "project");
 	m_pProject->Read(&oSerializer);
@@ -68,8 +68,8 @@ void CGaugeThread::ParseFolder(CFolder *p_pParentFolder)
 		wxFileName oFilename(sFile);
 		if(oFilename.GetExt() != "metadata")
 		{
-			String sFilename = oFilename.GetName();
-			String sFullPath = oCurrentDir.GetNameWithSep() + sFile;
+			sam::String sFilename = oFilename.GetName();
+			sam::String sFullPath = oCurrentDir.GetNameWithSep() + sFile;
 
 			// we create the resource but it won't be loaded here.
 			IResource *pResource = g_pResourceManager->Create(sFilename, sFullPath);
@@ -84,7 +84,7 @@ void CGaugeThread::ParseFolder(CFolder *p_pParentFolder)
 	wxString sSubFolder;
 	for(bool bContinue = oCurrentDir.GetFirst(&sSubFolder, wxEmptyString, wxDIR_DIRS); bContinue; bContinue = oCurrentDir.GetNext(&sSubFolder))
 	{
-		String sDirname = sSubFolder;		
+		sam::String sDirname = sSubFolder;		
 
 		CFolder *pSubFolder = NULL;
 		if(p_pParentFolder->IsRoot())
@@ -93,7 +93,7 @@ void CGaugeThread::ParseFolder(CFolder *p_pParentFolder)
 		}
 		else
 		{
-			String sFullDirname = oCurrentDir.GetNameWithSep() + sSubFolder;
+			sam::String sFullDirname = oCurrentDir.GetNameWithSep() + sSubFolder;
 
 			pSubFolder = SAM_NEW CFolder(sDirname, sFullDirname, p_pParentFolder);
 			p_pParentFolder->AddResource(pSubFolder);

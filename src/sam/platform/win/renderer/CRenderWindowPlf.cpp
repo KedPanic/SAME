@@ -21,6 +21,8 @@
 #include "SamRendererPCH.h"
 #include "renderer/CRenderWindow.h"
 #include "renderer/CVertexBuffer.h"
+#include "renderer/CIndexBuffer.h"
+#include "renderer/CConstantBuffer.h"
 #include "renderer/CTextureManager.h"
 #include "renderer/CMaterialManager.h"
 #include "renderer/CPixelShader.h"
@@ -462,18 +464,18 @@ namespace sam
     /// @return True if scene cleared successfully.
     bool CRenderWindow::ClearScene(uint32 _nFlags)
     {
-        if(_nFlags & EClearType_Depth || _nFlags & EClearType_Stencil)
+        if(_nFlags & e_ClearType_Depth || _nFlags & e_ClearType_Stencil)
         {
             UINT flag = 0;
-            if(_nFlags & EClearType_Stencil)
+            if(_nFlags & e_ClearType_Stencil)
                 flag |= D3D11_CLEAR_STENCIL;
-            if(_nFlags & EClearType_Depth)
+            if(_nFlags & e_ClearType_Depth)
                 flag |= D3D11_CLEAR_DEPTH;
 
             m_pContext->ClearDepthStencilView(m_DefaultRenderState.m_pDepthStencilView, flag, m_fClearDepth, m_nClearStencil);
         }
 
-        if(_nFlags & EClearType_Color)
+        if(_nFlags & e_ClearType_Color)
         {
             m_pContext->ClearRenderTargetView(m_DefaultRenderState.m_pRenderTargetView, m_fClearColor);
         }
@@ -547,6 +549,14 @@ namespace sam
 
         m_pContext->Draw(_nNbIndex, _nStartVertexLocation);
     }
+
+	// Draw current vertex buffer.
+	void CRenderWindow::DrawIndexed(uint32 p_nNbIndex, uint32 p_nStartIndexLocation /*= 0*/, int32 p_nBaseVertexLocation /*= 0*/)
+	{
+		m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		m_pContext->DrawIndexed(p_nNbIndex, p_nStartIndexLocation, p_nBaseVertexLocation);
+	}
 
      //================================================//
     //                  RENDER STATE                  //
@@ -626,26 +636,47 @@ namespace sam
         return SAM_NEW CVertexBuffer;
     }
 
-    /// @brief Set current vertex buffer.
-    /// 
-    /// @param _nSlot Input slot.
-    /// @param _pVertexBuffer Vertex buffer.
+    // Set current vertex buffer.
     void CRenderWindow::SetVertexBuffer(uint32 _nSlot, CVertexBuffer *_pVertexBuffer)
     {
         SAM_ASSERT(_pVertexBuffer != NULL, "Vertex buffer is null");
 
-        CVertexBuffer *pVertexBuffer = _pVertexBuffer;
         if(m_DefaultRenderState.m_pVertexBuffer != _pVertexBuffer)
         {
             m_DefaultRenderState.m_pVertexBuffer = _pVertexBuffer;
 
             uint32 nOffset = 0;
             uint32 nStride = _pVertexBuffer->GetStride();
-            ID3D11Buffer *pBuffer = pVertexBuffer->GetD3DBuffer();
+            ID3D11Buffer *pBuffer = _pVertexBuffer->GetD3DBuffer();
 
             m_pContext->IASetVertexBuffers(_nSlot, 1, &pBuffer, &nStride, &nOffset);            
         }
     }
+
+	// Set current index buffer.
+	void CRenderWindow::SetIndexBuffer(CIndexBuffer *p_pIndexBuffer)
+	{
+		SAM_ASSERT(p_pIndexBuffer != NULL, "Index buffer is null");
+
+		if(m_DefaultRenderState.m_pIndexBuffer != p_pIndexBuffer)
+		{
+			m_DefaultRenderState.m_pIndexBuffer = p_pIndexBuffer;
+			m_pContext->IASetIndexBuffer(p_pIndexBuffer->GetD3DBuffer(), DXGI_FORMAT_R16_UINT, 0);            
+		}
+	}
+
+	// Set current constant buffer.
+	void CRenderWindow::SetConstantBuffer(CConstantBuffer *p_pConstantBuffer)
+	{
+		SAM_ASSERT(p_pConstantBuffer != NULL, "Constant buffer is null");
+
+		if(m_DefaultRenderState.m_pConstantBuffer != p_pConstantBuffer)
+		{
+			m_DefaultRenderState.m_pConstantBuffer = p_pConstantBuffer;
+			ID3D11Buffer *pBuffer = p_pConstantBuffer->GetD3DBuffer();
+			m_pContext->VSSetConstantBuffers(0, 1, &pBuffer);
+		}
+	}
 
     // Create vertex shader.
     CVertexShader *CRenderWindow::CreateVertexShader(IStream *p_pStream, ID p_nID, const char *p_sFuncName, const char *p_sProfile)

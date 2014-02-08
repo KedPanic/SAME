@@ -25,16 +25,25 @@
 namespace sam
 {
     /// @brief Default constructor
-    SRenderStateDX11::SRenderStateDX11(void)
-        : m_pRenderTargetView(NULL), m_pDepthStencilBuffer(NULL), m_pDepthStencilView(NULL), m_pDepthStencilState(NULL), m_pRasterizerState(NULL),
-        m_pBlendState(NULL), m_pVertexBuffer(NULL), m_pVertexShader(NULL), m_pPixelShader(NULL)
+    SRenderState::SRenderState(void)
+        : m_pRenderTargetView(NULL), 
+		m_pDepthStencilBuffer(NULL), 
+		m_pDepthStencilView(NULL), 
+		m_pDepthStencilState(NULL), 
+		m_pRasterizerState(NULL),
+        m_pBlendState(NULL), 
+		m_pVertexBuffer(NULL),
+		m_pIndexBuffer(NULL),
+		m_pConstantBuffer(NULL),
+		m_pVertexShader(NULL), 
+		m_pPixelShader(NULL)
     {
     }
 
     /// @brief Initialize.
     /// 
     /// @return True if initialized successfully.
-    bool SRenderStateDX11::Initialize(IDXGISwapChain *_pSwapChain, ID3D11Device *_pDevice, ID3D11DeviceContext *_pContext)
+    bool SRenderState::Initialize(IDXGISwapChain *_pSwapChain, ID3D11Device *_pDevice, ID3D11DeviceContext *_pContext)
     {
         HRESULT hResult = S_OK;
 
@@ -88,7 +97,7 @@ namespace sam
         ZeroMemory(&depthStencilDesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
         depthStencilDesc.DepthEnable = true;
         depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-        depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+        depthStencilDesc.DepthFunc = D3D11_COMPARISON_GREATER;
 
         depthStencilDesc.StencilEnable = true;
         depthStencilDesc.StencilReadMask = 0xFF;
@@ -130,7 +139,7 @@ namespace sam
             return false;
         }
 
-        _pContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL/*m_pDepthStencilView*/);
+        _pContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
 
         //===================
         // create rasterizer.
@@ -183,11 +192,15 @@ namespace sam
     }
 
 	// Resize the back buffer.
-	bool SRenderStateDX11::Resize(IDXGISwapChain *p_pSwapChain, ID3D11Device *p_pDevice, ID3D11DeviceContext *p_pContext)
+	bool SRenderState::Resize(IDXGISwapChain *p_pSwapChain, ID3D11Device *p_pDevice, ID3D11DeviceContext *p_pContext)
 	{
 		// Release current render target.
-		p_pContext->OMSetRenderTargets(0, NULL, NULL);
-		m_pRenderTargetView->Release();
+        p_pContext->OMSetRenderTargets(0, NULL, NULL);
+        m_pRenderTargetView->Release();
+        m_pDepthStencilView->Release();
+
+        return Initialize(p_pSwapChain, p_pDevice, p_pContext);
+
 
 		// Resize the back buffer
 		HRESULT hResult = p_pSwapChain->ResizeBuffers(0, g_Env->pRenderWindow->GetWidth(), g_Env->pRenderWindow->GetHeight(), DXGI_FORMAT_UNKNOWN, 0);
@@ -207,7 +220,7 @@ namespace sam
 		}
 
 		// Create the render target.
-		hResult = p_pDevice->CreateRenderTargetView(pBackBuffer, NULL, &m_pRenderTargetView);
+        hResult = p_pDevice->CreateRenderTargetView(pBackBuffer, NULL, &m_pRenderTargetView);
 		pBackBuffer->Release();
 		if(hResult != S_OK)
 		{
@@ -215,7 +228,7 @@ namespace sam
 			return false;
 		}
 
-		p_pContext->OMSetRenderTargets(1, &m_pRenderTargetView, NULL/*m_pDepthStencilView*/);
+        p_pContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_pDepthStencilView);
 
 		return true;
 	}

@@ -40,7 +40,7 @@ public:
 	/// @param p_eResourceType Type of resource to create.
 	/// 
 	/// @return Created resource or NULL if an error occurred.
-	IResource *Create(const String &p_sName, const String &p_sPath, EResourceType p_eResourceType = e_ResourceType_Unknown);
+	IResource *Create(const sam::String &p_sName, const sam::String &p_sPath, EResourceType p_eResourceType = e_ResourceType_Unknown);
 
 	/// @brief Create the resource.
 	/// 
@@ -50,7 +50,7 @@ public:
 	/// 
 	/// @return Created resource or NULL if an error occurred.
 	template<class Resource>
-	IResource *Create(const String &p_sName, const String &p_sPath)
+	IResource *Create(const sam::String &p_sName, const sam::String &p_sPath)
 	{
 		return Create(p_sName, p_sPath, Resource::GetType());
 	}
@@ -60,7 +60,7 @@ public:
 	/// @param p_sName	Name of the resource.
 	/// 
 	/// @return Resource type.
-	EResourceType FindResourceType(const String &p_sName);
+	EResourceType FindResourceType(const sam::String &p_sName);
 
 private:
 	typedef std::list<IResourceFactory *> ResourceFactories;

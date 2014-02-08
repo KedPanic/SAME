@@ -18,175 +18,177 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
-#include <SamCommon.h>
-#include <SamRenderer.h>
-#include <common/SamModuleInit.h>
+#include "IApplication.h"
 
-using namespace sam;
-
-static bool s_bClose = false;
-
-#if defined(SAM_PLATFORM_WIN)
-//////////////////////////////////////////////////////////////////////////
-// Windows stuff
-//////////////////////////////////////////////////////////////////////////
-LRESULT CALLBACK WndProc(HWND p_hWnd, UINT p_nMessage, WPARAM p_wParam, LPARAM p_lParam)
+// Sample application.
+class CApplication : public IApplication
 {
-	PAINTSTRUCT paintStruct;
-	HDC hdc;
-
-	switch(p_nMessage)
+public:
+	CApplication()
+		: IApplication("Sample: cube"),
+		m_pConstantBuffer(NULL),
+		m_pVertexBuffer(NULL), m_pIndexBuffer(NULL),
+		m_pVertexShader(NULL), m_pPixelShader(NULL)
 	{
-	case WM_PAINT:
-		hdc = BeginPaint(p_hWnd, &paintStruct);
-		EndPaint(p_hWnd, &paintStruct);
-		break;
 
-	case WM_DESTROY:
-	case WM_CLOSE:
-		s_bClose = true;
-		break;
-
-	case WM_SIZE:
-		if(p_wParam != SIZE_MINIMIZED)
-		{
-			RECT rect;
-			GetClientRect(p_hWnd, &rect);
-			g_Env->pRenderWindow->SetResolution(rect.right, rect.bottom);
-		}
-		break;
-
-	case WM_ACTIVATE:
-		if(p_wParam == WA_INACTIVE)
-		{
-
-		}
-		else
-		{
-
-		}
-
-	default:
-		return DefWindowProc(p_hWnd, p_nMessage, p_wParam, p_lParam);
 	}
 
-	return 0;
-}
-#endif
-//////////////////////////////////////////////////////////////////////////
-
-static CVertexBuffer *s_pVertexBuffer = NULL;
-static CVertexShader *s_pVertexShader = NULL;
-static CPixelShader *s_pPixelShader = NULL;
-
-static Matrix44 s_World;
-static Matrix44 s_View;
-static Matrix44 s_Projection;
-
-static CCamera s_oCamera;
-
-void Initialize()
-{
-	// Init common module.
-	Env *pEnv = InitCommon();
-	ModuleInit(pEnv);
-
-	pEnv->pLog->SetFilename("samengine.log");
-
-	// Create and setup window.
-	CRenderWindow *pRenderer = CreateRenderManager(pEnv);
-
-	pRenderer->SetWndProc(& WndProc);
-	pRenderer->Create("Sample: basic", 800, 600, 24, 24, 8, 1, false);
-	pRenderer->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
-	pRenderer->ShowMouseCursor(true);
-	pRenderer->SetViewport(0, 0, 800, 600);
-
-	// Create triangle.
-	s_pVertexBuffer = g_Env->pRenderWindow->CreateVertexBuffer();
-	SVertexDeclaration oVertexDeclaration[] = {
-		{
-			e_VertexSemantic_Position,
-			0,
-			8,
-			e_Type_Float
-		},
-		{
-			e_VertexSemantic_Diffuse,
-			12,
-			8,
-			e_Type_Float
-		}
-	};
-	s_pVertexBuffer->Initialize(oVertexDeclaration, 2, 8);	
-
-	g_Env->pRenderWindow->SetVertexBuffer(0, s_pVertexBuffer);
-
-	f32 fVector[9] = {
-		0.0f, 0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, 0.5f
-	};
-	s_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
-
-	// Create simple shader.
-	CFile oFile("../data/shaders/simple.fx");
-	s_pVertexShader = pRenderer->CreateVertexShader(&oFile, 0, "VS", "vs_4_0");
-	s_pVertexShader->CreateInputLayout(s_pVertexBuffer);
-
-	s_pPixelShader = pRenderer->CreatePixelShader(&oFile, 0, "PS", "ps_4_0");
-
-	// Initialize world matrix
-	s_World.SetIdentity();
-
-	// Setup camera and viewport.
-	Vector3 vEye(0.0f, 1.0f, -5.0f);
-	Vector3 vAt(0.0f, 1.0f, 0.0f);
-	Vector3 vUp(0.0f, 1.0f, 0.0f);
-	s_oCamera.LookAt(vEye, vAt, vUp);
-
-	s_oCamera.SetPerspective(800, 600);
-}
-
-void Shutdown()
-{
-	SAM_DELETE s_pVertexBuffer;
-	DestroyRenderManager();
-	ShutdownCommon();
-}
-
-#if defined(SAM_PLATFORM_WIN)
-int WINAPI WinMain( __in HINSTANCE hInstance, __in_opt HINSTANCE hPrevInstance, __in LPSTR lpCmdLine, __in int nShowCmd )
-#else
-int main()
-#endif
-{ 
-	Initialize();
-
-	MSG msg;
-	while(!s_bClose)
+	~CApplication()
 	{
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);			
-		}
-		else
-		{
-			// Clear back buffer.
-			g_Env->pRenderWindow->BeginScene(EClearType_Color);			
-
-			g_Env->pRenderWindow->SetVertexShader(s_pVertexShader);
-			g_Env->pRenderWindow->SetConstantBuffer();
-			g_Env->pRenderWindow->SetPixelShader(s_pPixelShader);
-
-			g_Env->pRenderWindow->Draw(3, 0);
-
-			g_Env->pRenderWindow->EndScene();
-		}
+		SAM_DELETE m_pConstantBuffer;
+		SAM_DELETE m_pVertexBuffer;
+		SAM_DELETE m_pIndexBuffer;
 	}
 
-	Shutdown();
+	virtual bool PostInit()
+	{
+		sam::CRenderWindow *pRenderer = sam::g_Env->pRenderWindow;
 
-	return 0;
+		// set perspective view.
+		m_oCamera.SetPosition(sam::Vector3(0.0f, 0.0f, 10.0f));
+		m_oCamera.LookAt(sam::Vector3(0.0f, 0.0f, 0.0f));
+		m_oCamera.SetPerspective(pRenderer->GetWidth(), pRenderer->GetHeight(), 75.0f, 0.1f, 1000.0f);
+
+		// Create constant buffer.
+		m_pConstantBuffer = SAM_NEW sam::CConstantBuffer;
+		m_pConstantBuffer->Initialize(sizeof(SConstantBuffer));
+
+		// Create cube.
+		m_pVertexBuffer = pRenderer->CreateVertexBuffer();
+		sam::SVertexDeclaration oVertexDeclaration[2] = {
+			{
+				sam::e_VertexSemantic_Position,
+					0,
+					3,
+					sam::e_Type_Float
+			},
+			{
+				sam::e_VertexSemantic_Color0,
+					12,
+					4,
+					sam::e_Type_Float
+			},
+		};
+
+		f32 fVector[] = {
+			-1.0f, 1.0f, 1.0f,			// 0
+			0.0f, 0.0f, 1.0f, 1.0f,
+
+			1.0f, 1.0f, 1.0f,			// 1
+			0.0f, 1.0f, 0.0f, 1.0f,
+
+			1.0f, 1.0f, -1.0f,			// 2
+			0.0f, 1.0f, 1.0f, 1.0f,
+
+			-1.0f, 1.0f, -1.0f,			// 3
+			1.0f, 0.0f, 0.0f, 1.0f,
+
+			-1.0f, -1.0f, 1.0f,		// 4
+			1.0f, 0.0f, 1.0f, 1.0f,
+
+			1.0f, -1.0f, 1.0f,			// 5
+			1.0f, 1.0f, 0.0f, 1.0f,
+
+			1.0f, -1.0f, -1.0f,			// 6
+			1.0f, 1.0f, 1.0f, 1.0f,
+
+			-1.0f, -1.0f, -1.0f,			// 7
+			0.0f, 0.0f, 0.0f, 1.0f,
+		};
+		m_pVertexBuffer->Initialize(oVertexDeclaration, sizeof(oVertexDeclaration) / sizeof(sam::SVertexDeclaration), 8);			
+		m_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
+		sam::g_Env->pRenderWindow->SetVertexBuffer(0, m_pVertexBuffer);
+
+		uint16 indices[] =
+		{
+			3,1,0,
+			2,1,3,
+
+			0,5,4,
+			1,5,0,
+
+			3,4,7,
+			0,4,3,
+
+			1,6,5,
+			2,6,1,
+
+			2,7,6,
+			3,7,2,
+
+			6,4,5,
+			7,4,6,
+		};
+		m_pIndexBuffer = SAM_NEW sam::CIndexBuffer;
+		m_pIndexBuffer->Initialize(indices, sizeof(indices) / sizeof(uint16));
+		sam::g_Env->pRenderWindow->SetIndexBuffer(m_pIndexBuffer);
+
+		// Create simple shader.
+		sam::CFile oFile("../data/shaders/cube.fx");
+		m_pVertexShader = pRenderer->CreateVertexShader(&oFile, 0, "VS", "vs_4_0");
+		m_pVertexShader->CreateInputLayout(m_pVertexBuffer);
+
+		m_pPixelShader = pRenderer->CreatePixelShader(&oFile, 0, "PS", "ps_4_0");
+
+		return true;
+	}
+
+	virtual void Update(f32 p_fDelta)
+	{
+		static float rotation = 0.0f;
+
+		// Update the rotation variable each frame.
+		rotation += PI * p_fDelta;
+		if(rotation > 360.0f)
+		{
+			rotation -= 360.0f;
+		}
+
+		m_mWorld.m00 = cos(rotation);
+		m_mWorld.m02 = -sin(rotation);
+		m_mWorld.m20 = sin(rotation);
+		m_mWorld.m22 = cos(rotation);
+	}
+
+	virtual void Render()
+	{
+		// write constant buffer.
+		sam::Matrix44 mView;
+		m_oCamera.GetViewMatrix(mView);
+
+		SConstantBuffer oConstantBuffer;
+		oConstantBuffer.m_mWorld = m_mWorld;	
+		oConstantBuffer.m_mView = mView;
+		oConstantBuffer.m_mProjection = m_oCamera.GetProjectionMatrix();
+		m_pConstantBuffer->MapWrite(&oConstantBuffer, sizeof(SConstantBuffer));
+		
+		sam::g_Env->pRenderWindow->SetVertexShader(m_pVertexShader);
+		sam::g_Env->pRenderWindow->SetConstantBuffer(m_pConstantBuffer);
+		sam::g_Env->pRenderWindow->SetPixelShader(m_pPixelShader);
+
+		sam::g_Env->pRenderWindow->DrawIndexed(36);
+	}
+
+private:
+	sam::CConstantBuffer *m_pConstantBuffer;
+	sam::CVertexShader *m_pVertexShader;
+	sam::CPixelShader *m_pPixelShader;
+	sam::CTexture *m_pTexture;
+	sam::CSamplerState *m_pSamplerLinear;
+	sam::CVertexBuffer *m_pVertexBuffer;
+	sam::CIndexBuffer *m_pIndexBuffer;
+
+	struct SConstantBuffer
+	{
+		sam::Matrix44 m_mWorld;
+		sam::Matrix44 m_mView;
+		sam::Matrix44 m_mProjection;
+	};
+
+	sam::CCamera m_oCamera;
+};
+
+IApplication* CreateApplication()
+{
+	return new CApplication;
 }

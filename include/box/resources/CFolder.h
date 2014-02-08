@@ -34,7 +34,7 @@ public:
 	/// @param p_sName Name of the folder.
 	/// @param p_sPath Absolute path.
 	/// @param p_pParent Pointer the parent (NULL for root folder)
-	CFolder(const String &p_sName, const String &p_sPath, CFolder *p_pParent = NULL);
+	CFolder(const sam::String &p_sName, const sam::String &p_sPath, CFolder *p_pParent = NULL);
 	~CFolder();
 
 	typedef std::vector<IResource *> Resources;

@@ -36,7 +36,7 @@ public:
 	/// @param p_sDestination Absolute path to write the exported file.
 	/// @param p_nOuputFormat Format requested for the export.
 	/// @param p_nPlatformId Used for platform specific options.
-	void RequestExport(IResource *p_pResource, const String &p_sDestination, uint32 p_nOutputFormat, sam::ID p_nPlatformId);
+	void RequestExport(IResource *p_pResource, const sam::String &p_sDestination, uint32 p_nOutputFormat, sam::ID p_nPlatformId);
 
 	/// @brief Register an exporter plugin.
 	/// 

@@ -21,6 +21,7 @@
 #include "SamBoxPCH.h"
 #include "widgets/panel/CPropertiesPanel.h"
 #include "widgets/panel/properties/CTexturePropertiesPanel.h"
+#include "widgets/panel/properties/CMeshPropertiesPanel.h"
 
 #include "resources/IResource.h"
 
@@ -37,7 +38,10 @@ CPropertiesPanel::CPropertiesPanel(wxWindow *p_pParent)
 
 	// create properties panel per resource type.
 	m_pTexturePropertiesPanel = new CTexturePropertiesPanel(m_pPropertiesPanel);
-	m_pTexturePropertiesPanel->Hide();	
+	m_pTexturePropertiesPanel->Hide();
+
+	m_pMeshPropertiesPanel = new CMeshPropertiesPanel(m_pPropertiesPanel);
+	m_pMeshPropertiesPanel->Hide();
 }
 
 void CPropertiesPanel::CreateEventTable()
@@ -69,6 +73,15 @@ void CPropertiesPanel::SetCurrentResource(sam::ISignal *p_pSignal)
 		m_pPropertiesPanel->GetSizer()->Add(m_pTexturePropertiesPanel, 0, wxEXPAND | wxALIGN_LEFT, 1);
 
 		m_pCurrentPanel = m_pTexturePropertiesPanel;
+	}
+	else if(pResource->GetResourceType() == e_ResourceType_Mesh)
+	{
+		m_pMeshPropertiesPanel->Show();
+		m_pMeshPropertiesPanel->SetMeshResource((CMeshResource*)pResource);
+
+		m_pPropertiesPanel->GetSizer()->Add(m_pMeshPropertiesPanel, 0, wxEXPAND | wxALIGN_LEFT, 1);
+
+		m_pCurrentPanel = m_pMeshPropertiesPanel;
 	}
 
 	Refresh();

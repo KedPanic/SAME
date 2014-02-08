@@ -111,7 +111,7 @@ void CTexturePropertiesPanel::CreateTargetSettingPage(CPlatform *p_pPlatform)
 	wxStaticText *pMaxSizeLabel = new wxStaticText(pPanel, wxID_ANY, wxT("Max Size"));
 	pFlexGridSizer->Add(pMaxSizeLabel, 0, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
 
-	String sSizeMaxId = "ID_COMBOBOX_SIZEMAX_" + p_pPlatform->GetName();
+	sam::String sSizeMaxId = "ID_COMBOBOX_SIZEMAX_" + p_pPlatform->GetName();
 	int nSizeMaxId = XRCID(sSizeMaxId.c_str());
 	pTargetSetting->m_pSizeMax = new wxComboBox(pPanel, nSizeMaxId, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_READONLY);
 	for(uint32 nMaxSize = 32; nMaxSize <= 4096; nMaxSize <<= 1)
@@ -128,7 +128,7 @@ void CTexturePropertiesPanel::CreateTargetSettingPage(CPlatform *p_pPlatform)
 	wxStaticText *pFormatLabel = new wxStaticText(pPanel, wxID_ANY, wxT("Format"));
 	pFlexGridSizer->Add(pFormatLabel, 0, wxALL | wxALIGN_LEFT | wxALIGN_CENTER_VERTICAL, 5);
 
-	String sFormatId = "ID_COMBOBOX_FORMAT_" + p_pPlatform->GetName();
+	sam::String sFormatId = "ID_COMBOBOX_FORMAT_" + p_pPlatform->GetName();
 	int nFormatId = XRCID(sFormatId.c_str());
 	pTargetSetting->m_pFormat = new wxComboBox(pPanel, nFormatId, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_READONLY);
 	IExporter *pExporter = g_pExporterManager->GetExporter(e_ResourceType_Texture, p_pPlatform->GetExporterName(e_ResourceType_Texture).c_str());
@@ -209,7 +209,7 @@ void CTexturePropertiesPanel::OnApply(wxCommandEvent &p_oEvent)
 	// save the settings.
 	m_pTextureResource->SetMetadata(m_oLocalMetadata);
 
-	String sMetadataPath = m_pTextureResource->GetPath() + ".metadata";
+	sam::String sMetadataPath = m_pTextureResource->GetPath() + ".metadata";
 	sam::CJSONSerializer oSerializer(sMetadataPath.c_str());
 	oSerializer.BeginSerialization(false, sMetadataPath.c_str());
 	m_pTextureResource->Write(&oSerializer);
@@ -220,7 +220,7 @@ void CTexturePropertiesPanel::OnApply(wxCommandEvent &p_oEvent)
 	while(oTargetSettingIt != oTargetSettingItEnd)
 	{		
 		wxFileName oNativeFilenamePath(pProject->GetProjectPath() + "/build/PC/");
-		String sDestination = oNativeFilenamePath.GetFullPath().ToStdString();
+		sam::String sDestination = oNativeFilenamePath.GetFullPath().ToStdString();
 		uint32 nFormat = *(uint32*)(*oTargetSettingIt)->m_pFormat->GetClientData((*oTargetSettingIt)->m_pFormat->GetCurrentSelection());
 
 		g_pExporterManager->RequestExport(m_pTextureResource, sDestination, nFormat, (*oTargetSettingIt)->m_nTargetId);

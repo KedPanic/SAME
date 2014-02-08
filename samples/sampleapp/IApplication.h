@@ -24,6 +24,7 @@
 #include <SamCommon.h>
 #if !defined(CONSOLE_APP)
 #	include <SamRenderer.h>
+#	include <SamEntitySystem.h>
 #endif
 
 /*
@@ -60,6 +61,11 @@ public:
 private:
 	char *m_sTitle; ///< Title of the window.
 	bool m_bRun; ///< Flag used to close the application.
+
+#if !defined(CONSOLE_APP)
+protected:
+	sam::Matrix44 m_mWorld;
+#endif
 
 	// Called when we close the application.
 	void Shutdown();

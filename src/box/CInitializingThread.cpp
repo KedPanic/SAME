@@ -27,6 +27,7 @@
 #include "resources/CResourceManager.h"
 #include "exporter/CExporterManager.h"
 #include "exporter/CTextureExporterDXT.h"
+#include "exporter/CMeshExporter.h"
 
 // Constructor.
 CInitializingThread::CInitializingThread(CSplashScreen *p_pSplashScreen)
@@ -48,12 +49,14 @@ wxThread::ExitCode CInitializingThread::Entry()
 	new CResourceManager;
 	new CExporterManager;
 	g_pExporterManager->RegisterExporter(new CTextureExporterDXT);
+	g_pExporterManager->RegisterExporter(new CMeshExporter);
 
 	// create the default platform.
 	CPlatform *pPlatform = SAM_NEW CPlatform;
 	const char *aExporter[ e_ResourceType_Nb ] = {		
 		"TrueType",
 		"DXT",
+		"Mesh"
 	};
 	pPlatform->Initialize("PC", aExporter);
 	g_pSamBox->AddPlatform(pPlatform);
@@ -79,6 +82,7 @@ wxThread::ExitCode CInitializingThread::Entry()
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CAssetPanel.xrc"));
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CPropertiesPanel.xrc"));
 	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CTexturePropertiesPanel.xrc"));
+	wxXmlResource::Get()->Load(g_pSamBox->GetDataPath() + wxT("xrc/CMeshPropertiesPanel.xrc"));
 
 	// Load icons.
 	CreateImageListAndThumbnail();

@@ -25,19 +25,37 @@ class CApplication : public IApplication
 {
 public:
 	CApplication()
-		: IApplication("Sample: texturing"), m_pVertexBuffer(NULL), m_pVertexShader(NULL), m_pPixelShader(NULL)
+		: IApplication("Sample: texturing"), m_pConstantBuffer(NULL), m_pVertexBuffer(NULL), m_pVertexShader(NULL), m_pPixelShader(NULL)
 	{
 
 	}
 
 	~CApplication()
 	{
+		SAM_DELETE m_pConstantBuffer;
 		SAM_DELETE m_pVertexBuffer;
 	}
 
 	virtual bool PostInit()
 	{
 		sam::CRenderWindow *pRenderer = sam::g_Env->pRenderWindow;
+
+		// Create scene.
+		m_pScene = SAM_NEW sam::scene::CScene;
+		m_pScene->Initialize();
+
+		// Create camera.
+		m_pCameraNode = m_pScene->CreateCamera();
+		m_pCameraNode->m_pTransform->SetPosition(sam::Vector3(0.0f, 0.0f, 10.0f));
+		m_pCameraNode->m_pTransform->LookAt(sam::Vector3::zero);
+
+		// set perspective view.		
+		m_oCamera.LookAt(sam::Vector3(0.0f, 0.0f, 10.0f), sam::Vector3(0.0f, 0.0f, 0.0f), sam::Vector3(0.0f, 1.0f, 0.0f));
+		m_oCamera.SetPerspective(pRenderer->GetWidth(), pRenderer->GetHeight(), 45.0f, 0.1f, 1000.0f);
+
+		// Create constant buffer.
+		m_pConstantBuffer = SAM_NEW sam::CConstantBuffer;
+		m_pConstantBuffer->Initialize(sizeof(SConstantBuffer));
 
 		// Create triangle.
 		m_pVertexBuffer = pRenderer->CreateVertexBuffer();
@@ -60,11 +78,11 @@ public:
 		pRenderer->SetVertexBuffer(0, m_pVertexBuffer);
 
 		f32 fVector[15] = {
-			0.0f, 0.5f, 0.5f,
+			0.0f, 1.0f, 0.f,
 			0.5f, 0.0f,
-			0.5f, -0.5f, 0.5f,
+			-1.0f, -1.0f, 0.f,
 			1.0f, 1.0f,
-			-0.5f, -0.5f, 0.5f,
+			1.0f, -1.0f, 0.f,
 			0.0f, 1.0f
 		};
 		m_pVertexBuffer->MapWrite(0, fVector, sizeof(fVector));
@@ -78,7 +96,7 @@ public:
 
 		// Load texture
 		sam::CFile oTextureFile("../data/textures/heart.dds");
-		m_pTexture = sam::g_Env->pTextureManager->LoadTexture(&oTextureFile, sam::e_Texture_2D, sam::e_TextureUsage_Default);
+		m_pTexture = sam::g_Env->pTextureManager->LoadTexture(&oTextureFile, sam::e_Texture_2D, sam::e_TextureUsage_Dynamic);
 
 		sam::SSamplerStateParams oSamplerStateParams;
 		oSamplerStateParams.m_eMagFilter		= sam::e_SamplerMagFilter_Linear;
@@ -97,9 +115,29 @@ public:
 
 	virtual void Render()
 	{	
+		sam::scene::CCamera *pCamera = m_pCameraNode->GetComponent<sam::scene::CCamera>();
+		// write constant buffer.
+	/*	SConstantBuffer oConstantBuffer;
+		oConstantBuffer.m_mWorld = m_mWorld;	
+		oConstantBuffer.m_mView = pCamera->GetViewMatrix();
+		oConstantBuffer.m_mProjection = pCamera->GetProjectionMatrix();
+		m_pConstantBuffer->MapWrite(&oConstantBuffer, sizeof(SConstantBuffer));*/
+
+		// write constant buffer.
+		sam::Matrix44 mView;
+		m_oCamera.GetViewMatrix(mView);
+
+		SConstantBuffer oConstantBuffer;
+		oConstantBuffer.m_mWorld = m_mWorld;	
+		oConstantBuffer.m_mView = pCamera->GetViewMatrix();
+		oConstantBuffer.m_mProjection = m_oCamera.GetProjectionMatrix();
+		m_pConstantBuffer->MapWrite(&oConstantBuffer, sizeof(SConstantBuffer));
+
+		// draw triangle.
 		ID3D11ShaderResourceView *pTexture = m_pTexture->GetTexture();
 
 		sam::g_Env->pRenderWindow->SetVertexShader(m_pVertexShader);
+		sam::g_Env->pRenderWindow->SetConstantBuffer(m_pConstantBuffer);
 		sam::g_Env->pRenderWindow->SetPixelShader(m_pPixelShader);
 		//sam::g_Env->pRenderWindow->SetTexture(0, m_pTexture);
 		sam::g_Env->pRenderWindow->GetD3DContext()->PSSetShaderResources(0, 1, &pTexture);
@@ -109,11 +147,23 @@ public:
 	}	
 
 private:
+	sam::CConstantBuffer *m_pConstantBuffer;
 	sam::CVertexBuffer *m_pVertexBuffer;
 	sam::CVertexShader *m_pVertexShader;
 	sam::CPixelShader *m_pPixelShader;
 	sam::CTexture *m_pTexture;
 	sam::CSamplerState *m_pSamplerLinear;
+
+	struct SConstantBuffer
+	{
+		sam::Matrix44 m_mWorld;
+		sam::Matrix44 m_mView;
+		sam::Matrix44 m_mProjection;
+	};	
+
+	sam::scene::CScene *m_pScene;
+	sam::scene::CGameObject *m_pCameraNode;
+	sam::CCamera m_oCamera;
 };
 
 IApplication* CreateApplication()

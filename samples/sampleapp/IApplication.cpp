@@ -110,6 +110,12 @@ bool IApplication::Initialize()
 		sam::g_Env->pRenderWindow->SetClearColor(0.0f, 0.0f, 0.8f, 1.0f);
 		sam::g_Env->pRenderWindow->ShowMouseCursor(true);
 
+		// create sub-modules
+		sam::scene::CreateEntitySystem(pEnv);
+
+		// initialize view.
+		m_mWorld.SetIdentity();
+
 		return PostInit();
 	}
 #endif
@@ -120,6 +126,7 @@ bool IApplication::Initialize()
 void IApplication::Shutdown()
 {
 #if !defined(CONSOLE_APP)
+	
 	sam::DestroyRenderManager();
 #endif
 	sam::ShutdownCommon();
@@ -130,6 +137,7 @@ void IApplication::Shutdown()
 void IApplication::Run()
 {
 	m_bRun = true;
+	sam::CTimer oTimer;	
 
 #if defined(SAM_PLATFORM_WIN)
 	MSG msg;
@@ -146,10 +154,15 @@ void IApplication::Run()
 		else
 #endif
 		{
-			Update(0.0f);
+			oTimer.OnFrameStart();
+			f32 fDelta = oTimer.GetFrameTime();
+			Update(fDelta);
 
 #if !defined(CONSOLE_APP)
-			sam::g_Env->pRenderWindow->BeginScene(sam::EClearType_Color | sam::EClearType_Depth | sam::EClearType_Stencil);
+			// update scene graph (transform).
+			sam::g_Env->m_pComponentManager->Update(fDelta);
+
+			sam::g_Env->pRenderWindow->BeginScene(sam::e_ClearType_Color | sam::e_ClearType_Depth | sam::e_ClearType_Stencil);			
 
 			Render();
 

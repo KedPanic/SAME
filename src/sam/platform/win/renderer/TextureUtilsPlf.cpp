@@ -88,27 +88,30 @@ namespace sam
         }
     }
 
-	// Retrieves bits per pixel from DirectX texture format.
-	uint32 GetBitsPerPixel(DXGI_FORMAT p_eDGIFormat)
+	// Retrieves bytes per pixel from DirectX texture format.
+	uint32 GetBytesPerPixel(DXGI_FORMAT p_eDGIFormat)
 	{
 		switch(p_eDGIFormat)
 		{
 		case DXGI_FORMAT_R32G32B32A32_FLOAT:
-			return 128;
+			return 16;
 
 		case DXGI_FORMAT_R16G16B16A16_FLOAT:
-			return 64;
+			return 8;
 
 		case DXGI_FORMAT_R8G8B8A8_TYPELESS:
 		case DXGI_FORMAT_R8G8B8A8_UNORM:
-			return 32;
+			return 4;
 
 		case DXGI_FORMAT_BC1_UNORM:
-			return 4;
+            return 1;
+
+        case DXGI_FORMAT_BC2_UNORM:
+            return 2;
 
 		case DXGI_FORMAT_BC3_UNORM:
 		case DXGI_FORMAT_BC5_UNORM:
-			return 32;
+			return 4;
 
 		default:
 			SAM_ASSERT(0, "Unsupported texture format");

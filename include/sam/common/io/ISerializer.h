@@ -93,6 +93,7 @@ namespace sam
 		/// @param p_*Value Value.	
 		virtual void ReadValue(const char *p_sName, bool  &p_bValue) = 0;
 		virtual void ReadValue(const char *p_sName, int   &p_nValue) = 0;
+		virtual void ReadValue(const char *p_sName, uint32   &p_nValue) = 0;
 		virtual void ReadValue(const char *p_sName, Vector3 &p_vValue) = 0;
 		virtual void ReadValue(const char *p_sName, float &p_fValue) = 0;
         virtual void ReadValue(const char *p_sName, float p_afValue[4]) = 0;

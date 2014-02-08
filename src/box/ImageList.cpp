@@ -47,6 +47,7 @@ void CreateImageListAndThumbnail()
 	oIcons[e_Icon_SelectedFolder] = wxArtProvider::GetIcon(wxART_FOLDER_OPEN, wxART_LIST, wxSize(16, 16));
 	oIcons[e_Icon_FolderOpen] = wxArtProvider::GetIcon(wxART_FOLDER_OPEN, wxART_LIST, wxSize(16, 16));
 	oIcons[e_Icon_Texture] = wxIcon("../data/sambox/icons/16x16/texture.xpm", wxBITMAP_TYPE_XPM);
+	oIcons[e_Icon_Mesh] = wxIcon("../data/sambox/icons/16x16/mesh.xpm", wxBITMAP_TYPE_XPM);
 	oIcons[e_Icon_Font] = wxArtProvider::GetIcon(wxART_NORMAL_FILE, wxART_LIST, wxSize(16, 16));
 	oIcons[e_Icon_File] = wxArtProvider::GetIcon(wxART_NORMAL_FILE, wxART_LIST, wxSize(16, 16));
 
@@ -71,8 +72,11 @@ EIcons GetIconFromResource(IResource *p_pResource)
 	case e_ResourceType_Font:
 		return e_Icon_Font;
 
+	case e_ResourceType_Mesh:
+		return e_Icon_Mesh;
+
 	case e_ResourceType_Folder:
-		return e_Icon_Folder;
+		return e_Icon_Folder;	
 
 	case e_ResourceType_Unknown:
 		{
@@ -81,7 +85,7 @@ EIcons GetIconFromResource(IResource *p_pResource)
 
 			return e_Icon_File;
 		}		
-
+	
 	default:
 		SAM_ASSERT(false, "No icon found for the resource type %d", p_pResource->GetResourceType());
 	}

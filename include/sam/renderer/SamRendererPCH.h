@@ -47,8 +47,10 @@
 
 namespace sam
 {
+	class CConstantBuffer;
     class CFont;
-    class CMaterial;
+	class CIndexBuffer;
+	class CMaterial;
     class CMaterialManager;
     class CPixelShader;
     class CRenderWindow;

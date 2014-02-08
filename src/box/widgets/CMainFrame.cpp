@@ -29,6 +29,7 @@
 #include "widgets/panel/CProjectPanel.h"
 #include "widgets/panel/CPackagesPanel.h"
 #include "widgets/panel/CPropertiesPanel.h"
+#include "widgets/panel/CScenePanel.h"
 
 #include "CSamBox.h"
 #include "CProject.h"
@@ -88,6 +89,9 @@ CMainFrame::CMainFrame(wxWindow *p_pParent, wxWindowID p_nId /*= -1*/)
 	oPaneInfo.CenterPane();
 	oPaneInfo.Caption(wxT("Test"));
 	m_pAuiManager->AddPane(m_pMainNotebook, oPaneInfo);
+
+	CScenePanel *pScenePanel = SAM_ALLOC(CScenePanel)(m_pMainNotebook);
+	m_pMainNotebook->AddPage(pScenePanel, NOTEBOOK_MAIN_SCENE);	
 
 	//////////////////////////////////////////////////////////////////////////
 	// Right notebook.

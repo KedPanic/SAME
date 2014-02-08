@@ -32,7 +32,7 @@ public:
 	/// @brief Retrieves the name of the platform.
 	/// 
 	/// @return The name of the platform.
-	const String &GetName() const {return m_sName;}
+	const sam::String &GetName() const {return m_sName;}
 
 	/// @brief Retrieves the unique id of the platform.
 	/// 
@@ -42,7 +42,7 @@ public:
 	/// @brief Retrieves the exporter used for a specific resource type.
 	/// 
 	/// @return The name of exporter.
-	const String &GetExporterName(EResourceType p_eResourceType) const {return m_pExportName[p_eResourceType];}
+	const sam::String &GetExporterName(EResourceType p_eResourceType) const {return m_pExportName[p_eResourceType];}
 
 	/// @brief Retrieves the default format per platf
 	/// @brief Read the configuration file.
@@ -57,8 +57,8 @@ public:
 	void Initialize(const char *p_sName, const char *p_aExportName[e_ResourceType_Nb]);
 
 private:
-	String m_sName; ///< Name of the platform.
-	String m_pExportName[e_ResourceType_Nb]; ///< Array of used exporter.
+	sam::String m_sName; ///< Name of the platform.
+	sam::String m_pExportName[e_ResourceType_Nb]; ///< Array of used exporter.
 	sam::ID m_nId; ///< Unique Id  
 };
 

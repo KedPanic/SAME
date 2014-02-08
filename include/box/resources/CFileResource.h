@@ -33,7 +33,7 @@ public:
 	/// 
 	/// @param p_sName Resource name.
 	/// @param p_sPath Absolute path.
-	CFileResource(const String &p_sName, const String &p_sPath)
+	CFileResource(const sam::String &p_sName, const sam::String &p_sPath)
 		: IResource(p_sName, p_sPath) {}
 	~CFileResource() {}
 

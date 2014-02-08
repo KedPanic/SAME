@@ -27,6 +27,14 @@ namespace sam
     template<typename T>
     struct Vector3_T : public IAllocated
     {
+		static const Vector3_T<T> back;
+		static const Vector3_T<T> down;
+		static const Vector3_T<T> forward;
+		static const Vector3_T<T> left;
+		static const Vector3_T<T> right;
+		static const Vector3_T<T> up;
+		static const Vector3_T<T> zero;
+
         T x, y, z; ///< Coordinate
 
         /// @brief Default constructor.
@@ -53,7 +61,7 @@ namespace sam
             y *= fInvLength;
             z *= fInvLength;
         }
-    };
+    };	
 
     //==================================//
     //              TYPEDEF             //
@@ -61,6 +69,16 @@ namespace sam
     typedef Vector3_T<f32> Vector3;
     typedef Vector3_T<f64> Vector3_f64; // double-precision
 
+	//==================================//
+	//              CONSTANT            //
+	//==================================//
+	const Vector3 Vector3::back(0.0f, 0.0f, -1.0f);
+	const Vector3 Vector3::down(0.0f, -1.0f, 0.0f);
+	const Vector3 Vector3::forward(0.0f, 0.0f, 1.0f);
+	const Vector3 Vector3::left(-1.0f, 0.0f, 0.0f);
+	const Vector3 Vector3::right(1.0f, 0.0f, 0.0f);
+	const Vector3 Vector3::up(0.0f, 1.0f, 0.0f);
+	const Vector3 Vector3::zero(0.0f, 0.0f, 0.0f);
 
     //==================================//
     //              OPERATION           //
@@ -70,7 +88,7 @@ namespace sam
     template<typename T1, typename T2>
     INLINE Vector3_T<T1> operator - (const Vector3_T<T1> &_v0, const Vector3_T<T2> &_v1)
     {
-        return Vector3_T<T1>(_v0.x - _v1.x, _v0.x - _v1.x, _v0.x - _v1.x);
+        return Vector3_T<T1>(_v0.x - _v1.x, _v0.y - _v1.y, _v0.z - _v1.z);
     }
 
     /// @brief Cross-product.

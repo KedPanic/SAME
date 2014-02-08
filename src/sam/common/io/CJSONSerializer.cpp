@@ -67,12 +67,12 @@ namespace sam
 		}
 
 		// check if the file is not empty.
-		if(m_pRoot->child)
+        /*if(m_pRoot->child)
 		{
 			m_pCurrentElement = m_pRoot->child;
 		}
-		else
-		{
+        else*/
+        {
 			m_pCurrentElement = m_pRoot;
 		}				
 
@@ -204,6 +204,7 @@ namespace sam
 				if(m_pCurrentElement->next && strcmp(m_pCurrentElement->next->string, _sElement) == 0)
 				{
 					m_pCurrentElement = m_pCurrentElement->next;
+                    return true;
 				}
 			}			
 
@@ -325,7 +326,7 @@ namespace sam
 		NextNode(p_sName);
 
 		SAM_ASSERT(m_pCurrentElement->type == cJSON_Number, "Malformated json file '%s', value '%s' is not a number", m_sFilename, p_sName);	
-		p_nValue = m_pCurrentElement->valueint;
+        p_nValue = m_pCurrentElement->valuedouble;
 	}
 
 	void CJSONSerializer::ReadValue(const char *p_sName, Vector3 &p_vValue)
@@ -439,6 +440,10 @@ namespace sam
         if(m_pCurrentElement->child)
         {
 			m_pCurrentElement = m_pCurrentElement->child;
+            if(m_pCurrentElement->type == cJSON_Object && m_pCurrentElement->child)
+            {
+                m_pCurrentElement = m_pCurrentElement->child;
+            }
         }
         else
         {

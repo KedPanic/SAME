@@ -1,6 +1,6 @@
 local sample = {
 	kind = "WindowedApp",
 	group = "renderer",
-	dependencies = { "SamCommon", "SamRenderer", "render" }
+	dependencies = { "SamCommon", "SamRenderer", "SanEntitySystem", "render" }
 }
 table.insert(samples, sample)

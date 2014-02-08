@@ -36,7 +36,8 @@ namespace sam
         "SPECULAR",         // VS_Specular,
         "BINORMAL",         // VS_Binormal,
         "TANGENT",          // VS_Tangent,
-        "TEXCOORD"          // VS_Texture_Coord0,
+        "TEXCOORD",         // VS_Texture_Coord0,
+		"COLOR",			// VS_Color,
     };
 
     static DXGI_FORMAT gs_eFormat[8][4] =

@@ -28,22 +28,24 @@ namespace sam
     class CPixelShader;
 
     /// @brief Render state.
-    struct SRenderStateDX11 : public IAllocated
+    struct SRenderState : public IAllocated
     {
         ID3D11RenderTargetView  *m_pRenderTargetView;    ///< Render target.
         ID3D11Texture2D         *m_pDepthStencilBuffer;  ///< Depth stencil buffer.
         ID3D11DepthStencilView  *m_pDepthStencilView;    ///< Depth stencil.
         ID3D11DepthStencilState *m_pDepthStencilState;   ///< Depth stencil state.
-        ID3D11RasterizerState   *m_pRasterizerState;     ///< Rasterize state.
+        ID3D11RasterizerState   *m_pRasterizerState;     ///< Rasterizer state.
         D3D11_BLEND_DESC         m_BlendStateDesc;       ///< Blend state description.
         ID3D11BlendState        *m_pBlendState;          ///< Blend state.
 
         CVertexBuffer           *m_pVertexBuffer;
+		CIndexBuffer            *m_pIndexBuffer;
+		CConstantBuffer         *m_pConstantBuffer;
         CVertexShader           *m_pVertexShader;
         CPixelShader            *m_pPixelShader;
 
         /// @brief Default constructor
-        SRenderStateDX11(void);
+        SRenderState(void);
 
         /// @brief Initialize.
         /// 

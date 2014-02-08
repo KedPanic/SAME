@@ -28,7 +28,7 @@ namespace sam
 {
     // Constructor.
     CTexture::CTexture()
-        : m_pTexture(NULL), m_pShaderResourceView(NULL), m_iID(-1), m_iWidth(0), m_iHeight(0), m_eType(e_Texture_Unknown) {}
+        : m_pTexture(NULL), m_pShaderResourceView(NULL), m_iID(-1), m_iWidth(0), m_iHeight(0), m_eType(e_Texture_Unknown), m_eUsage(e_TextureUsage_Default) {}
 
     // Destructor.
     CTexture::~CTexture()
@@ -52,6 +52,7 @@ namespace sam
         m_iHeight = imageInfo.Height;
         m_nMipLevels = imageInfo.MipLevels;
 
+		m_eUsage = p_eUsage;
         m_eType = p_eType;
         switch(m_eType)
         {
@@ -60,14 +61,32 @@ namespace sam
 
         case e_Texture_2D:
         case e_Texture_CubeMap:
-            return CreateTexture2D(p_pBuffer, p_eUsage, imageInfo.Format);
+			{
+				if(CreateTexture2D(p_eUsage, imageInfo.Format))
+				{
+					uint8 nBytePerPixel = GetBytesPerPixel(imageInfo.Format);
+
+					// set data.
+					for(uint32 nLevel = 1; nLevel <= m_nMipLevels; ++nLevel)
+					{
+						uint32 nPreviousLevelSize = ((m_iWidth / nLevel) + (m_iHeight / nLevel)) * nBytePerPixel;
+						uint32 nLevelSize = ((m_iWidth / nLevel) + (m_iHeight / nLevel)) * nBytePerPixel;
+
+						uint8 *pLevelData = Map(e_TextureMap_Write, nLevel - 1, 0);
+						memcpy(pLevelData, ((uint8*)p_pBuffer) + nPreviousLevelSize, nPreviousLevelSize);
+						Unmap(nLevel, 0);
+					}
+
+					return true;
+				}
+			};
 
         case e_Texture_3D:
             break;
 
         default:
             SamLogError("Unsupported texture type %d", m_eType);
-        };        
+        };
 
         return false;
     }
@@ -100,14 +119,21 @@ namespace sam
         D3D11_MAP map = D3D11_MAP_READ;
         if(p_eAccess == e_TextureMap_Write)
 		{
-            map = D3D11_MAP_WRITE;
+			if(m_eUsage == e_TextureUsage_Dynamic)
+			{
+				map = D3D11_MAP_WRITE_DISCARD;
+			}
+			else
+			{
+				map = D3D11_MAP_WRITE;
+			}
 		}
         else if(p_eAccess == e_TextureMap_ReadWrite)
 		{
             map = D3D11_MAP_READ_WRITE;
 		}
 
-        HRESULT hResult = g_Env->pRenderWindow->GetD3DContext()->Map(m_pTexture, p_nLevel + (p_nSide * m_nMipLevels), map, D3D11_MAP_FLAG_DO_NOT_WAIT, &mappedSubResource);
+        HRESULT hResult = g_Env->pRenderWindow->GetD3DContext()->Map(m_pTexture, p_nLevel + (p_nSide * m_nMipLevels), map, 0, &mappedSubResource);
         if(hResult != S_OK)
         {
             g_Env->pRenderWindow->LogError(hResult);
@@ -126,7 +152,7 @@ namespace sam
     }
 
     // Create 2D texture.
-    bool CTexture::CreateTexture2D(void *p_pBuffer, ETextureUsage p_eUsage, DXGI_FORMAT p_eFormat)
+    bool CTexture::CreateTexture2D(ETextureUsage p_eUsage, DXGI_FORMAT p_eFormat)
     {
         // setup texture.
         D3D11_TEXTURE2D_DESC desc;
@@ -172,30 +198,9 @@ namespace sam
 		
         SamLog("Have to implement Texture Settings Quality");
         desc.SampleDesc.Count = 1;
-        desc.SampleDesc.Quality = 0;
-
-		// compute pitch
-		uint8 nBytePerPixel = GetBitsPerPixel(p_eFormat) / 8;
-		uint32 nPitch = 0;
-		for(uint32 level = 1; level <= m_nMipLevels; ++level)
-		{
-			nPitch += (m_iWidth / level) * nBytePerPixel;
-		}
-
-        // set data.
-        D3D11_SUBRESOURCE_DATA *initialData = SAM_ALLOC_ARRAY(D3D11_SUBRESOURCE_DATA, m_nMipLevels);
-		ZeroMemory(&initialData[0], sizeof(D3D11_SUBRESOURCE_DATA));        
-		initialData[0].pSysMem = p_pBuffer;
-		initialData[0].SysMemPitch = nPitch;
-		for(uint32 level = 1; level < m_nMipLevels; ++level)
-		{
-			ZeroMemory(&initialData[level], sizeof(D3D11_SUBRESOURCE_DATA));
-
-			initialData[level].pSysMem = ((uint8*)initialData[level - 1].pSysMem) + ((m_iWidth / level) * nBytePerPixel);
-			initialData[level].SysMemPitch = nPitch;
-		}
-        HRESULT hResult =  g_Env->pRenderWindow->GetD3DDevice()->CreateTexture2D(&desc, initialData, (ID3D11Texture2D**)&m_pTexture);
-		SAM_FREE_ARRAY(initialData);
+        desc.SampleDesc.Quality = 0;		
+        
+        HRESULT hResult =  g_Env->pRenderWindow->GetD3DDevice()->CreateTexture2D(&desc, NULL, (ID3D11Texture2D**)&m_pTexture);
 		if(hResult == S_OK)
 		{
 			// Create shader view.			

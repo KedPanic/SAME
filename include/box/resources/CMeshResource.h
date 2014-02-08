@@ -33,7 +33,7 @@ public:
 	/// 
 	/// @param p_sName Resource name.
 	/// @param p_sPath Absolute path.
-	CMeshResource(const String &p_sName, const String &p_sPath);
+	CMeshResource(const sam::String &p_sName, const sam::String &p_sPath);
 	~CMeshResource();
 
 	/// @brief Load resource.

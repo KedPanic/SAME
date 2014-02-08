@@ -25,9 +25,12 @@
 
 #include <renderer/CRenderWindow.h>
 #include <renderer/CCamera.h>
+#include <renderer/CConstantBuffer.h>
 #include <renderer/CMaterial.h>
 #include <renderer/CMaterialManager.h>
 #include <renderer/Color.h>
+#include <renderer/CIndexBuffer.h>
+#include <renderer/CMesh.h>
 #include <renderer/CPixelShader.h>
 #include <renderer/CVertexShader.h>
 #include <renderer/CSamplerState.h>

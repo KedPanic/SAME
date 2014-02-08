@@ -25,7 +25,7 @@
 #include "resources/CFolder.h"
 
 // Default constructor.
-CProject::CProject(const String &p_sName, const String &p_sPath)
+CProject::CProject(const sam::String &p_sName, const sam::String &p_sPath)
 	: m_sName(p_sName), m_sPath(p_sPath), m_bIsDirty(false), m_pAssetFolder(NULL)
 {
 	m_pAssetFolder = SAM_NEW CFolder("Packages", m_sPath + "/assets/");
@@ -73,7 +73,7 @@ void CProject::Write(sam::ISerializer *p_pContext)
 }
 
 // Create new package.
-CFolder *CProject::CreatePackage(const String &p_sName)
+CFolder *CProject::CreatePackage(const sam::String &p_sName)
 {
 	// create the folder.
 	CFolder *pFolder = SAM_NEW CFolder(p_sName, m_pAssetFolder->GetPath() + p_sName, m_pAssetFolder);

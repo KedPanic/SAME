@@ -23,24 +23,66 @@
 
 namespace sam
 {
-	namespace entity
+	namespace scene
 	{
-		class SAM_ENTITYSYSTEM_API IComponent
+		/// @brief Base struct for all components.
+		struct SAM_ENTITYSYSTEM_API IComponent
 		{
-
+			uint32 m_nHandle;		///< [ pool index ][ type ]
+			CGameObject *m_pOwmer;	///< Host of the component.
 		};
 
-#define DECLARE_ENTITY_COMPONENT(ComponentClass)							\
+		static const uint8 INVALID_REGISTER_INDEX = ~0;
+
+		typedef IComponent *(*ComponentCreate)();
+		typedef void (*ComponentUpdate)(f32 p_fDelta);
+
+		/// @brief Register informations.
+		struct SComponentRegistry
+		{
+			ComponentCreate m_pfCreate;	///< Callback used to create an instance of the specific component.
+			ComponentUpdate m_pfUpdate; ///< Callback used to update all instances of a specific component.
+		};
+
+#define DECLARE_COMPONENT(ComponentClass)									\
 		private:															\
 			static sam::core::TObjectPool<ComponentClass> s_oObjectPool;	\
+			static uint16  s_nRegisterIndex;								\
 		public:																\
-			static class *Create();
+			static IComponent *Create();									\
+			static void Update(f32 p_fDelta);								\
+			static void Register(uint32 p_nMaxComponents);					\
+			static uint16 GetType() {return s_nRegisterIndex;}
 
-#define IMPLEMENT_ENTITY_COMPONENT(ComponentClass)								\
-		sam::core::TObjectPool<ComponentClass> ComponentClass::s_oObjectPool;	\
-		ComponentClass *ComponentClass::Create()								\
-		{																		\
-			return s_oObjectPool.Alloc();										\
+#define IMPLEMENT_COMPONENT(ComponentClass)																	\
+		sam::core::TObjectPool<ComponentClass> ComponentClass::s_oObjectPool;								\
+		uint16 ComponentClass::s_nRegisterIndex = INVALID_REGISTER_INDEX;									\
+		IComponent *ComponentClass::Create()																\
+		{																									\
+			ComponentClass *pComponent = s_oObjectPool.Alloc();												\
+			pComponent->m_nHandle = s_oObjectPool.GetPartitionIndex(pComponent) << 16 | s_nRegisterIndex;	\
+			return pComponent;																				\
+		}																									\
+																											\
+		void ComponentClass::Register(uint32 p_nMaxComponents)												\
+		{																									\
+			SAM_ASSERT(s_nRegisterIndex == INVALID_REGISTER_INDEX, "Component of type "#ComponentClass" is already registered");	\
+																											\
+			s_oObjectPool.Init(p_nMaxComponents);															\
+																											\
+			SComponentRegistry oRegister;																	\
+			oRegister.m_pfCreate = &ComponentClass::Create;													\
+			oRegister.m_pfUpdate = &ComponentClass::Update;													\
+			s_nRegisterIndex = sam::g_Env->m_pComponentManager->RegisterComponent(&oRegister);				\
+		}
+
+		/// @brief Retrieves the component type from the handle.
+		/// 
+		/// @param p_nComponentHandle Component handle.
+		/// @return Component type id.
+		INLINE uint16 GetComponentType(uint32 p_nComponentHandle)
+		{
+			return p_nComponentHandle & 0xFFFF;
 		}
 	}
 }

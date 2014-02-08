@@ -35,6 +35,7 @@ namespace sam
         e_VertexSemantic_Binormal,
         e_VertexSemantic_Tangent,
         e_VertexSemantic_Texture_Coord0,
+		e_VertexSemantic_Color0,
 
         // More todo...
         e_VertexSemantic_Nb,

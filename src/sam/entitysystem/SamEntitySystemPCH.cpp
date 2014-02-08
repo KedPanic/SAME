@@ -19,7 +19,11 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //===========================================
 #include "SamEntitySystemPCH.h"
-#include "CEntityManager.h"
+
+#include "entitysystem/CComponentManager.h"
+#include "components/CTransform.h"
+#include "components/CCamera.h"
+#include "components/CMesh.h"
 
 //===================================//
 // DLL Create/Destroy implementation //
@@ -28,23 +32,33 @@
 
 namespace sam
 {
-	// Create entity system.
-	CEntitySystem *CreateEntitySystem(Env *p_pEnv)
+	namespace scene
 	{
-		SAM_ASSERT(p_pEnv->m_pEntitySystem == NULL, "Entity System was already created.");
+		CComponentManager *g_pComponentManager = NULL;
 
-		ModuleInit(p_pEnv);
+		// Create entity system.
+		CComponentManager *CreateEntitySystem(Env *p_pEnv)
+		{
+			SAM_ASSERT(g_pComponentManager == NULL, "Entity System was already created.");
 
-		// TODO: creer le module.
+			ModuleInit(p_pEnv);
 
-		return NULL;
-	}
+			p_pEnv->m_pComponentManager = g_pComponentManager = SAM_NEW CComponentManager;
+			
+			// register main components.
+			CTransform::Register(1000);
+			CCamera::Register(1000);
+			CMesh::Register(1000);
 
-	// Destroy entity system.
-	void DestroyEntitySystem()
-	{
-		SAM_ASSERT(g_Env->m_pEntitySystem != NULL, "Entity System was already freed");
+			return g_pComponentManager;
+		}
 
-		// TODO: supprimer le module.
-	}
+		// Destroy entity system.
+		void DestroyEntitySystem()
+		{
+			SAM_ASSERT(g_Env->m_pComponentManager != NULL, "Entity System was already freed");
+
+			// TODO: supprimer le module.
+		}
+	}	
 }

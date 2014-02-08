@@ -68,7 +68,7 @@ namespace sam
 			return m_nID < p_oID.m_nID;
 		}
 
-		operator uint32()
+        operator uint32() const
 		{
 			return m_nID;
 		}

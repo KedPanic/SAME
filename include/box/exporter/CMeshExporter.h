@@ -27,7 +27,12 @@
 class CMeshExporter : public IExporter
 {
 public:
-	static const uint32 m_nVersion = 0; ///< Metadata structure version.
+	static const uint32 m_nVersion = sam::e_MeshVersion_0; ///< Metadata structure version.
+
+	/// @brief Retrieves the name of the exporter.
+	/// 
+	/// @return Name of the exporter.
+	const char *GetName() const override {return "Mesh";}
 
 	/// @brief Retrieves type of exported resource.
 	/// 
@@ -56,7 +61,7 @@ public:
 	/// @param p_nPlatformId Used for platform specific options.
 	/// 
 	/// @return The created job.
-	sam::SJob CreateJob(IResource *p_pResource, const String &p_sDestination, sam::ID p_nPlatformId) override;
+	sam::SJob CreateJob(IResource *p_pResource, const sam::String &p_sDestination, sam::ID p_nPlatformId) override;
 
 	/// @brief Method called by the job to export the resource.
 	/// 
@@ -64,7 +69,7 @@ public:
 	/// @param p_sDestination Absolute path to write the exported file.
 	/// @param p_oMetadata Metadata used for the exportation.
 	/// @param p_nPlatformId Used for platform specific options.
-	bool Export(const sam::IStream *p_pStream, const String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId);
+	bool Export(const sam::IStream *p_pStream, const sam::String &p_sDestination, const SMeshMetadata &p_oMetadata, sam::ID p_nPlatformId);
 };
 
 #endif // __SAMBOX_MESH_EXPORTER__

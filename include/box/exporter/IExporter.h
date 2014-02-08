@@ -83,7 +83,7 @@ public:
 	/// @param p_nPlatformId Used for platform specific options.
 	/// 
 	/// @return The created job.
-	virtual sam::SJob CreateJob(IResource *p_pResource, const String &p_sDestination, sam::ID p_nPlatformId) = 0;
+	virtual sam::SJob CreateJob(IResource *p_pResource, const sam::String &p_sDestination, sam::ID p_nPlatformId) = 0;
 };
 
 #endif // __SAM_IEXPORTER_H__

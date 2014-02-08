@@ -24,6 +24,7 @@
 #include <common/SamCommonPCH.h>
 
 #include <common/base/CAllocator.h>
+#include <common/base/CRC32.h>
 #include <common/base/CFunctor.h>
 #include <common/base/CLog.h>
 #include <common/base/CTimer.h>
@@ -43,6 +44,7 @@
 #include <common/math/Math.h>
 #include <common/math/Vector.h>
 #include <common/math/Matrix.h>
+#include <common/math/Quaternion.h>
 
 #include <common/template/TList.h>
 #include <common/template/TObjectPool.h>
